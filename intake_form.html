@@ -1,0 +1,314 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>إتقان إليت — اطلب فنياً موثوقاً في المدينة المنورة</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+Arabic:wght@400;500;600;700&display=swap" rel="stylesheet" />
+<style>
+  :root {
+    --petrol: #0e4c4a;
+    --petrol-deep: #08302e;
+    --petrol-glow: #167f79;
+    --tint: #e9f2f1;
+    --bg: #f5f4f0;
+    --card: #ffffff;
+    --ink: #16201f;
+    --muted: #62706e;
+    --line: #e4e1d9;
+    --alert: #ad3a12;
+    --alert-bg: #fbf0ea;
+    --ok: #1c7a44;
+    --gold: #c69541;
+  }
+  * { box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
+  html { scroll-behavior: smooth; }
+  body {
+    margin: 0;
+    font-family: "IBM Plex Sans Arabic", system-ui, sans-serif;
+    background: var(--bg);
+    color: var(--ink);
+    line-height: 1.65;
+    -webkit-font-smoothing: antialiased;
+  }
+  .wrap { max-width: 540px; margin: 0 auto; padding: 0 16px 44px; }
+
+  /* ===== الترويسة ===== */
+  header {
+    position: relative; overflow: hidden;
+    background:
+      radial-gradient(130% 90% at 88% -20%, var(--petrol-glow) 0%, var(--petrol) 42%, var(--petrol-deep) 100%);
+    color: #fff;
+    padding: 32px 22px 40px;
+    border-radius: 0 0 30px 30px;
+  }
+  header::before {
+    content: ""; position: absolute; inset: 0;
+    background-image: radial-gradient(rgba(255,255,255,.09) 1.3px, transparent 1.3px);
+    background-size: 18px 18px; opacity: .5; pointer-events: none;
+  }
+  .head-inner { position: relative; }
+  .brandline { display: flex; align-items: center; gap: 11px; margin-bottom: 22px; }
+  .mark {
+    width: 42px; height: 42px; flex: none;
+    background: rgba(255,255,255,.14);
+    border: 1.5px solid rgba(255,255,255,.5);
+    border-radius: 12px;
+    display: grid; place-items: center;
+    font-weight: 700; font-size: 19px;
+  }
+  .brandname { font-weight: 600; font-size: 15.5px; letter-spacing: .2px; }
+  .brandsub { font-size: 11.5px; opacity: .82; margin-top: 2px; }
+  h1 { font-size: 26px; line-height: 1.35; margin: 4px 0 10px; font-weight: 700; }
+  .lede { font-size: 15px; opacity: .92; margin: 0; max-width: 42ch; }
+  .badges { display: flex; gap: 7px; margin-top: 22px; flex-wrap: wrap; }
+  .badge {
+    font-size: 12px; padding: 6px 12px; border-radius: 999px;
+    background: rgba(255,255,255,.13); border: 1px solid rgba(255,255,255,.2);
+    display: inline-flex; align-items: center; gap: 5px;
+  }
+
+  /* ===== البطاقة ===== */
+  .card {
+    background: var(--card); border: 1px solid var(--line);
+    border-radius: 18px; padding: 24px 20px;
+    margin-top: -20px; position: relative;
+    box-shadow: 0 10px 40px rgba(8,48,46,.09);
+  }
+  .step { font-size: 13px; color: var(--petrol); font-weight: 600; margin: 0 0 16px; display: flex; align-items: center; gap: 7px; }
+  .step::before { content: ""; width: 6px; height: 6px; border-radius: 50%; background: var(--gold); }
+
+  label { display: block; font-size: 14px; font-weight: 600; margin: 20px 0 9px; }
+  .hint { font-weight: 400; color: var(--muted); font-size: 12.5px; }
+
+  .services { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+  .svc {
+    position: relative;
+    border: 1.5px solid var(--line); background: #fff; border-radius: 13px;
+    padding: 15px 12px; text-align: center; cursor: pointer;
+    font-weight: 600; font-size: 15px; transition: border-color .14s, background .14s, box-shadow .14s;
+    display: flex; flex-direction: column; align-items: center; gap: 7px;
+  }
+  .svc .ico { font-size: 23px; line-height: 1; }
+  .svc.on { border-color: var(--petrol); background: var(--tint); color: var(--petrol-deep); box-shadow: 0 0 0 3px var(--tint); }
+  .svc.on::after {
+    content: "✓"; position: absolute; top: 8px; left: 10px;
+    color: var(--petrol); font-weight: 700; font-size: 13px;
+  }
+  .svc:focus-visible { outline: 3px solid var(--tint); outline-offset: 2px; }
+
+  .field { position: relative; }
+  input[type="text"], input[type="tel"], textarea {
+    width: 100%; font: inherit; color: var(--ink);
+    padding: 14px 15px; border: 1.5px solid var(--line);
+    border-radius: 13px; background: #fff; transition: border-color .14s, box-shadow .14s;
+  }
+  input::placeholder, textarea::placeholder { color: #9aa4a2; }
+  input:focus, textarea:focus { outline: none; border-color: var(--petrol); box-shadow: 0 0 0 3px var(--tint); }
+  textarea { resize: vertical; min-height: 96px; }
+  .field.valid input { border-color: var(--ok); }
+  .tick { position: absolute; top: 50%; left: 14px; transform: translateY(-50%); color: var(--ok); font-weight: 700; opacity: 0; transition: opacity .14s; }
+  .field.valid .tick { opacity: 1; }
+
+  .urgent {
+    display: flex; align-items: center; gap: 10px; margin-top: 16px;
+    background: var(--alert-bg); border: 1px solid #f0d6c9; border-radius: 13px; padding: 13px 15px;
+    cursor: pointer;
+  }
+  .urgent input { width: 20px; height: 20px; accent-color: var(--alert); flex: none; }
+  .urgent .t { font-size: 13.5px; color: #7c2f10; }
+
+  .consent { display: flex; align-items: flex-start; gap: 11px; margin-top: 20px; }
+  .consent input { width: 20px; height: 20px; margin-top: 2px; accent-color: var(--petrol); flex: none; }
+  .consent .t { font-size: 12.5px; color: var(--muted); line-height: 1.6; }
+
+  .submit {
+    width: 100%; margin-top: 22px; border: 0; cursor: pointer;
+    background: var(--petrol); color: #fff; font: inherit; font-weight: 700;
+    font-size: 17px; padding: 16px; border-radius: 13px;
+    transition: background .14s, transform .06s, box-shadow .14s;
+    box-shadow: 0 6px 18px rgba(14,76,74,.22);
+  }
+  .submit:hover { background: var(--petrol-deep); }
+  .submit:active { transform: translateY(1px); }
+  .submit:disabled { opacity: .6; cursor: default; box-shadow: none; }
+
+  .privacy { text-align: center; color: var(--muted); font-size: 12px; margin: 12px 0 0; display: flex; align-items: center; justify-content: center; gap: 6px; }
+  .err { color: var(--alert); font-size: 13px; margin-top: 10px; text-align: center; display: none; }
+  .foot { text-align: center; color: var(--muted); font-size: 11.5px; margin-top: 22px; }
+
+  /* ===== شاشة النجاح ===== */
+  .done { display: none; text-align: center; padding: 36px 20px; }
+  .done .ring {
+    width: 72px; height: 72px; border-radius: 50%;
+    background: #e9f6ef; color: var(--ok); display: grid; place-items: center;
+    font-size: 37px; margin: 0 auto 18px; border: 2px solid #cdead9;
+  }
+  .done h2 { margin: 0 0 6px; font-size: 22px; }
+  .done p { color: var(--muted); font-size: 14.5px; margin: 6px 0; }
+  .ref { display: inline-block; margin-top: 14px; font-weight: 700; font-size: 19px; letter-spacing: 1.5px; color: var(--petrol-deep); background: var(--tint); padding: 9px 22px; border-radius: 11px; }
+  .wa {
+    display: inline-flex; align-items: center; gap: 8px; margin-top: 22px;
+    background: #1f8a4c; color: #fff; text-decoration: none; font-weight: 600; font-size: 14.5px;
+    padding: 12px 22px; border-radius: 12px;
+  }
+
+  @media (prefers-reduced-motion: reduce) { *, html { transition: none !important; scroll-behavior: auto !important; } }
+</style>
+</head>
+<body>
+<header>
+  <div class="wrap head-inner">
+    <div class="brandline">
+      <div class="mark">إ</div>
+      <div>
+        <div class="brandname">مؤسسة إتقان إليت</div>
+        <div class="brandsub">مواد البناء والسباكة والكهرباء — المدينة المنورة</div>
+      </div>
+    </div>
+    <h1>فنيّ موثوق يصلك أينما كنت في المدينة المنورة</h1>
+    <p class="lede">اكتب مشكلتك ورقمك، ونحوّل طلبك مباشرة إلى أقرب فنيّ معتمد لدينا.</p>
+    <div class="badges">
+      <span class="badge">✅ فنّيون معتمدون</span>
+      <span class="badge">⚡ استجابة سريعة</span>
+      <span class="badge">📍 كل أحياء المدينة</span>
+    </div>
+  </div>
+</header>
+
+<div class="wrap">
+  <div class="card" id="formCard">
+    <p class="step">اطلب في أقل من دقيقة</p>
+
+    <label>نوع الخدمة</label>
+    <div class="services" id="services" role="group" aria-label="نوع الخدمة">
+      <div class="svc" data-svc="سباكة" tabindex="0"><span class="ico">🔧</span>سباكة</div>
+      <div class="svc" data-svc="كهرباء" tabindex="0"><span class="ico">⚡</span>كهرباء</div>
+      <div class="svc" data-svc="تكييف" tabindex="0"><span class="ico">❄️</span>تكييف</div>
+      <div class="svc" data-svc="أخرى" tabindex="0"><span class="ico">🏠</span>أخرى</div>
+    </div>
+
+    <label for="district">الحي <span class="hint">(في المدينة المنورة)</span></label>
+    <div class="field">
+      <input type="text" id="district" placeholder="مثال: العزيزية، قباء، الدفاع..." autocomplete="off" />
+    </div>
+
+    <label for="desc">وصف المشكلة</label>
+    <div class="field">
+      <textarea id="desc" placeholder="اشرح المشكلة باختصار — مثال: تسريب ماء تحت المغسلة"></textarea>
+    </div>
+
+    <label for="phone">رقم الجوال</label>
+    <div class="field" id="phoneField">
+      <input type="tel" id="phone" inputmode="numeric" placeholder="05xxxxxxxx" autocomplete="tel" />
+      <span class="tick">✓</span>
+    </div>
+
+    <label class="urgent" for="urgent">
+      <input type="checkbox" id="urgent" />
+      <span class="t">الطلب <b>طارئ</b> — أحتاج فنياً في أسرع وقت</span>
+    </label>
+
+    <label class="consent" for="consent" style="cursor:pointer">
+      <input type="checkbox" id="consent" />
+      <span class="t">أوافق على تحويل طلبي ورقم جوالي إلى فنيّ معتمد لدى مؤسسة إتقان إليت لغرض تنفيذ الخدمة.</span>
+    </label>
+
+    <div class="err" id="err"></div>
+    <button class="submit" id="send">أرسل الطلب</button>
+    <p class="privacy">🔒 لا نشارك رقمك إلا مع الفنيّ المكلَّف بطلبك</p>
+    <p class="foot">مؤسسة إتقان إليت لمواد البناء والسباكة والكهرباء</p>
+  </div>
+
+  <div class="card done" id="doneCard">
+    <div class="ring">✓</div>
+    <h2>تم استلام طلبك</h2>
+    <p>سيتواصل معك أحد فنّيينا المعتمدين قريباً.</p>
+    <p>احتفظ برقم طلبك للمتابعة:</p>
+    <div class="ref" id="refCode">—</div>
+    <div>
+      <a class="wa" id="waLink" href="#" style="display:none">💬 تواصل معنا مباشرة عبر واتساب</a>
+    </div>
+    <p class="foot" style="margin-top:24px">شكراً لثقتك بمؤسسة إتقان إليت</p>
+  </div>
+</div>
+
+<script>
+  // ====== الإعداد ======
+  const ENDPOINT = "PUT_YOUR_APPS_SCRIPT_URL_HERE";   // رابط Google Apps Script
+  const BUSINESS_WHATSAPP = "";                        // رقم المؤسسة بصيغة دولية بدون + مثل 9665xxxxxxxx (اختياري)
+
+  let selectedService = "";
+  const svcEls = document.querySelectorAll(".svc");
+  svcEls.forEach((el) => {
+    const pick = () => {
+      svcEls.forEach((s) => s.classList.remove("on"));
+      el.classList.add("on");
+      selectedService = el.dataset.svc;
+    };
+    el.addEventListener("click", pick);
+    el.addEventListener("keydown", (e) => { if (e.key === "Enter" || e.key === " ") { e.preventDefault(); pick(); } });
+  });
+
+  const $ = (id) => document.getElementById(id);
+  const errBox = $("err");
+  const showErr = (m) => { errBox.textContent = m; errBox.style.display = "block"; };
+
+  function normDigits(s) { return s.replace(/[٠-٩]/g, (d) => "٠١٢٣٤٥٦٧٨٩".indexOf(d)); }
+  function validPhone(s) {
+    const t = normDigits(s).replace(/[\s\-()]/g, "").replace(/^\+?966/, "0");
+    return /^05\d{8}$/.test(t) ? t : null;
+  }
+
+  // تحقق فوري من الرقم
+  $("phone").addEventListener("input", () => {
+    $("phoneField").classList.toggle("valid", !!validPhone($("phone").value.trim()));
+  });
+
+  $("send").addEventListener("click", async () => {
+    errBox.style.display = "none";
+    const district = $("district").value.trim();
+    const desc = $("desc").value.trim();
+    const phone = validPhone($("phone").value.trim());
+
+    if (!selectedService) return showErr("اختر نوع الخدمة أولاً.");
+    if (!desc) return showErr("اكتب وصفاً مختصراً للمشكلة.");
+    if (!phone) return showErr("أدخل رقم جوال سعودي صحيح يبدأ بـ 05.");
+    if (!$("consent").checked) return showErr("يرجى الموافقة على تحويل الطلب للفني.");
+
+    const ref = "MJZ-" + Date.now().toString().slice(-6);
+    const payload = {
+      ref, service: selectedService, district, description: desc, phone,
+      urgent: $("urgent").checked ? "طارئ" : "عادي",
+      source: "بوابة الطلبات", created: new Date().toISOString(),
+    };
+
+    const btn = $("send");
+    btn.disabled = true; btn.textContent = "جارٍ الإرسال...";
+    try {
+      if (ENDPOINT.startsWith("http")) {
+        await fetch(ENDPOINT, {
+          method: "POST", mode: "no-cors",
+          headers: { "Content-Type": "text/plain;charset=utf-8" },
+          body: JSON.stringify(payload),
+        });
+      }
+      $("refCode").textContent = ref;
+      if (BUSINESS_WHATSAPP) {
+        const link = $("waLink");
+        link.href = "https://wa.me/" + BUSINESS_WHATSAPP + "?text=" + encodeURIComponent("طلبي رقم " + ref);
+        link.style.display = "inline-flex";
+      }
+      $("formCard").style.display = "none";
+      $("doneCard").style.display = "block";
+      window.scrollTo({ top: 0, behavior: "smooth" });
+    } catch (e) {
+      btn.disabled = false; btn.textContent = "أرسل الطلب";
+      showErr("تعذّر الإرسال. تأكد من الاتصال وحاول مرة أخرى.");
+    }
+  });
+</script>
+</body>
+</html>
