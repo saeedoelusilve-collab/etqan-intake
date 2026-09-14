@@ -1,0 +1,231 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>رادار المنجز — لوحة التوزيع</title>
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+Arabic:wght@400;500;600;700&display=swap" rel="stylesheet" />
+<style>
+  :root{
+    --petrol:#0e4c4a; --petrol-deep:#08302e; --tint:#e9f2f1;
+    --bg:#f5f4f0; --card:#fff; --ink:#16201f; --muted:#62706e;
+    --line:#e4e1d9; --alert:#ad3a12; --alert-bg:#fbf0ea;
+    --ok:#1c7a44; --wa:#1f8a4c; --gold:#c69541;
+  }
+  *{box-sizing:border-box;-webkit-tap-highlight-color:transparent}
+  body{margin:0;font-family:"IBM Plex Sans Arabic",system-ui,sans-serif;background:var(--bg);color:var(--ink);line-height:1.6}
+  .wrap{max-width:560px;margin:0 auto;padding:0 14px 40px}
+
+  header{background:linear-gradient(140deg,#167f79,var(--petrol) 45%,var(--petrol-deep));color:#fff;padding:22px 20px 26px;border-radius:0 0 22px 22px}
+  .brand{display:flex;align-items:center;gap:10px}
+  .mark{width:38px;height:38px;border:1.5px solid rgba(255,255,255,.5);background:rgba(255,255,255,.14);border-radius:11px;display:grid;place-items:center;font-weight:700}
+  .bname{font-weight:600;font-size:15px}
+  .bsub{font-size:11px;opacity:.82}
+  .stats{display:flex;gap:8px;margin-top:18px}
+  .stat{flex:1;background:rgba(255,255,255,.12);border:1px solid rgba(255,255,255,.18);border-radius:12px;padding:10px;text-align:center}
+  .stat b{display:block;font-size:20px}
+  .stat span{font-size:11px;opacity:.85}
+
+  .bar{display:flex;gap:8px;margin:16px 0 4px;overflow-x:auto;padding-bottom:4px}
+  .chip{white-space:nowrap;border:1.5px solid var(--line);background:#fff;border-radius:999px;padding:7px 14px;font-size:13px;font-weight:600;cursor:pointer;color:var(--muted)}
+  .chip.on{background:var(--petrol);border-color:var(--petrol);color:#fff}
+  .refresh{margin-right:auto;border:0;background:var(--tint);color:var(--petrol-deep);border-radius:999px;padding:7px 14px;font:inherit;font-size:13px;font-weight:600;cursor:pointer}
+
+  .card{background:var(--card);border:1px solid var(--line);border-radius:15px;padding:15px;margin-top:12px;box-shadow:0 3px 14px rgba(8,48,46,.05)}
+  .card.urgent{border-color:#f0c9b8;background:linear-gradient(#fffaf7,#fff)}
+  .card.done{opacity:.6}
+  .top{display:flex;align-items:center;gap:8px;flex-wrap:wrap;margin-bottom:10px}
+  .svc{font-weight:700;font-size:16px}
+  .tag{font-size:11px;padding:3px 9px;border-radius:999px;font-weight:600}
+  .t-urgent{background:var(--alert-bg);color:var(--alert)}
+  .t-new{background:var(--tint);color:var(--petrol-deep)}
+  .t-done{background:#eef3ee;color:var(--ok)}
+  .t-check{background:#fdf6e7;color:#8a6516}
+  .ref{margin-right:auto;font-size:11px;color:var(--muted);letter-spacing:.5px}
+
+  .rows{font-size:14px}
+  .row{display:flex;gap:8px;padding:3px 0}
+  .row .k{color:var(--muted);min-width:52px;font-size:13px}
+  .row .v{flex:1}
+  .desc{background:#fafaf8;border-radius:9px;padding:9px 11px;margin:8px 0;font-size:14px}
+
+  .acts{display:flex;gap:8px;margin-top:12px;flex-wrap:wrap}
+  .btn{flex:1;min-width:120px;border:0;border-radius:10px;padding:11px;font:inherit;font-size:14px;font-weight:600;cursor:pointer;text-align:center;text-decoration:none;display:inline-block}
+  .b-wa{background:var(--wa);color:#fff}
+  .b-copy{background:var(--petrol);color:#fff}
+  .b-call{background:var(--tint);color:var(--petrol-deep)}
+  .b-done{background:#f0efea;color:var(--muted)}
+
+  .empty{text-align:center;padding:50px 20px;color:var(--muted)}
+  .empty .ic{font-size:42px;margin-bottom:10px}
+  .load{text-align:center;padding:40px;color:var(--muted)}
+  .toast{position:fixed;bottom:22px;left:50%;transform:translateX(-50%) translateY(90px);background:var(--petrol-deep);color:#fff;padding:12px 24px;border-radius:999px;font-size:14px;font-weight:600;transition:transform .25s;z-index:99}
+  .toast.show{transform:translateX(-50%) translateY(0)}
+  .setup{background:#fff8e6;border:1px solid #f0dfae;border-radius:12px;padding:14px;margin-top:14px;font-size:13.5px}
+</style>
+</head>
+<body>
+<header>
+  <div class="wrap">
+    <div class="brand">
+      <div class="mark">إ</div>
+      <div>
+        <div class="bname">رادار المنجز — لوحة التوزيع</div>
+        <div class="bsub">مؤسسة إتقان إليت — المدينة المنورة</div>
+      </div>
+    </div>
+    <div class="stats">
+      <div class="stat"><b id="sNew">0</b><span>بانتظار التوزيع</span></div>
+      <div class="stat"><b id="sUrgent">0</b><span>طارئة</span></div>
+      <div class="stat"><b id="sDone">0</b><span>تم توزيعها</span></div>
+    </div>
+  </div>
+</header>
+
+<div class="wrap">
+  <div class="bar">
+    <button class="chip on" data-f="new">بانتظار التوزيع</button>
+    <button class="chip" data-f="urgent">الطارئة</button>
+    <button class="chip" data-f="all">الكل</button>
+    <button class="refresh" id="refresh">↻ تحديث</button>
+  </div>
+  <div id="list"><div class="load">جارٍ تحميل الطلبات…</div></div>
+</div>
+
+<div class="toast" id="toast">تم النسخ</div>
+
+<script>
+  // ====== ضع هنا نفس رابط Apps Script المنتهي بـ /exec ======
+  var ENDPOINT = "https://script.google.com/macros/s/AKfycbx8j1bA1jsepVvbPYh8iew4zlVoCOKNCF7essppqxxb2vKIZ-ef1_hnSj7aojShqeyVUQ/exec";
+  var BUSINESS = "مؤسسة إتقان إليت لمواد البناء والسباكة والكهرباء";
+
+  var ALL = [], FILTER = "new";
+  var $ = function(id){ return document.getElementById(id); };
+
+  function toast(msg){
+    var t = $("toast"); t.textContent = msg; t.classList.add("show");
+    setTimeout(function(){ t.classList.remove("show"); }, 1800);
+  }
+
+  function dispatchText(r){
+    var code = String(r.ref).replace(/\D/g,"").slice(-3);
+    var L = [];
+    L.push("🔔 طلب جديد" + (r.urgency === "طارئ" ? " — ⚠️ طارئ" : ""));
+    L.push("");
+    L.push("🔢 رقم الطلب: " + r.ref);
+    L.push("🛠️ الخدمة: " + r.service);
+    if (r.district) L.push("📍 الحي: " + r.district);
+    L.push("📝 الوصف: " + r.description);
+    L.push("");
+    L.push("للاستلام أرسل الرمز: #" + code);
+    L.push("");
+    L.push("🏢 " + BUSINESS);
+    return L.join("\n");
+  }
+
+  function copyText(txt){
+    if (navigator.clipboard && navigator.clipboard.writeText) {
+      navigator.clipboard.writeText(txt).then(function(){ toast("✓ تم النسخ — الصقه في مجموعة الفنيين"); });
+    } else {
+      var ta = document.createElement("textarea");
+      ta.value = txt; document.body.appendChild(ta); ta.select();
+      try { document.execCommand("copy"); toast("✓ تم النسخ"); } catch(e){ toast("تعذّر النسخ"); }
+      document.body.removeChild(ta);
+    }
+  }
+
+  function markDone(ref, el){
+    el.textContent = "…";
+    fetch(ENDPOINT + "?action=done&ref=" + encodeURIComponent(ref))
+      .then(function(){ toast("✓ تم تعليم الطلب كموزَّع"); load(); })
+      .catch(function(){ toast("تعذّر التحديث"); el.textContent = "تم التوزيع ✓"; });
+  }
+
+  function render(){
+    var box = $("list");
+    var rows = ALL.filter(function(r){
+      if (FILTER === "new") return r.status === "جديد" || r.status === "مراجعة";
+      if (FILTER === "urgent") return r.urgency === "طارئ" && r.status !== "تم التوزيع";
+      return true;
+    });
+
+    if (!rows.length){
+      box.innerHTML = '<div class="empty"><div class="ic">📭</div>لا توجد طلبات في هذا التصنيف حالياً</div>';
+      return;
+    }
+
+    box.innerHTML = rows.map(function(r){
+      var urgent = r.urgency === "طارئ";
+      var done = r.status === "تم التوزيع";
+      var tags = "";
+      if (urgent) tags += '<span class="tag t-urgent">⚠️ طارئ</span>';
+      if (done) tags += '<span class="tag t-done">تم التوزيع</span>';
+      else if (r.status === "مراجعة") tags += '<span class="tag t-check">يحتاج مراجعة</span>';
+      else tags += '<span class="tag t-new">جديد</span>';
+
+      var d = dispatchText(r).replace(/"/g, "&quot;");
+      return ''
+        + '<div class="card' + (urgent ? ' urgent' : '') + (done ? ' done' : '') + '">'
+        +   '<div class="top"><span class="svc">' + r.service + '</span>' + tags
+        +     '<span class="ref">' + r.ref + '</span></div>'
+        +   '<div class="rows">'
+        +     (r.district ? '<div class="row"><span class="k">الحي</span><span class="v">' + r.district + '</span></div>' : '')
+        +     '<div class="row"><span class="k">الجوال</span><span class="v">' + r.phone + '</span></div>'
+        +     '<div class="row"><span class="k">الوقت</span><span class="v">' + r.time + '</span></div>'
+        +   '</div>'
+        +   '<div class="desc">' + r.description + '</div>'
+        +   '<div class="acts">'
+        +     '<a class="btn b-wa" target="_blank" href="https://wa.me/?text=' + encodeURIComponent(dispatchText(r)) + '">📤 وزّع عبر واتساب</a>'
+        +     '<button class="btn b-copy" data-copy="' + d + '">📋 نسخ الرسالة</button>'
+        +     '<a class="btn b-call" href="tel:' + r.phone + '">📞 اتصال</a>'
+        +     (done ? '' : '<button class="btn b-done" data-done="' + r.ref + '">تم التوزيع ✓</button>')
+        +   '</div>'
+        + '</div>';
+    }).join("");
+
+    Array.prototype.forEach.call(box.querySelectorAll("[data-copy]"), function(b){
+      b.onclick = function(){ copyText(b.getAttribute("data-copy")); };
+    });
+    Array.prototype.forEach.call(box.querySelectorAll("[data-done]"), function(b){
+      b.onclick = function(){ markDone(b.getAttribute("data-done"), b); };
+    });
+  }
+
+  function stats(){
+    var n=0,u=0,d=0;
+    ALL.forEach(function(r){
+      if (r.status === "تم التوزيع") d++;
+      else { n++; if (r.urgency === "طارئ") u++; }
+    });
+    $("sNew").textContent = n; $("sUrgent").textContent = u; $("sDone").textContent = d;
+  }
+
+  function load(){
+    if (ENDPOINT.indexOf("http") !== 0){
+      $("list").innerHTML = '<div class="setup"><b>خطوة أخيرة:</b> افتح هذا الملف وضع رابط Apps Script المنتهي بـ <code>/exec</code> مكان <code>PUT_YOUR_APPS_SCRIPT_URL_HERE</code>.</div>';
+      return;
+    }
+    fetch(ENDPOINT + "?action=list")
+      .then(function(res){ return res.json(); })
+      .then(function(j){
+        if (!j.ok) throw new Error(j.error || "خطأ");
+        ALL = j.rows || []; stats(); render();
+      })
+      .catch(function(){
+        $("list").innerHTML = '<div class="empty"><div class="ic">⚠️</div>تعذّر جلب الطلبات. تأكد من الرابط والاتصال.</div>';
+      });
+  }
+
+  Array.prototype.forEach.call(document.querySelectorAll(".chip"), function(c){
+    c.onclick = function(){
+      document.querySelectorAll(".chip").forEach(function(x){ x.classList.remove("on"); });
+      c.classList.add("on"); FILTER = c.getAttribute("data-f"); render();
+    };
+  });
+  $("refresh").onclick = load;
+
+  load();
+  setInterval(load, 60000); // تحديث تلقائي كل دقيقة
+</script>
+</body>
+</html>
