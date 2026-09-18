@@ -1,0 +1,39 @@
+name: Munjiz Marketing Engine
+
+on:
+  schedule:
+    - cron: '0 6 * * 1,4'
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  publish:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+
+      - name: Generate content
+        env:
+          GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
+          INDEXNOW_KEY: ${{ secrets.INDEXNOW_KEY }}
+        run: node scripts/engine.js
+
+      - name: Commit and push
+        run: |
+          git config user.name "Munjiz Engine"
+          git config user.email "engine@munjiz.local"
+          git add -A
+          if git diff --staged --quiet; then
+            echo "no changes"
+          else
+            git commit -m "auto: new content page"
+            git push
+          fi
