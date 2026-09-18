@@ -8,7 +8,13 @@ const PLAN = path.join(ROOT, "scripts", "plan.json");
 
 const GEMINI_KEY = process.env.GEMINI_API_KEY || "";
 const INDEXNOW_KEY = process.env.INDEXNOW_KEY || "";
-const MODEL = "gemini-2.5-flash-lite";
+const MODELS = [
+  "gemini-2.5-flash-lite",
+  "gemini-2.5-flash",
+  "gemini-2.0-flash",
+  "gemini-flash-latest",
+  "gemini-1.5-flash"
+];
 
 function log(m) { console.log("[المحرك] " + m); }
 
@@ -20,28 +26,53 @@ function loadPlan() {
   return JSON.parse(fs.readFileSync(PLAN, "utf8"));
 }
 
+async function listModels() {
+  if (!GEMINI_KEY) return [];
+  try {
+    const r = await fetch("https://generativelanguage.googleapis.com/v1beta/models?key=" + GEMINI_KEY);
+    if (!r.ok) { log("تعذر جلب قائمة النماذج: " + r.status); return []; }
+    const j = await r.json();
+    const names = (j.models || [])
+      .filter(m => (m.supportedGenerationMethods || []).includes("generateContent"))
+      .map(m => m.name.replace("models/", ""));
+    log("النماذج المتاحة: " + names.slice(0, 8).join(", "));
+    return names;
+  } catch (e) { return []; }
+}
+
+async function tryModel(model, prompt) {
+  const url = "https://generativelanguage.googleapis.com/v1beta/models/"
+    + model + ":generateContent?key=" + GEMINI_KEY;
+  const res = await fetch(url, {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({
+      contents: [{ parts: [{ text: prompt }] }],
+      generationConfig: { temperature: 0.75, maxOutputTokens: 2400 }
+    })
+  });
+  if (!res.ok) { log(model + " ← " + res.status); return null; }
+  const j = await res.json();
+  let t = j.candidates?.[0]?.content?.parts?.[0]?.text || "";
+  t = t.replace(/```json/g, "").replace(/```/g, "").trim();
+  try { return JSON.parse(t); } catch (e) { log(model + " ← رد غير صالح"); return null; }
+}
+
 async function askGemini(prompt) {
   if (!GEMINI_KEY) { log("لا يوجد مفتاح — تخطٍ"); return null; }
-  const url = "https://generativelanguage.googleapis.com/v1beta/models/"
-    + MODEL + ":generateContent?key=" + GEMINI_KEY;
-  try {
-    const res = await fetch(url, {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({
-        contents: [{ parts: [{ text: prompt }] }],
-        generationConfig: { temperature: 0.75, maxOutputTokens: 2400 }
-      })
-    });
-    if (!res.ok) { log("خطأ من Gemini: " + res.status); return null; }
-    const j = await res.json();
-    let t = j.candidates?.[0]?.content?.parts?.[0]?.text || "";
-    t = t.replace(/```json/g, "").replace(/```/g, "").trim();
-    return JSON.parse(t);
-  } catch (e) {
-    log("فشل الاتصال: " + e.message);
-    return null;
+  const available = await listModels();
+  const candidates = MODELS.filter(m => available.length === 0 || available.includes(m));
+  const list = candidates.length ? candidates : available.filter(n => n.indexOf("flash") !== -1).slice(0, 3);
+  if (!list.length) { log("لا يوجد نموذج صالح"); return null; }
+  for (const m of list) {
+    log("تجربة النموذج: " + m);
+    try {
+      const out = await tryModel(m, prompt);
+      if (out && out.title) { log("نجح النموذج: " + m); return out; }
+    } catch (e) { log(m + " ← " + e.message); }
   }
+  log("فشلت كل النماذج");
+  return null;
 }
 
 function buildPrompt(item) {
