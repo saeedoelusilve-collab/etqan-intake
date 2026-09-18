@@ -9,12 +9,13 @@ const PLAN = path.join(ROOT, "scripts", "plan.json");
 const GEMINI_KEY = process.env.GEMINI_API_KEY || "";
 const INDEXNOW_KEY = process.env.INDEXNOW_KEY || "";
 const MODELS = [
-  "gemini-2.5-flash-lite",
-  "gemini-2.5-flash",
-  "gemini-2.0-flash",
+  "gemini-flash-lite-latest",
   "gemini-flash-latest",
-  "gemini-1.5-flash"
+  "gemini-2.5-flash",
+  "gemini-2.5-pro"
 ];
+const API_VERSIONS = ["v1beta", "v1"];
+const sleep = ms => new Promise(r => setTimeout(r, ms));
 
 function log(m) { console.log("[المحرك] " + m); }
 
@@ -41,27 +42,45 @@ async function listModels() {
 }
 
 async function tryModel(model, prompt) {
-  const url = "https://generativelanguage.googleapis.com/v1beta/models/"
-    + model + ":generateContent?key=" + GEMINI_KEY;
-  const res = await fetch(url, {
-    method: "POST",
-    headers: { "Content-Type": "application/json" },
-    body: JSON.stringify({
-      contents: [{ parts: [{ text: prompt }] }],
-      generationConfig: { temperature: 0.75, maxOutputTokens: 2400 }
-    })
-  });
-  if (!res.ok) { log(model + " ← " + res.status); return null; }
-  const j = await res.json();
-  let t = j.candidates?.[0]?.content?.parts?.[0]?.text || "";
-  t = t.replace(/```json/g, "").replace(/```/g, "").trim();
-  try { return JSON.parse(t); } catch (e) { log(model + " ← رد غير صالح"); return null; }
+  for (const ver of API_VERSIONS) {
+    const url = "https://generativelanguage.googleapis.com/" + ver + "/models/"
+      + model + ":generateContent?key=" + GEMINI_KEY;
+    for (let attempt = 1; attempt <= 3; attempt++) {
+      let res;
+      try {
+        res = await fetch(url, {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({
+            contents: [{ parts: [{ text: prompt }] }],
+            generationConfig: { temperature: 0.75, maxOutputTokens: 2400 }
+          })
+        });
+      } catch (e) { log(model + " " + ver + " ← شبكة: " + e.message); break; }
+
+      if (res.status === 503 || res.status === 429) {
+        log(model + " " + ver + " ← " + res.status + " مشغول، إعادة المحاولة " + attempt);
+        await sleep(6000 * attempt);
+        continue;
+      }
+      if (res.status === 404) { log(model + " " + ver + " ← 404"); break; }
+      if (!res.ok) { log(model + " " + ver + " ← " + res.status); break; }
+
+      const j = await res.json();
+      let t = j.candidates?.[0]?.content?.parts?.[0]?.text || "";
+      t = t.replace(/```json/g, "").replace(/```/g, "").trim();
+      try { return JSON.parse(t); }
+      catch (e) { log(model + " ← رد غير صالح"); break; }
+    }
+  }
+  return null;
 }
 
 async function askGemini(prompt) {
   if (!GEMINI_KEY) { log("لا يوجد مفتاح — تخطٍ"); return null; }
   const available = await listModels();
   const candidates = MODELS.filter(m => available.length === 0 || available.includes(m));
+  available.forEach(n => { if (n.indexOf("flash") !== -1 && candidates.indexOf(n) === -1) candidates.push(n); });
   const list = candidates.length ? candidates : available.filter(n => n.indexOf("flash") !== -1).slice(0, 3);
   if (!list.length) { log("لا يوجد نموذج صالح"); return null; }
   for (const m of list) {
