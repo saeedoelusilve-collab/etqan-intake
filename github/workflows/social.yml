@@ -1,0 +1,39 @@
+name: Munjiz Daily Social
+
+on:
+  schedule:
+    - cron: '0 4 * * *'
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  social:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+
+      - name: Generate daily posts
+        env:
+          GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
+        run: node scripts/social.js
+
+      - name: Commit and push
+        run: |
+          git config user.name "Munjiz Engine"
+          git config user.email "engine@munjiz.local"
+          git add -A
+          if git diff --staged --quiet; then
+            echo "no changes"
+          else
+            git commit -m "auto: daily social posts"
+            git pull --rebase
+            git push
+          fi
