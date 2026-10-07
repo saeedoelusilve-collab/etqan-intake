@@ -107,7 +107,7 @@ def gemini_tts(text, path):
                 except urllib.error.HTTPError as e:
                     msg = e.read().decode(errors="ignore")[:120]
                     log("%s %s ← %s %s" % (m, fn.__name__, e.code, msg))
-                    if e.code in (429, 503) and attempt == 0:
+                    if e.code == 503 and attempt == 0:
                         time.sleep(20)
                         continue
                     break
