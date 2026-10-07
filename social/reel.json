@@ -3,44 +3,49 @@
  "trade": "نجارة",
  "scenes": [
   {
-   "text": "صوت طقطقة خفيفة قد ينتهي بكارثة.",
-   "say": "صوت طقطقة خفيفة من رف المطبخ قد ينتهي بكارثة فوق أوانيك أو أطفالك.",
-   "icon": "alert",
-   "key": "كارثة",
+   "text": "باب بيتك يقفل في وجه ضيوفك؟",
+   "say": "موقف لا تُحسد عليه، بابك الخشبي يرفض الفتح وضيوفك بانتظارك!",
+   "icon": "door",
+   "key": "باب بيتك يقفل في وجه ضيوفك؟",
    "label": "",
-   "broll": "heavy sagging shelf"
+   "broll": "door",
+   "visual": "close-up of a wooden door handle jammed with anxious guest silhouettes in the background"
   },
   {
-   "text": "المسامير القديمة لم تعد كافية.",
-   "say": "تعتقد أن المسامير القديمة تكفي، لكنها تآكلت بمرور الوقت.",
-   "icon": "hammer",
-   "key": "الخرافة",
-   "label": "الخرافة",
-   "broll": "cracked wall anchors"
+   "text": "إياك وكسر الخشب",
+   "say": "لا تندفع وتكسر الباب، فتخسر قيمته وقيمة الإصلاح المضاعفة.",
+   "icon": "alert",
+   "key": "كسر",
+   "label": "الخسارة",
+   "broll": "hammer",
+   "visual": "close-up of hands holding a heavy hammer near a damaged door"
   },
   {
-   "text": "تقلبات الجو تضعف جدران المطبخ.",
-   "say": "تقلبات الحرارة المستمرة تفقد الجدران صلابتها وتفلت التثبيت.",
-   "icon": "thermo",
-   "key": "الحقيقة",
-   "label": "الحقيقة",
-   "broll": "kitchen wall"
+   "text": "جرب البطاقة البلاستيكية",
+   "say": "حاول بحذر تمرير بطاقة بلاستيكية لتحريك اللسان العالق بهدوء.",
+   "icon": "wrench",
+   "key": "البطاقة",
+   "label": "الحل",
+   "broll": "carpenter",
+   "visual": "close-up of a plastic card sliding into a door latch smoothly"
   },
   {
-   "text": "فحص وتثبيت محترف يحمي عائلتك.",
-   "say": "الحل هو فحص التثبيت وإعادة دعم الرف بكتائف متينة.",
-   "icon": "check",
-   "key": "الحل",
-   "label": "العلامة",
-   "broll": "safe fixed bracket"
+   "text": "استعن بخبير نجارة فوراً",
+   "say": "إن لم يفتح، وفر على نفسك الجهد واطلب فني نجارة يعالج المشكلة باحترافية.",
+   "icon": "home",
+   "key": "خبير",
+   "label": "النتيجة",
+   "broll": "carpenter",
+   "visual": "close-up of hands adjusting a wooden door hinge with a professional screwdriver"
   },
   {
-   "text": "اطلب فني النجارة مجاناً من المنجز",
-   "say": "احمِ منزلك واطلب فني النجارة مجاناً عبر المنصة.",
+   "text": "اطلب فنيّك مجاناً من المنجز",
+   "say": "لا تحتار، اطلب فني النجارة الآن وبدون أي رسوم زيارة عبر تطبيق المنجز.",
    "icon": "phone",
    "key": "مجاناً",
    "label": "",
-   "broll": ""
+   "broll": "",
+   "visual": ""
   }
  ]
 }
