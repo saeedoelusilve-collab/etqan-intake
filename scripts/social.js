@@ -6,7 +6,25 @@ const ROOT = process.cwd();
 const OUT = path.join(ROOT, "social");
 const ARCHIVE = path.join(OUT, "archive");
 const KEY = process.env.GEMINI_API_KEY || "";
-const MODELS = ["gemini-flash-lite-latest", "gemini-flash-latest", "gemini-2.5-flash"];
+const FALLBACK_MODELS = ["gemini-flash-latest", "gemini-2.5-flash", "gemini-flash-lite-latest"];
+let MODELS = null;
+
+async function pickModels() {
+  if (MODELS) return MODELS;
+  let found = [];
+  try {
+    const r = await fetch("https://generativelanguage.googleapis.com/v1beta/models?pageSize=200&key=" + KEY);
+    const j = await r.json();
+    found = (j.models || []).filter(m => (m.supportedGenerationMethods || []).includes("generateContent")).map(m => m.name.replace("models/", ""))
+      .filter(n => /^gemini-\d+(\.\d+)?-flash(-lite)?(-preview)?(-\d{2}-\d{4})?$/.test(n) && !/tts|image|audio|live|embed/.test(n));
+  } catch (e) { log("تعذر جلب قائمة النماذج"); }
+  const ver = n => parseFloat((n.match(/gemini-(\d+(?:\.\d+)?)/) || [0, 0])[1]);
+  const score = n => ver(n) * 10 - (n.includes("lite") ? 5 : 0) - (n.includes("preview") ? 1 : 0);
+  found.sort((a, b) => score(b) - score(a));
+  MODELS = found.slice(0, 3).concat(FALLBACK_MODELS.filter(x => !found.includes(x)));
+  log("ترتيب النماذج: " + MODELS.join(" ، "));
+  return MODELS;
+}
 const VERSIONS = ["v1beta", "v1"];
 const sleep = ms => new Promise(r => setTimeout(r, ms));
 const log = m => console.log("[المحتوى] " + m);
@@ -105,21 +123,21 @@ function dayOfYear(p) {
 async function callModel(model, prompt) {
   for (const ver of VERSIONS) {
     const url = "https://generativelanguage.googleapis.com/" + ver + "/models/" + model + ":generateContent?key=" + KEY;
+    let gc = { temperature: 0.8, maxOutputTokens: 8192, responseMimeType: "application/json" };
     for (let attempt = 1; attempt <= 3; attempt++) {
       let res;
       try {
-        res = await fetch(url, {
-          method: "POST",
-          headers: { "Content-Type": "application/json" },
-          body: JSON.stringify({ contents: [{ parts: [{ text: prompt }] }], generationConfig: { temperature: 0.85, maxOutputTokens: 3500 } })
-        });
+        res = await fetch(url, { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify({ contents: [{ parts: [{ text: prompt }] }], generationConfig: gc }) });
       } catch (e) { log(model + " شبكة: " + e.message); break; }
       if (res.status === 503 || res.status === 429) { log(model + " مشغول، محاولة " + attempt); await sleep(6000 * attempt); continue; }
+      if (res.status === 400 && gc.responseMimeType) { gc = { temperature: 0.8, maxOutputTokens: 8192 }; continue; }
       if (!res.ok) { log(model + " " + ver + " ← " + res.status); break; }
       const j = await res.json();
-      let t = (j.candidates && j.candidates[0] && j.candidates[0].content && j.candidates[0].content.parts && j.candidates[0].content.parts[0].text) || "";
+      const parts = (j.candidates && j.candidates[0] && j.candidates[0].content && j.candidates[0].content.parts) || [];
+      let t = parts.filter(x => x.text && !x.thought).map(x => x.text).join("");
       t = t.replace(/```json/g, "").replace(/```/g, "").trim();
-      try { return JSON.parse(t); } catch (e) { log(model + " رد غير صالح"); break; }
+      const i1 = t.indexOf("{"), i2 = t.lastIndexOf("}");
+      try { return JSON.parse(i1 >= 0 ? t.slice(i1, i2 + 1) : t); } catch (e) { log(model + " رد غير صالح"); break; }
     }
   }
   return null;
@@ -159,8 +177,13 @@ ${recent || "- لا يوجد"}
 5) اكتب للجوال: أسطر قصيرة، كلمات بسيطة، إيموجي قليل.
 6) الأسئلة ترفع التعليقات: اختم المنشور والتعليق الأول بسؤال سهل.
 7) الفيديو: بنية مشكلة ← سبب ← حل ← دعوة، ومشهد جديد كل 2 إلى 4 ثوانٍ.
+10) الموضوع كله عن «تخصص اليوم» فقط، لا تنتقل لتخصص آخر.
+11) text في كل مشهد 6 كلمات كحد أقصى (المشهد الأول 5 كلمات)، و say 14 كلمة كحد أقصى. هذا شرط إلزامي.
+12) label للمشاهد 2 و3 و4: كلمة أو كلمتان تصف دور المشهد حسب نوع المحتوى (مثل: الخرافة، الحقيقة، العلامة، الخطوة 1، النصيحة).
 9) لكل مشهد اختر icon واحداً فقط من هذه القائمة: ac, drop, bolt, wrench, paint, tile, hammer, clock, alert, check, home, phone, plug, flame, thermo, fan, building, door, calendar, star. و key كلمة واحدة منسوخة حرفياً من text.
-8) نص التعليق الصوتي بلهجة سعودية بيضاء طبيعية، كأن شخصاً يكلّم جاره، بلا لغة إعلانات متكلفة.
+8) اللغة: عربية فصحى معاصرة سهلة وسليمة نحوياً وإملائياً (لغة إعلانات العلامات الكبرى في السعودية)، دافئة وقريبة من الناس، بلا كلمات عامية مكتوبة، وبلا ركاكة. راعِ التذكير والتأنيث، والهمزات، والتاء المربوطة، وعلامات الترقيم.
+13) say نص مكتوب ليُقرأ بصوت معلّق إعلانات محترف: جمل قصيرة متصلة المعنى، تنتهي بنقطة أو علامة استفهام، وكل مشهد يكمل ما قبله كقصة واحدة متماسكة.
+14) broll لكل مشهد عدا الأخير: 2 إلى 4 كلمات إنجليزية لبحث فيديو مخزون يصوّر المشهد بصرياً بلا نص (مثل: air conditioner filter cleaning, water leak under sink).
 
 حقائق عامة تستعملها عند الحاجة فقط: المدينة المنورة فيها أكثر من 80 ألف غرفة فندقية مرخصة، ومعدل إشغال الضيافة 82% وهو الأعلى في المملكة، ومتوسط سعر الليلة نحو 453 ريالاً.
 
@@ -175,11 +198,11 @@ ${recent || "- لا يوجد"}
  "topic": "موضوع اليوم في سطر",
  "hooks": ["الخطاف الرئيسي", "بديل 1", "بديل 2"],
  "reel": [
-  {"text": "نص الشاشة للمشهد 1 = الخطاف (6 كلمات أو أقل)", "say": "ما يُقال بالصوت (12 كلمة أو أقل)", "icon": "رمز من القائمة", "key": "كلمة واحدة من text تُبرز بالذهبي"},
-  {"text": "مشهد 2 المشكلة", "say": "...", "icon": "...", "key": "..."},
-  {"text": "مشهد 3 السبب", "say": "...", "icon": "...", "key": "..."},
-  {"text": "مشهد 4 الحل", "say": "...", "icon": "...", "key": "..."},
-  {"text": "اطلب فنيّك مجاناً من المنجز", "say": "دعوة صوتية تنتهي بـ: الرابط في البايو", "icon": "phone", "key": "مجاناً"}
+  {"text": "نص الشاشة للمشهد 1 = الخطاف (6 كلمات أو أقل)", "say": "ما يُقال بالصوت (12 كلمة أو أقل)", "icon": "رمز من القائمة", "key": "كلمة واحدة من text تُبرز بالذهبي", "broll": "english stock video query"},
+  {"text": "مشهد 2", "say": "...", "icon": "...", "key": "...", "label": "...", "broll": "..."},
+  {"text": "مشهد 3", "say": "...", "icon": "...", "key": "...", "label": "...", "broll": "..."},
+  {"text": "مشهد 4", "say": "...", "icon": "...", "key": "...", "label": "...", "broll": "..."},
+  {"text": "اطلب فنيّك مجاناً من المنجز", "say": "دعوة صوتية واضحة تنتهي بعبارة: الرابط في البايو.", "icon": "phone", "key": "مجاناً"}
  ],
  "snap": ["إطار 1 هو الخطاف", "إطار 2", "إطار 3 دعوة للطلب"],
  "poll": "سؤال تصويت للستوري بخيارين، مثل: آخر غسيل لمكيفك؟ ◀ هذا العام / ما أذكر",
@@ -196,7 +219,7 @@ ${recent || "- لا يوجد"}
 function reviewPrompt(draft) {
   return `أنت مدير إبداعي صارم في وكالة إعلانات سعودية كبرى. أمامك مسودة محتوى يومي لـ"المنجز" (شبكة فنيين في المدينة المنورة، الطلب مجاني).
 
-قيّم المسودة من 10 بهذه المعايير: قوة الخطاف في أول 3 ثوانٍ، وضوح الفكرة الواحدة، الحديث عن ألم العميل لا عن الخدمة، طبيعية اللهجة السعودية، وضوح الدعوة للفعل، خلوها من المبالغة والأرقام المختلقة والشهادات المزيفة، مناسبة نص الصوت للقراءة بصوت عالٍ.
+قيّم المسودة من 10 بهذه المعايير: قوة الخطاف في أول 3 ثوانٍ، وضوح الفكرة الواحدة، الحديث عن ألم العميل لا عن الخدمة، سلامة اللغة العربية وجمالها، وضوح الدعوة للفعل، خلوها من المبالغة والأرقام المختلقة والشهادات المزيفة، مناسبة نص الصوت للقراءة بصوت عالٍ.
 
 ثم أعد كتابة كل جزء ضعيف ليصل إلى 9 من 10 على الأقل، مع الحفاظ على نفس الموضوع ونفس بنية JSON ونفس الحقول تماماً. لا تضف أسعاراً ولا مدد وصول ولا روابط.
 
@@ -210,29 +233,29 @@ ${JSON.stringify(draft)}
 }
 
 const MOCK_DATA = {
-  topic: "المكيف بعد صيف طويل",
-  hooks: ["مكيفك يبرّد ونص؟", "صيف كامل.. ومكيفك ما انغسل؟", "فاتورتك ارتفعت والسبب مو الكهرباء"],
+  topic: "مكيّفك بعد صيف طويل",
+  hooks: ["مكيّفك لم يعد يبرّد كما كان؟", "صيفٌ كامل ومكيّفك لم يُغسل؟", "التبريد ضعيف والسبب أبسط مما تظن"],
   reel: [
-    { text: "مكيفك يبرّد ونص؟", say: "مكيفك صار يبرّد ونص؟ اسمعني دقيقة", icon: "ac", key: "ونص؟" },
-    { text: "شغّال طول الصيف", say: "طول الصيف وهو شغّال ليل ونهار", icon: "thermo", key: "الصيف" },
-    { text: "الفلتر مليان غبار", say: "والفلتر الحين غالباً مليان غبار ويخنق التبريد", icon: "fan", key: "غبار" },
-    { text: "غسلة وحدة ترجّع برودته", say: "غسلة وحدة من فني متخصص ترجّع له برودته", icon: "check", key: "برودته" },
-    { text: "اطلب فنيّك مجاناً من المنجز", say: "اطلب فني تكييف مجاناً من المنجز، الرابط في البايو", icon: "phone", key: "مجاناً" }
+    { text: "مكيّفك لم يعد يبرّد؟", say: "هل لاحظت أن مكيّفك لم يعد يبرّد كما كان؟", icon: "ac", key: "يبرّد؟", broll: "air conditioner indoor unit" },
+    { text: "صيفٌ كامل من التشغيل", say: "صيفٌ كامل من التشغيل المتواصل، ليلاً ونهاراً.", icon: "thermo", key: "صيفٌ", label: "المشكلة", broll: "hot summer city sun" },
+    { text: "الغبار يخنق الفلتر", say: "والغبار المتراكم في الفلتر يخنق التبريد ويُتعب الجهاز.", icon: "fan", key: "الغبار", label: "السبب", broll: "dusty air filter" },
+    { text: "غسلة واحدة تعيد برودته", say: "غسلةٌ واحدة على يد فنّي متخصص تعيد إليه برودته.", icon: "check", key: "برودته", label: "الحل", broll: "technician cleaning air conditioner" },
+    { text: "اطلب فنّيك مجاناً من المنجز", say: "اطلب فنّي التكييف الآن مجاناً من المنجز. الرابط في البايو.", icon: "phone", key: "مجاناً" }
   ],
-  snap: ["مكيفك يبرّد ونص؟", "الفلتر مليان غبار بعد الصيف", "اطلب فني تكييف مجاناً"],
-  poll: "آخر غسيل لمكيفك؟ ◀ هذا العام / ما أذكر",
-  facebook: "مكيفك يبرّد ونص؟\nبعد صيف المدينة الطويل، الفلتر غالباً مليان غبار.\nالفلتر المسدود يضعف التبريد ويتعب المكيف.\nغسلة وحدة ترجّع الكفاءة.\nمتى آخر مرة غسلت مكيفك؟",
-  first_comment: "كم مكيف عندكم في البيت؟ 👇",
-  tiktok_slides: ["مكيفك يبرّد ونص؟", "السبب غالباً الفلتر", "غسيل بعد الصيف يرجّع كفاءته", "اطلب فني تكييف من المنجز"],
-  tiktok_caption: "غسيل المكيف بعد الصيف مو رفاهية ❄️\nمتى آخر غسلة لمكيفك؟",
-  whatsapp: "❄️ المكيف ضعف بعد الصيف؟\nغسيل وصيانة من فنيي المنجز\nاطلب الحين 👇",
+  snap: ["مكيّفك لم يعد يبرّد؟", "الغبار يخنق الفلتر بعد الصيف", "اطلب فنّي تكييف مجاناً"],
+  poll: "متى غسلت مكيّفك آخر مرة؟ ◀ هذا العام / لا أذكر",
+  facebook: "مكيّفك لم يعد يبرّد كما كان؟\nبعد صيف المدينة الطويل، يمتلئ الفلتر غالباً بالغبار.\nالفلتر المسدود يُضعف التبريد ويُتعب الجهاز.\nغسلة واحدة تعيد إليه كفاءته.\nمتى غسلت مكيّفك آخر مرة؟",
+  first_comment: "كم مكيّفاً في بيتكم؟ 👇",
+  tiktok_slides: ["مكيّفك لم يعد يبرّد؟", "السبب غالباً الفلتر", "غسلة بعد الصيف تعيد كفاءته", "اطلب فنّي تكييف من المنجز"],
+  tiktok_caption: "غسيل المكيّف بعد الصيف ليس رفاهية ❄️\nمتى غسلت مكيّفك آخر مرة؟",
+  whatsapp: "❄️ هل ضعف تبريد مكيّفك بعد الصيف؟\nغسيل وصيانة على يد فنّيي المنجز\nاطلب الآن 👇",
   haraj_title: "غسيل وصيانة مكيفات المدينة المنورة | المنجز",
   hashtags: ["#المدينة_المنورة", "#المنجز", "#تكييف", "#صيانة_مكيفات", "#صيانة_منزلية"]
 };
 
 function fix(o) {
   if (o && (!Array.isArray(o.reel) || o.reel.length < 3) && Array.isArray(o.tiktok_slides)) o.reel = o.tiktok_slides.map(t => ({ text: t, say: t }));
-  if (o && Array.isArray(o.reel)) o.reel = o.reel.filter(s => s && s.text).map(s => ({ text: String(s.text), say: String(s.say || s.text), icon: String(s.icon || ""), key: String(s.key || "") }));
+  if (o && Array.isArray(o.reel)) o.reel = o.reel.filter(s => s && s.text).map(s => ({ text: String(s.text), say: String(s.say || s.text), icon: String(s.icon || ""), key: String(s.key || ""), label: String(s.label || ""), broll: String(s.broll || "") }));
   return o;
 }
 
@@ -243,7 +266,7 @@ function valid(o) {
 
 async function ask(prompt) {
   if (!KEY) { log("لا يوجد مفتاح Gemini"); return null; }
-  for (const m of MODELS) {
+  for (const m of await pickModels()) {
     log("تجربة النموذج: " + m);
     const out = await callModel(m, prompt);
     if (out) { log("نجح: " + m); return out; }
@@ -258,9 +281,30 @@ async function generate(ctx) {
   log("المسودة جاهزة — مراجعة المدير الإبداعي");
   await sleep(4000);
   const final = await ask(reviewPrompt(draft));
-  if (valid(final)) { log("التقييم: " + final.score_before + " ← " + final.score); return final; }
+  if (valid(final)) { log("التقييم: " + final.score_before + " ← " + final.score); return await polish(final); }
   log("المراجعة فشلت — نعتمد المسودة");
-  return draft;
+  return await polish(draft);
+}
+
+function proofPrompt(c) {
+  return `أنت مدقق لغوي عربي محترف ومحرر إعلانات. راجع النصوص العربية في هذا JSON لمحتوى "المنجز" وصحّح كل خطأ نحوي أو إملائي أو صرفي أو أسلوبي:
+- التذكير والتأنيث والمطابقة (مثال خطأ: «غسيلة بسيط» ← «غسلة بسيطة»).
+- الهمزات، والتاء المربوطة والهاء، والألف المقصورة والياء، والتنوين.
+- حوّل أي كلمة عامية مكتوبة إلى فصحى معاصرة سهلة، وأزل الركاكة والتكرار.
+- اجعل نص say متماسكاً كقصة واحدة تُقرأ بصوت معلّق محترف، بجمل قصيرة وعلامات ترقيم صحيحة، وأضف التشكيل فقط على الكلمات التي قد يخطئ القارئ الآلي في نطقها.
+- يجب أن تبقى key كلمة منسوخة حرفياً من text بعد التصحيح.
+- لا تغيّر المعنى ولا الموضوع ولا الحقول ولا القيم الإنجليزية (icon, broll)، ولا الأرقام score.
+أعد JSON نفسه كاملاً مصححاً فقط، مضافاً إليه "fixes": عدد التصحيحات.
+
+${JSON.stringify(c)}`;
+}
+
+async function polish(c) {
+  await sleep(3000);
+  const p = await ask(proofPrompt(c));
+  if (valid(p)) { log("التدقيق اللغوي: " + (p.fixes || 0) + " تصحيح"); ["score", "score_before", "notes"].forEach(k => { if (p[k] == null) p[k] = c[k]; }); return p; }
+  log("التدقيق فشل — نعتمد النص كما هو");
+  return c;
 }
 
 const esc = s => String(s || "").replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;");
@@ -328,7 +372,7 @@ ${score}
 <div class="card"><div class="vid">
 <video src="${REEL_URL}?d=${esc(ctx.iso)}" controls playsinline preload="metadata"></video>
 <a class="dl" href="${REEL_URL}">⬇️ تحميل الفيديو</a>
-</div><div class="note">جاهز للنشر في تيك توك وسناب (سبوتلايت) وريلز إنستغرام وفيسبوك. لو لم يظهر، انتظر دقائق بعد التشغيل الصباحي ثم حدّث الصفحة.</div></div>
+</div><div class="note">جاهز للنشر في تيك توك وسناب (سبوتلايت) وريلز إنستغرام وفيسبوك. لو لم يظهر، انتظر دقائق بعد التشغيل الصباحي ثم حدّث الصفحة. اللقطات المصوّرة من Pexels وPixabay (مجانية للاستخدام التجاري).</div></div>
 
 <h2>⏰ خطة نشر اليوم</h2>
 <div class="card"><div class="plan">
