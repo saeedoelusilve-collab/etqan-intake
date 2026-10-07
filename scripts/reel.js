@@ -275,29 +275,44 @@ async function main() {
   const pw = loadPW();
   const exe = findChrome();
   const browser = await pw.chromium.launch(exe ? { executablePath: exe, args: ["--allow-file-access-from-files", "--no-sandbox"] } : { channel: "chrome" });
-  const pg = await browser.newPage({ viewport: { width: 1080, height: 1920 }, deviceScaleFactor: 1 });
-  await pg.goto("file://" + html, { waitUntil: "load", timeout: 60000 }).catch(() => {});
-  await pg.evaluate(() => Promise.race([document.fonts.ready, new Promise(r => setTimeout(r, 6000))]));
-  await pg.evaluate(() => window.fit());
   const frames = Math.ceil(tl.total * FPS);
-  const silent = path.join(OUT, "video.mp4");
-  const enc = ["-c:v", "libx264", "-preset", "medium", "-crf", "22", "-pix_fmt", "yuv420p", "-r", String(FPS), silent];
-  const args = bg
-    ? ["-y", "-loglevel", "error", "-i", bg, "-f", "image2pipe", "-framerate", String(FPS), "-c:v", "png", "-i", "-",
-       "-filter_complex", "[0:v][1:v]overlay=0:0:format=auto:shortest=1,format=yuv420p", "-frames:v", String(frames)].concat(enc)
-    : ["-y", "-loglevel", "error", "-f", "image2pipe", "-framerate", String(FPS), "-c:v", "mjpeg", "-i", "-"].concat(enc);
-  const ff = spawn("ffmpeg", args, { stdio: ["pipe", "inherit", "inherit"] });
+  const W = Math.max(1, Math.min(+process.env.RENDER_WORKERS || Math.max(1, require("os").cpus().length - 1), 4));
+  const per = Math.ceil(frames / W);
   const t0 = Date.now();
-  for (let f = 0; f < frames; f++) {
-    await pg.evaluate(x => window.render(x), f / FPS);
-    const buf = bg ? await pg.screenshot({ type: "png", omitBackground: true }) : await pg.screenshot({ type: "jpeg", quality: 92 });
-    if (!ff.stdin.write(buf)) await new Promise(r => ff.stdin.once("drain", r));
-    if (f % 150 === 0) log("إطار " + f + "/" + frames);
+  let done = 0;
+  async function chunk(k) {
+    const f0 = k * per, f1 = Math.min(frames, f0 + per);
+    if (f1 <= f0) return null;
+    const pg = await browser.newPage({ viewport: { width: 1080, height: 1920 }, deviceScaleFactor: 1 });
+    await pg.goto("file://" + html, { waitUntil: "load", timeout: 60000 }).catch(() => {});
+    await pg.evaluate(() => Promise.race([document.fonts.ready, new Promise(r => setTimeout(r, 6000))]));
+    await pg.evaluate(() => window.fit());
+    const out = path.join(OUT, "part" + k + ".mp4");
+    const enc = ["-c:v", "libx264", "-preset", "veryfast", "-crf", "21", "-pix_fmt", "yuv420p", "-r", String(FPS), "-frames:v", String(f1 - f0), out];
+    const args = bg
+      ? ["-y", "-loglevel", "error", "-ss", (f0 / FPS).toFixed(4), "-i", bg, "-f", "image2pipe", "-framerate", String(FPS), "-c:v", "png", "-i", "-",
+         "-filter_complex", "[0:v][1:v]overlay=0:0:format=auto,format=yuv420p"].concat(enc)
+      : ["-y", "-loglevel", "error", "-f", "image2pipe", "-framerate", String(FPS), "-c:v", "mjpeg", "-i", "-"].concat(enc);
+    const ff = spawn("ffmpeg", args, { stdio: ["pipe", "inherit", "inherit"] });
+    const closed = new Promise((res, rej) => ff.on("close", c => c === 0 ? res() : rej(new Error("ffmpeg " + c))));
+    for (let f = f0; f < f1; f++) {
+      await pg.evaluate(x => window.render(x), f / FPS);
+      const buf = bg ? await pg.screenshot({ type: "png", omitBackground: true }) : await pg.screenshot({ type: "jpeg", quality: 92 });
+      if (!ff.stdin.write(buf)) await new Promise(r => ff.stdin.once("drain", r));
+      if (++done % 150 === 0) log("إطار " + done + "/" + frames);
+    }
+    ff.stdin.end();
+    await closed;
+    await pg.close();
+    return out;
   }
-  ff.stdin.end();
-  await new Promise((res, rej) => ff.on("close", c => c === 0 ? res() : rej(new Error("ffmpeg " + c))));
+  const parts = (await Promise.all(Array.from({ length: W }, (_, k) => chunk(k)))).filter(Boolean);
   await browser.close();
-  log("الرسم استغرق " + Math.round((Date.now() - t0) / 1000) + " ث");
+  log("الرسم استغرق " + Math.round((Date.now() - t0) / 1000) + " ث (" + W + " مسارات متوازية)");
+  const silent = path.join(OUT, "video.mp4");
+  const lst = path.join(OUT, "parts.txt");
+  fs.writeFileSync(lst, parts.map(p => "file '" + p + "'").join("\n") + "\n");
+  await run(["-f", "concat", "-safe", "0", "-i", lst, "-c", "copy", silent]);
   const mix = path.join(OUT, "mix.wav");
   const final = path.join(OUT, "reel.mp4");
   const margs = ["-i", silent];
