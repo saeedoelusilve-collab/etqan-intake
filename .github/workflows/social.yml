@@ -41,6 +41,7 @@ jobs:
           REEL_OUT: ${{ runner.temp }}/reel
           PEXELS_API_KEY: ${{ secrets.PEXELS_API_KEY }}
           PIXABAY_API_KEY: ${{ secrets.PIXABAY_API_KEY }}
+          GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
         run: node scripts/broll.js
 
       - name: Voice and music
