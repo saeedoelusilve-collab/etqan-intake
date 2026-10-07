@@ -6,7 +6,9 @@ const OUT = process.env.REEL_OUT || path.join(ROOT, "reel_out");
 const PEXELS = process.env.PEXELS_API_KEY || "";
 const PIXABAY = process.env.PIXABAY_API_KEY || "";
 const GKEY = process.env.GEMINI_API_KEY || "";
-const VISION = ["gemini-flash-lite-latest", "gemini-2.5-flash", "gemini-flash-latest"];
+let VISION = ["gemini-3.5-flash-lite", "gemini-flash-lite-latest", "gemini-3.1-flash-lite", "gemini-flash-latest"];
+try { const c = JSON.parse(fs.readFileSync(path.join(ROOT, "social", "models.json"), "utf8")); if (c.last_ok) VISION = [c.last_ok].concat(VISION.filter(x => x !== c.last_ok)); } catch (e) {}
+const T0 = Date.now();
 const DEADV = new Set();
 const sleep = ms => new Promise(r => setTimeout(r, ms));
 const USED = path.join(ROOT, "social", "broll_used.json");
@@ -103,22 +105,25 @@ async function judge(scene, trade, cands) {
   imgs.forEach((x, i) => { parts.push({ text: "Image " + i + ":" }); parts.push({ inline_data: { mime_type: x.img.mime, data: x.img.data } }); });
   for (const m of VISION) {
     if (DEADV.has(m)) continue;
-    try {
-      const r = await fetch("https://generativelanguage.googleapis.com/v1beta/models/" + m + ":generateContent?key=" + GKEY, {
-        method: "POST", headers: { "Content-Type": "application/json" }, signal: AbortSignal.timeout(90000),
-        body: JSON.stringify({ contents: [{ parts: parts }], generationConfig: { temperature: 0.1, responseMimeType: "application/json" } })
-      });
-      if (!r.ok) { log("الحَكَم " + m + " ← " + r.status); if (r.status === 429 || r.status === 404) DEADV.add(m); continue; }
-      const j = await r.json();
-      const t = ((j.candidates || [])[0] || {}).content;
-      const txt = ((t && t.parts) || []).filter(x => x.text && !x.thought).map(x => x.text).join("");
-      const o = JSON.parse(txt.slice(txt.indexOf("{"), txt.lastIndexOf("}") + 1));
-      const sc = (o.scores || []).map(Number);
-      let best = -1, bs = -1;
-      sc.forEach((v, i) => { if (v > bs) { bs = v; best = i; } });
-      if (best < 0 || bs < 6) return { pick: null, scores: sc };
-      return { pick: imgs[best].c, score: bs, scores: sc };
-    } catch (e) { log("الحَكَم " + m + ": " + e.message); }
+    for (let attempt = 1; attempt <= 2; attempt++) {
+      try {
+        const r = await fetch("https://generativelanguage.googleapis.com/v1beta/models/" + m + ":generateContent?key=" + GKEY, {
+          method: "POST", headers: { "Content-Type": "application/json" }, signal: AbortSignal.timeout(45000),
+          body: JSON.stringify({ contents: [{ parts: parts }], generationConfig: { temperature: 0.1, responseMimeType: "application/json" } })
+        });
+        if (r.status === 503 && attempt === 1) { await sleep(3000); continue; }
+        if (!r.ok) { log("الحَكَم " + m + " ← " + r.status); if (r.status !== 503) DEADV.add(m); break; }
+        const j = await r.json();
+        const t = ((j.candidates || [])[0] || {}).content;
+        const txt = ((t && t.parts) || []).filter(x => x.text && !x.thought).map(x => x.text).join("");
+        const o = JSON.parse(txt.slice(txt.indexOf("{"), txt.lastIndexOf("}") + 1));
+        const sc = (o.scores || []).map(Number);
+        let best = -1, bs = -1;
+        sc.forEach((v, i) => { if (v > bs) { bs = v; best = i; } });
+        if (best < 0 || bs < 6 || !imgs[best]) return { pick: null, scores: sc };
+        return { pick: imgs[best].c, score: bs, scores: sc };
+      } catch (e) { log("الحَكَم " + m + ": " + e.message); DEADV.add(m); break; }
+    }
   }
   return null;
 }
@@ -137,6 +142,7 @@ async function judge(scene, trade, cands) {
   const cache = {};
   fs.mkdirSync(OUT, { recursive: true });
   for (let i = 0; i < n - 1; i++) {
+    if (Date.now() - T0 > 6 * 60000) { log("تجاوزنا 6 دقائق — بقية المشاهد بخلفية متحركة"); break; }
     const s = reel.scenes[i];
     const own = [].concat(s.broll || []).map(x => String(x).trim().toLowerCase()).filter(Boolean).map(x => x.split(/\s+/).slice(0, 2).join(" "));
     const rot = tr.q.slice((seed + i) % tr.q.length).concat(tr.q.slice(0, (seed + i) % tr.q.length));
@@ -147,7 +153,7 @@ async function judge(scene, trade, cands) {
       for (const q of qs.slice(qi, qi + 2)) {
         if (!cache[q]) cache[q] = await search(q);
         cache[q].filter(v => !taken.has(v.id) && !batch.some(b => b.id === v.id) && relevant(v.tags, keys.concat(q.split(" ").filter(w => w.length > 3)), q))
-          .slice(0, 6).forEach(v => batch.push(Object.assign({ q: q }, v)));
+          .slice(0, 7).forEach(v => batch.push(Object.assign({ q: q }, v)));
       }
       if (!batch.length) { log("مشهد " + (i + 1) + ": «" + qs.slice(qi, qi + 2).join("، ") + "» لا نتائج مطابقة"); continue; }
       batch.sort((a, b) => (usedIds.has(a.id) - usedIds.has(b.id)));
@@ -158,10 +164,13 @@ async function judge(scene, trade, cands) {
         judged = true;
         if (j.pick) { pick = j.pick; log("مشهد " + (i + 1) + ": الحَكَم اختار بدرجة " + j.score + "/10 من " + cands.length); }
         else { log("مشهد " + (i + 1) + ": الحَكَم رفض " + cands.length + " لقطات (" + (j.scores || []).join(",") + ")"); await sleep(1500); continue; }
-      } else if (!judged) {
-        cands.sort((a, b) => ((b.portrait ? 2 : 0) + (b.sharp ? 1 : 0)) - ((a.portrait ? 2 : 0) + (a.sharp ? 1 : 0)));
-        pick = cands[(seed + i) % Math.min(cands.length, 3)];
-      } else continue;
+      } else {
+        const strong = cands.filter(v => tr.k.filter(k => String(v.tags).toLowerCase().includes(k)).length >= 2);
+        if (!strong.length) { log("مشهد " + (i + 1) + ": الحَكَم غير متاح ولا توجد لقطة مؤكدة الصلة — نتجاوز"); continue; }
+        strong.sort((a, b) => ((b.portrait ? 2 : 0) + (b.sharp ? 1 : 0)) - ((a.portrait ? 2 : 0) + (a.sharp ? 1 : 0)));
+        pick = strong[0];
+        log("مشهد " + (i + 1) + ": اختيار بالوسوم المؤكدة (الحَكَم غير متاح)");
+      }
       try {
         await download(pick.url, path.join(OUT, "bg" + i + ".mp4"));
         got = pick;
