@@ -8,20 +8,28 @@ const PIXABAY = process.env.PIXABAY_API_KEY || "";
 const USED = path.join(ROOT, "social", "broll_used.json");
 const log = m => console.log("[اللقطات] " + m);
 
-const TRADE_Q = {
-  "سباكة": ["plumber fixing pipe", "water leak sink", "bathroom faucet"],
-  "كهرباء": ["electrician wiring", "electrical panel", "light switch home"],
-  "تكييف": ["air conditioner repair", "air conditioner indoor unit", "hvac technician"],
-  "أجهزة كهربائية": ["washing machine repair", "home appliance repair", "refrigerator kitchen"],
-  "نجارة": ["carpenter woodwork", "wooden door installation", "kitchen cabinets"],
-  "تبليط": ["tile installation", "ceramic floor tiles", "bathroom tiles"],
-  "دهان": ["painting wall roller", "house painter", "interior wall paint"],
-  "جبس بورد": ["gypsum ceiling installation", "drywall installation", "modern ceiling lights"],
-  "سمنت بورد": ["construction worker building", "cement board wall", "renovation site"],
-  "حدادة": ["welding metal", "metal gate", "steel fabrication"],
-  "بناء ولياسة": ["construction site building", "bricklayer wall", "plastering wall"]
+const TRADE = {
+  "سباكة": { q: ["plumber", "faucet", "plumbing", "water leak", "bathroom sink", "pipe wrench"], k: ["plumb", "faucet", "tap", "pipe", "sink", "bathroom", "leak", "drain", "toilet", "shower", "wrench"] },
+  "كهرباء": { q: ["electrician", "electrical panel", "electric socket", "wiring", "light bulb", "circuit breaker"], k: ["electric", "wire", "wiring", "socket", "outlet", "cable", "switch", "panel", "breaker", "voltage", "bulb", "lamp"] },
+  "تكييف": { q: ["air conditioner", "air conditioning", "hvac", "technician repair", "thermostat", "split air conditioner"], k: ["air condition", "conditioner", "conditioning", "hvac", "ac unit", "cooling", "thermostat", "ventilation", "technician", "split"] },
+  "أجهزة كهربائية": { q: ["washing machine", "refrigerator", "appliance repair", "dishwasher", "kitchen appliance", "oven"], k: ["washing", "washer", "machine", "fridge", "refrigerator", "appliance", "dishwasher", "oven", "microwave", "laundry", "kitchen"] },
+  "نجارة": { q: ["carpenter", "woodworking", "door handle", "wooden door", "kitchen cabinet", "furniture assembly"], k: ["carpent", "wood", "door", "cabinet", "furniture", "drill", "saw", "plank", "hinge", "handle", "wardrobe"] },
+  "تبليط": { q: ["tiles", "tiling", "ceramic tiles", "floor tiles", "bathroom tiles", "tile installation"], k: ["tile", "tiling", "ceramic", "floor", "marble", "grout", "porcelain", "bathroom"] },
+  "دهان": { q: ["painting wall", "paint roller", "house painting", "painter", "wall paint", "interior painting"], k: ["paint", "painter", "roller", "brush", "wall", "color", "colour", "decorat"] },
+  "جبس بورد": { q: ["ceiling", "drywall", "plasterboard", "interior renovation", "ceiling lights", "living room interior"], k: ["ceiling", "drywall", "plaster", "gypsum", "interior", "renovat", "room", "lighting"] },
+  "سمنت بورد": { q: ["construction worker", "renovation", "building construction", "facade", "construction site", "builder"], k: ["construct", "renovat", "build", "worker", "facade", "site", "cement", "concrete"] },
+  "حدادة": { q: ["welding", "welder", "metal work", "steel", "metal gate", "grinder sparks"], k: ["weld", "metal", "steel", "iron", "spark", "grinder", "gate", "fabricat"] },
+  "بناء ولياسة": { q: ["construction site", "bricklayer", "plastering", "cement", "building construction", "construction worker"], k: ["construct", "brick", "plaster", "cement", "concrete", "build", "mason", "worker", "site"] }
 };
-const GENERIC = ["modern home interior", "home renovation", "handyman tools"];
+const GENERIC = { q: ["home repair", "handyman", "house renovation", "repairman", "tools"], k: ["repair", "handyman", "renovat", "tool", "house", "home", "worker", "fix", "maintenance"] };
+const BLOCK = ["sea", "ocean", "beach", "bird", "animal", "sunset", "sunrise", "mountain", "forest", "flower", "landscape", "sky", "cloud", "lake", "river", "nature", "wildlife", "dog", "cat", "fish", "waterfall", "tree", "leaf", "plant", "abstract", "particles", "background", "galaxy", "space", "fantasy", "christmas", "rain", "snow", "fire"];
+
+function relevant(tags, keys, q) {
+  const t = " " + String(tags || "").toLowerCase() + " ";
+  const ql = q.toLowerCase();
+  if (BLOCK.some(b => t.includes(" " + b) && !ql.includes(b))) return false;
+  return keys.some(k => t.includes(k));
+}
 
 function readJSON(p, d) { try { return JSON.parse(fs.readFileSync(p, "utf8")); } catch (e) { return d; } }
 
@@ -34,12 +42,13 @@ async function pexels(q) {
   return (j.videos || []).map(v => {
     const files = (v.video_files || []).filter(f => f.file_type === "video/mp4" && f.height >= f.width && f.height >= 1280)
       .sort((a, b) => Math.abs(a.height - 1920) - Math.abs(b.height - 1920));
-    return files.length && v.duration >= 3 ? { id: "px" + v.id, url: files[0].link, credit: (v.user && v.user.name) || "Pexels", src: "Pexels" } : null;
+    const tags = String(v.url || "").split("/").filter(Boolean).pop() || "";
+    return files.length && v.duration >= 3 ? { id: "px" + v.id, url: files[0].link, credit: (v.user && v.user.name) || "Pexels", src: "Pexels", tags: tags.replace(/-/g, " "), portrait: true } : null;
   }).filter(Boolean);
 }
 
 async function pixabay(q) {
-  const url = "https://pixabay.com/api/videos/?per_page=30&safesearch=true&key=" + PIXABAY + "&q=" + encodeURIComponent(q);
+  const url = "https://pixabay.com/api/videos/?per_page=50&safesearch=true&order=popular&key=" + PIXABAY + "&q=" + encodeURIComponent(q);
   const r = await fetch(url);
   if (!r.ok) throw new Error("pixabay " + r.status);
   const j = await r.json();
@@ -47,10 +56,8 @@ async function pixabay(q) {
     const vs = ["large", "medium"].map(k => h.videos && h.videos[k]).filter(v => v && v.url);
     if (!vs.length || h.duration < 3) return null;
     const v = vs[0];
-    const portrait = v.height > v.width;
-    const sharp = portrait ? v.height >= 1280 : v.height >= 2000;
-    return { id: "pb" + h.id, url: v.url, credit: h.user || "Pixabay", src: "Pixabay", rank: (portrait ? 2 : 0) + (sharp ? 1 : 0) };
-  }).filter(Boolean).sort((a, b) => b.rank - a.rank);
+    return { id: "pb" + h.id, url: v.url, credit: h.user || "Pixabay", src: "Pixabay", tags: h.tags || "", portrait: v.height > v.width, sharp: v.height >= 1400 || (v.height > v.width && v.height >= 1280) };
+  }).filter(Boolean);
 }
 
 async function search(q) {
@@ -77,17 +84,24 @@ async function download(url, file) {
   const taken = new Set();
   const credits = [];
   const n = reel.scenes.length;
+  const tr = TRADE[reel.trade] || GENERIC;
+  const keys = tr.k.concat(GENERIC.k);
+  const cache = {};
   fs.mkdirSync(OUT, { recursive: true });
   for (let i = 0; i < n - 1; i++) {
     const s = reel.scenes[i];
-    const qs = [s.broll, ...(TRADE_Q[reel.trade] || []), ...GENERIC].filter(Boolean);
+    const own = [].concat(s.broll || []).map(x => String(x).trim().toLowerCase()).filter(Boolean).map(x => x.split(/\s+/).slice(0, 2).join(" "));
+    const rot = tr.q.slice((seed + i) % tr.q.length).concat(tr.q.slice(0, (seed + i) % tr.q.length));
+    const qs = [...new Set(own.concat(rot, GENERIC.q))];
     let got = null;
     for (const q of qs) {
-      const res = (await search(q)).filter(v => !taken.has(v.id));
-      if (!res.length) continue;
-      const fresh = res.filter(v => !usedIds.has(v.id));
-      const pool = fresh.length ? fresh : res;
-      const pick = pool[(seed + i) % Math.min(pool.length, 6)];
+      if (!cache[q]) cache[q] = await search(q);
+      const ok = cache[q].filter(v => !taken.has(v.id) && relevant(v.tags, keys.concat(q.split(" ").filter(w => w.length > 3)), q));
+      if (!ok.length) { log("«" + q + "»: لا نتائج مطابقة"); continue; }
+      const top = ok.slice(0, 10);
+      top.sort((a, b) => (usedIds.has(a.id) - usedIds.has(b.id)) || ((b.portrait ? 2 : 0) + (b.sharp ? 1 : 0)) - ((a.portrait ? 2 : 0) + (a.sharp ? 1 : 0)));
+      const pool = top.slice(0, 4);
+      const pick = pool[(seed + i) % pool.length];
       try {
         await download(pick.url, path.join(OUT, "bg" + i + ".mp4"));
         got = Object.assign({ q: q }, pick);
@@ -96,9 +110,9 @@ async function download(url, file) {
     }
     if (got) {
       taken.add(got.id);
-      credits.push({ scene: i, id: got.id, q: got.q, credit: got.credit, src: got.src });
-      log("مشهد " + (i + 1) + ": " + got.q + " ← " + got.src + " (" + got.credit + ")");
-    } else log("مشهد " + (i + 1) + ": بدون لقطة");
+      credits.push({ scene: i, id: got.id, q: got.q, credit: got.credit, src: got.src, tags: got.tags });
+      log("مشهد " + (i + 1) + ": «" + got.q + "» ← " + got.src + " [" + String(got.tags).slice(0, 60) + "]");
+    } else log("مشهد " + (i + 1) + ": بدون لقطة مناسبة — خلفية متحركة");
   }
   fs.writeFileSync(path.join(OUT, "broll.json"), JSON.stringify(credits, null, 1));
   const date = new Date().toISOString().slice(0, 10);
