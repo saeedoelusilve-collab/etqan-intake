@@ -11,7 +11,7 @@ permissions:
 jobs:
   social:
     runs-on: ubuntu-latest
-    timeout-minutes: 30
+    timeout-minutes: 45
     steps:
       - uses: actions/checkout@v4
 
@@ -35,11 +35,21 @@ jobs:
           pip install -q edge-tts gTTS
           npm i --no-save --no-package-lock playwright-core@1
 
+      - name: Stock footage
+        continue-on-error: true
+        env:
+          REEL_OUT: ${{ runner.temp }}/reel
+          PEXELS_API_KEY: ${{ secrets.PEXELS_API_KEY }}
+          PIXABAY_API_KEY: ${{ secrets.PIXABAY_API_KEY }}
+        run: node scripts/broll.js
+
       - name: Voice and music
         id: voice
         continue-on-error: true
         env:
           REEL_OUT: ${{ runner.temp }}/reel
+          GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
+          TTS_VOICE: Puck
         run: python scripts/voice.py
 
       - name: Render motion video
