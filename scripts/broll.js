@@ -39,14 +39,18 @@ async function pexels(q) {
 }
 
 async function pixabay(q) {
-  const url = "https://pixabay.com/api/videos/?per_page=20&safesearch=true&key=" + PIXABAY + "&q=" + encodeURIComponent(q);
+  const url = "https://pixabay.com/api/videos/?per_page=30&safesearch=true&key=" + PIXABAY + "&q=" + encodeURIComponent(q);
   const r = await fetch(url);
   if (!r.ok) throw new Error("pixabay " + r.status);
   const j = await r.json();
   return (j.hits || []).map(h => {
-    const v = (h.videos && (h.videos.large && h.videos.large.url ? h.videos.large : h.videos.medium)) || null;
-    return v && v.url && h.duration >= 3 ? { id: "pb" + h.id, url: v.url, credit: h.user || "Pixabay", src: "Pixabay" } : null;
-  }).filter(Boolean);
+    const vs = ["large", "medium"].map(k => h.videos && h.videos[k]).filter(v => v && v.url);
+    if (!vs.length || h.duration < 3) return null;
+    const v = vs[0];
+    const portrait = v.height > v.width;
+    const sharp = portrait ? v.height >= 1280 : v.height >= 2000;
+    return { id: "pb" + h.id, url: v.url, credit: h.user || "Pixabay", src: "Pixabay", rank: (portrait ? 2 : 0) + (sharp ? 1 : 0) };
+  }).filter(Boolean).sort((a, b) => b.rank - a.rank);
 }
 
 async function search(q) {
