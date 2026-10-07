@@ -11,7 +11,7 @@ permissions:
 jobs:
   social:
     runs-on: ubuntu-latest
-    timeout-minutes: 45
+    timeout-minutes: 60
     steps:
       - uses: actions/checkout@v4
 
@@ -30,8 +30,16 @@ jobs:
 
       - name: Install video tools
         run: |
-          sudo apt-get update -q
-          sudo apt-get install -y -q ffmpeg fonts-noto-core
+          sudo rm -f /var/lib/man-db/auto-update
+          if ! command -v ffmpeg >/dev/null; then
+            mkdir -p "$RUNNER_TEMP/ff"
+            if curl -fsSL --retry 3 https://github.com/BtbN/FFmpeg-Builds/releases/download/latest/ffmpeg-master-latest-linux64-gpl.tar.xz | tar xJ -C "$RUNNER_TEMP/ff" --strip-components=1; then
+              echo "$RUNNER_TEMP/ff/bin" >> "$GITHUB_PATH"
+            else
+              sudo apt-get update -q && sudo apt-get install -y -q --no-install-recommends ffmpeg
+            fi
+          fi
+          sudo apt-get install -y -q --no-install-recommends fonts-noto-core || true
           pip install -q edge-tts gTTS
           npm i --no-save --no-package-lock playwright-core@1
 
@@ -59,6 +67,7 @@ jobs:
         continue-on-error: true
         env:
           REEL_OUT: ${{ runner.temp }}/reel
+          RENDER_WORKERS: "3"
         run: node scripts/reel.js
 
       - name: Publish reel
