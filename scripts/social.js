@@ -43,7 +43,7 @@ const TYPES = {
   2: { name: "موقف طارئ", audience: "أصحاب البيوت", brief: "سيناريو طارئ واقعي (منتصف الليل، ضيوف في البيت، حرّ شديد) وما تفعله في أول دقائق قبل وصول الفني" },
   3: { name: "خرافة تكلّفك", audience: "أصحاب البيوت", brief: "اعتقاد شائع يبدو صحيحاً لكنه يكلّف صاحبه مالاً أو يعرّضه للخطر، ثم الحقيقة المفاجئة" },
   4: { name: "المقاولون والمشاريع", audience: "المقاولون وأصحاب مشاريع التشطيب", brief: "تأخير يوم واحد أو إعادة عمل تكلّف المشروع كثيراً؛ عمالة تشطيب متخصصة جاهزة وترتيب المراحل الصحيح" },
-  5: { name: "تحدٍّ للمشاهد", audience: "الجميع", brief: "سؤال أو اختبار سريع يثير الفضول ويدفع للتعليق (هل تعرف..؟ ماذا تختار..؟)، بلا بيع مباشر" }
+  5: { name: "إعلان المنجز", audience: "كل أصحاب البيوت في المدينة", brief: "إعلان علامة عاطفي: ثلاثة مواقف سريعة من ثلاثة تخصصات مختلفة (مثل تسريب ماء ليلاً، انقطاع كهرباء والضيوف قادمون، مكيف يتوقف في عز الصيف)، كل موقف في مشهد، والحل واحد دائماً: طلب واحد من المنجز يوصلك بالفني المناسب", multi: true }
 };
 
 const FACTS = {
@@ -87,6 +87,16 @@ const ANGLES = [
   "عناء البحث: الاتصال بعشرة فنيين وانتظار من لا يأتي، والحل بطلب واحد"
 ];
 
+
+const SERVICE_LIST = ["سباكة", "كهرباء", "تكييف", "أجهزة", "نجارة", "تبليط", "دهان", "جبس بورد", "سمنت بورد", "حدادة", "بناء"];
+
+function servicesScene(ctx, doy) {
+  const lead = ctx.type.multi ? "ومهما كانت المشكلة" : "وليس " + ctx.trade + " فقط";
+  const titles = ["كل ما يحتاجه بيتك", "فنيّ لكل شيء في بيتك", "بيتك كله في طلب واحد"];
+  const list = SERVICE_LIST.slice(0, -1).join("، ") + "، وبناء";
+  return { kind: "services", text: titles[doy % titles.length], key: "", label: "", icon: "", broll: "", visual: "",
+    say: lead + ": " + list + ". كلها بطلب واحد من المنجز." };
+}
 
 function riyadhParts(d) {
   const f = new Intl.DateTimeFormat("en-GB", { timeZone: "Asia/Riyadh", year: "numeric", month: "2-digit", day: "2-digit", weekday: "short" });
@@ -242,7 +252,7 @@ ${recent || "- لا يوجد"}
 5) اكتب للجوال: أسطر قصيرة، كلمات بسيطة، إيموجي قليل.
 6) الأسئلة ترفع التعليقات: اختم المنشور والتعليق الأول بسؤال سهل.
 7) الفيديو: بنية مشكلة ← سبب ← حل ← دعوة، ومشهد جديد كل 2 إلى 4 ثوانٍ.
-10) الموضوع كله عن «تخصص اليوم» فقط، لا تنتقل لتخصص آخر.
+10) ${ctx.type.multi ? "اليوم إعلان علامة: المشاهد 1 و2 و3 ثلاثة مواقف من ثلاثة تخصصات مختلفة، والمشهد 4 الدعوة." : "الموضوع كله عن «تخصص اليوم» فقط، لا تنتقل لتخصص آخر."}
 11) text في كل مشهد 6 كلمات كحد أقصى (المشهد الأول 5 كلمات)، و say 14 كلمة كحد أقصى. هذا شرط إلزامي.
 12) label للمشاهد 2 و3 و4: كلمة أو كلمتان تصف دور المشهد حسب نوع المحتوى (مثل: الخرافة، الحقيقة، العلامة، الخطوة 1، النصيحة).
 9) لكل مشهد اختر icon واحداً فقط من هذه القائمة: ac, drop, bolt, wrench, paint, tile, hammer, clock, alert, check, home, phone, plug, flame, thermo, fan, building, door, calendar, star. و key كلمة واحدة منسوخة حرفياً من text.
@@ -250,7 +260,10 @@ ${recent || "- لا يوجد"}
 13) say نص مكتوب ليُقرأ بصوت معلّق إعلانات محترف: جمل قصيرة متصلة المعنى، تنتهي بنقطة أو علامة استفهام، وكل مشهد يكمل ما قبله كقصة واحدة متماسكة.
 16) visual لكل مشهد عدا الأخير: جملة إنجليزية قصيرة تصف اللقطة المثالية بدقة (مثل: close-up of hands fixing a dripping faucet). يُفضّل لقطات الأيدي والأدوات والأشياء، لا وجوه الأشخاص.
 14) broll لكل مشهد عدا الأخير: كلمة أو كلمتان إنجليزيتان فقط، اسم شيء ملموس يظهر في لقطة فيديو مخزون (مثل: plumber, faucet, electrical panel, air conditioner, paint roller, carpenter)، بلا أفعال ولا أوصاف.
-15) الإيقاع: المشهد الأول صدمة أو سؤال، والثاني يعمّق الألم أو الخطر، والثالث يكشف السبب أو السر، والرابع الحل، والخامس الدعوة.
+15) الإيقاع (4 مشاهد): الأول صدمة أو سؤال، والثاني يعمّق العاقبة أو يكشف السر، والثالث الحل العملي، والرابع الدعوة.
+17) سيُضاف تلقائياً قبل مشهد الدعوة مشهد يعرض كل خدمات المنجز (سباكة، كهرباء، تكييف، أجهزة، نجارة، تبليط، دهان، جبس بورد، سمنت بورد، حدادة، بناء)، فلا تعدّد الخدمات بنفسك، واجعل الدعوة تكمله طبيعياً (مثل: «أياً كان ما يحتاجه بيتك، اطلب فنيّك مجاناً من المنجز. الرابط في البايو.»).
+18) اذكر اسم «المنجز» بالصوت مرة واحدة بشكل طبيعي في المشهد الثاني أو الثالث (ظهور العلامة مبكراً يرفع تذكّرها)، إضافة إلى مشهد الدعوة.
+19) في facebook وwhatsapp أضف سطراً قصيراً يذكر أن المنجز يغطي كل خدمات البيت، لا تخصص اليوم فقط.
 
 حقائق موثقة يمكنك استخدامها (انقل الرقم كما هو واذكر الجهة باختصار إن استخدمته، ولا تستخدم أي رقم غيرها):
 ${factsFor(ctx).map(f => "- " + f).join("\n") || "- لا توجد أرقام موثقة لهذا التخصص؛ لا تستخدم أي أرقام."}
@@ -260,6 +273,7 @@ ${factsFor(ctx).map(f => "- " + f).join("\n") || "- لا توجد أرقام م�
 - لا أسعار بالريال، ولا مدة وصول محددة، ولا أي رقم أو إحصائية خارج الحقائق الموثقة أعلاه.
 - كن محدداً وملموساً: اذكر الشيء بعينه (المقبس، الخلاط، فلتر المكيف، مفصلة الباب)، والنتيجة بعينها، والفعل بعينه. ممنوع العبارات العامة المبهمة مثل «تقلبات الجو تضعف الجدران».
 - ممنوع اختلاق تقييمات أو شهادات عملاء أو قصص على أنها حقيقية.
+- المنجز ليس له تطبيق جوال: الطلب يتم عبر الرابط في البايو فقط. لا تذكر «تطبيق» ولا «رسوم» ولا «زيارة مجانية» ولا أي وعد لم يُذكر هنا.
 - لا روابط. لا تقلّد إعلاناً أو شعاراً أو شخصية مشهورة.
 
 أعد JSON فقط بلا أي نص آخر وبلا علامات كود:
@@ -270,7 +284,6 @@ ${factsFor(ctx).map(f => "- " + f).join("\n") || "- لا توجد أرقام م�
   {"text": "نص الشاشة للمشهد 1 = الخطاف (6 كلمات أو أقل)", "say": "ما يُقال بالصوت (12 كلمة أو أقل)", "icon": "رمز من القائمة", "key": "كلمة واحدة من text تُبرز بالذهبي", "broll": "english stock video query", "visual": "english shot description"},
   {"text": "مشهد 2", "say": "...", "icon": "...", "key": "...", "label": "...", "broll": "...", "visual": "..."},
   {"text": "مشهد 3", "say": "...", "icon": "...", "key": "...", "label": "...", "broll": "...", "visual": "..."},
-  {"text": "مشهد 4", "say": "...", "icon": "...", "key": "...", "label": "...", "broll": "...", "visual": "..."},
   {"text": "اطلب فنيّك مجاناً من المنجز", "say": "دعوة صوتية واضحة تنتهي بعبارة: الرابط في البايو.", "icon": "phone", "key": "مجاناً"}
  ],
  "snap": ["إطار 1 هو الخطاف", "إطار 2", "إطار 3 دعوة للطلب"],
@@ -445,6 +458,7 @@ function proofPrompt(c) {
 - اجعل نص say متماسكاً كقصة واحدة تُقرأ بصوت معلّق محترف، بجمل قصيرة وعلامات ترقيم صحيحة، وأضف التشكيل فقط على الكلمات التي قد يخطئ القارئ الآلي في نطقها.
 - text في مشاهد reel لا يتجاوز 6 كلمات أبداً (اختصره دون أن يفقد معناه)، و say لا يتجاوز 18 كلمة.
 - يجب أن تبقى key كلمة منسوخة حرفياً من text بعد التصحيح.
+- احذف أي ذكر لـ«تطبيق المنجز» أو «رسوم» واستبدله بـ«الرابط في البايو».
 - لا تغيّر المعنى ولا الموضوع ولا الحقول ولا القيم الإنجليزية (icon, broll, visual)، ولا الأرقام score.
 أعد JSON نفسه كاملاً مصححاً فقط، مضافاً إليه "fixes": عدد التصحيحات.
 
@@ -473,10 +487,11 @@ function render(c, ctx) {
   const hooks = (c.hooks && c.hooks.length ? c.hooks : [c.topic]).map((h, i) => (i === 0 ? "⭐ " : (i + 1) + ". ") + h).join("\n");
   const reelScript = (c.reel || []).map((s, i) => "مشهد " + (i + 1) + "\n🖼️ " + s.text + "\n🎙️ " + s.say).join("\n\n");
   const snap = (c.snap || []).map((s, i) => "إطار " + (i + 1) + ": " + s).join("\n\n") + (c.poll ? "\n\n📊 تصويت: " + c.poll : "") + "\n\n🔗 " + SITE;
-  const fb = nl(c.facebook) + "\n\n👇 اطلب فنيّك مجاناً:\n" + SITE + "\n\n" + tags;
+  const svc = "🛠️ المنجز لكل بيتك: " + SERVICE_LIST.join(" • ");
+  const fb = nl(c.facebook) + "\n\n" + svc + "\n\n👇 اطلب فنيّك مجاناً:\n" + SITE + "\n\n" + tags;
   const tt = (c.tiktok_slides || []).map((s, i) => "شريحة " + (i + 1) + ": " + s).join("\n");
   const ttCap = nl(c.tiktok_caption) + "\nالرابط في البايو 🔗\n" + tags;
-  const wa = nl(c.whatsapp) + "\n" + SITE;
+  const wa = nl(c.whatsapp) + "\n" + svc + "\n" + SITE;
   const slides = JSON.stringify((c.tiktok_slides || []).slice(0, 4)).replace(/</g, "\\u003c");
   const score = c.score ? `<div class="score">🎬 تقييم المدير الإبداعي: <b>${esc(c.score)}/10</b>${c.score_before ? " (المسودة " + esc(c.score_before) + ")" : ""}${c.notes ? "<br><small>" + esc(c.notes) + "</small>" : ""}</div>` : "";
 
@@ -595,7 +610,7 @@ function fb(t){var a=document.createElement("textarea");a.value=t;document.body.
     iso: p.iso,
     hijriText: h.text,
     type: TYPES[p.wd],
-    trade: TRADES[doy % TRADES.length],
+    trade: TYPES[p.wd].multi ? "كل الخدمات" : TRADES[doy % TRADES.length],
     season: seasonByMonth(p.m),
     hijriSeason: seasonByHijri(h.month),
     occ: occasion(p),
@@ -613,7 +628,10 @@ function fb(t){var a=document.createElement("textarea");a.value=t;document.body.
   const html = render(c, ctx);
   fs.writeFileSync(path.join(OUT, "today.html"), html, "utf8");
   fs.writeFileSync(path.join(ARCHIVE, ctx.iso + ".html"), html.replace(/\.\.\/logo\.png/g, "../../logo.png"), "utf8");
-  fs.writeFileSync(path.join(OUT, "reel.json"), JSON.stringify({ date: ctx.iso, trade: ctx.trade, scenes: c.reel.slice(0, 6) }, null, 1), "utf8");
+  const story = c.reel.slice(0, 5);
+  const cta = story.length > 3 ? story.pop() : { text: "اطلب فنيّك مجاناً من المنجز", say: "أياً كان ما يحتاجه بيتك، اطلب فنيّك مجاناً من المنجز. الرابط في البايو.", icon: "phone", key: "مجاناً" };
+  const scenes = story.slice(0, 4).concat([servicesScene(ctx, doy)], [cta]);
+  fs.writeFileSync(path.join(OUT, "reel.json"), JSON.stringify({ date: ctx.iso, trade: ctx.trade, scenes: scenes }, null, 1), "utf8");
   const hist = history.filter(x => x.date !== ctx.iso);
   hist.push({ date: ctx.iso, topic: c.topic, hook: (c.hooks || [])[0] || "", trade: ctx.trade, type: ctx.type.name, angle: (ctx.idea && ctx.idea.angle) || "", score: c.score || null });
   fs.writeFileSync(HISTORY, JSON.stringify(hist.slice(-60), null, 1), "utf8");
