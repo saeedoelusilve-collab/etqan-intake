@@ -120,24 +120,34 @@ function dayOfYear(p) {
   return Math.floor((now - start) / 86400000);
 }
 
+const DEAD = new Set();
+
 async function callModel(model, prompt) {
+  if (DEAD.has(model)) return null;
   for (const ver of VERSIONS) {
     const url = "https://generativelanguage.googleapis.com/" + ver + "/models/" + model + ":generateContent?key=" + KEY;
     let gc = { temperature: 0.8, maxOutputTokens: 8192, responseMimeType: "application/json" };
-    for (let attempt = 1; attempt <= 3; attempt++) {
+    for (let attempt = 1; attempt <= 2; attempt++) {
       let res;
       try {
-        res = await fetch(url, { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify({ contents: [{ parts: [{ text: prompt }] }], generationConfig: gc }) });
-      } catch (e) { log(model + " شبكة: " + e.message); break; }
-      if (res.status === 503 || res.status === 429) { log(model + " مشغول، محاولة " + attempt); await sleep(6000 * attempt); continue; }
+        res = await fetch(url, { method: "POST", headers: { "Content-Type": "application/json" }, signal: AbortSignal.timeout(120000),
+          body: JSON.stringify({ contents: [{ parts: [{ text: prompt }] }], generationConfig: gc }) });
+      } catch (e) { log(model + " شبكة/مهلة: " + e.message); DEAD.add(model); return null; }
+      if (res.status === 429) {
+        const msg = (await res.text()).replace(/\s+/g, " ").slice(0, 160);
+        log(model + " ← 429 (الحصة المجانية غير متاحة أو انتهت) — ننتقل للنموذج التالي. " + msg);
+        DEAD.add(model); return null;
+      }
+      if (res.status === 503 && attempt === 1) { log(model + " مشغول — محاولة أخيرة بعد 8 ث"); await sleep(8000); continue; }
       if (res.status === 400 && gc.responseMimeType) { gc = { temperature: 0.8, maxOutputTokens: 8192 }; continue; }
-      if (!res.ok) { log(model + " " + ver + " ← " + res.status); break; }
+      if (res.status === 404) break;
+      if (!res.ok) { log(model + " " + ver + " ← " + res.status); DEAD.add(model); return null; }
       const j = await res.json();
       const parts = (j.candidates && j.candidates[0] && j.candidates[0].content && j.candidates[0].content.parts) || [];
       let t = parts.filter(x => x.text && !x.thought).map(x => x.text).join("");
       t = t.replace(/```json/g, "").replace(/```/g, "").trim();
       const i1 = t.indexOf("{"), i2 = t.lastIndexOf("}");
-      try { return JSON.parse(i1 >= 0 ? t.slice(i1, i2 + 1) : t); } catch (e) { log(model + " رد غير صالح"); break; }
+      try { return JSON.parse(i1 >= 0 ? t.slice(i1, i2 + 1) : t); } catch (e) { log(model + " رد غير صالح"); return null; }
     }
   }
   return null;
@@ -267,7 +277,7 @@ function valid(o) {
 async function ask(prompt) {
   if (!KEY) { log("لا يوجد مفتاح Gemini"); return null; }
   for (const m of await pickModels()) {
-    log("تجربة النموذج: " + m);
+    if (!DEAD.has(m)) log("تجربة النموذج: " + m);
     const out = await callModel(m, prompt);
     if (out) { log("نجح: " + m); return out; }
   }
