@@ -63,7 +63,8 @@ function page(tl) {
     let keyIdx = words.findIndex(w => key && (w === key || w.replace(/[؟?!.،]/g, "") === key));
     if (keyIdx < 0) keyIdx = i === 0 ? -1 : words.length - 1;
     const head = words.map((w, k) => k === keyIdx ? `<span class="w key"><i class="hl"></i><em>${esc(w)}</em></span>` : `<span class="w"><em>${esc(w)}</em></span>`).join(" ");
-    const chip = i === 0 || last ? "" : `<div class="chip">${["المشكلة", "السبب", "الحل", "النتيجة"][Math.min(i - 1, 3)]}</div>`;
+    const lab = String(s.label || "").trim() || ["المشكلة", "السبب", "الحل", "النتيجة"][Math.min(i - 1, 3)];
+    const chip = i === 0 || last ? "" : `<div class="chip">${esc(lab.split(/\s+/).slice(0, 2).join(" "))}</div>`;
     const cap = (s.words || []).map(w => `<span class="cw">${esc(w.w)}</span>`).join(" ");
     const visual = last
       ? `<div class="card"><div class="ct"><span class="dot"></span>طلب فنّي جديد</div>
@@ -73,19 +74,26 @@ function page(tl) {
          <div class="btn"><span class="b1">أرسل الطلب</span><span class="b2">تم استلام طلبك ✓</span></div>
          <div class="ptr"></div><div class="rip"></div></div>`
       : `<div class="ico"><div class="ring"></div><div class="ring r2"></div><div class="disc"><svg viewBox="0 0 24 24">${ICONS[icon]}</svg></div></div>`;
-    return `<section class="sc${i === 0 ? " hook" : ""}${last ? " cta" : ""}" id="s${i}">
+    const fx = tl.fx && tl.fx[i];
+    return `<section class="sc${i === 0 ? " hook" : ""}${last ? " cta" : ""}${fx ? " fx" : ""}" id="s${i}">${fx ? '<div class="scrim"></div>' : ""}
       <div class="cam">${visual}${chip}<h1>${head}</h1></div>
       <div class="cap">${cap}</div></section>`;
   }).join("");
   const bars = tl.scenes.map(() => '<i><b></b></i>').join("");
 
-  return `<!DOCTYPE html><html lang="ar" dir="rtl"><head><meta charset="utf-8">
+  const anyFx = (tl.fx || []).some(Boolean);
+  return `<!DOCTYPE html><html lang="ar" dir="rtl"${anyFx ? ' class="fx"' : ""}><head><meta charset="utf-8">
 <link rel="preconnect" href="https://fonts.gstatic.com">
 <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+Arabic:wght@500;700&display=block" rel="stylesheet">
 <style>
 *{margin:0;padding:0;box-sizing:border-box}
 html,body{width:1080px;height:1920px;overflow:hidden;background:#041f1d}
 body{font-family:"IBM Plex Sans Arabic","Noto Kufi Arabic","Noto Sans Arabic",sans-serif;color:#fff;position:relative}
+html.fx,html.fx body{background:transparent}
+.scrim{position:absolute;inset:0;background:linear-gradient(180deg,rgba(3,24,23,.78) 0%,rgba(3,24,23,.2) 20%,rgba(3,24,23,.38) 40%,rgba(3,24,23,.62) 58%,rgba(3,24,23,.9) 100%)}
+.sc.fx .ico{display:none}
+.sc.fx h1{text-shadow:0 6px 30px rgba(0,0,0,.6)}
+.sc.fx .cap{background:rgba(0,0,0,.5)}
 #bg{position:absolute;inset:0;background:linear-gradient(170deg,#0b4744 0%,#062e2c 45%,#031716 100%)}
 .blob{position:absolute;border-radius:50%}
 #b1{width:1300px;height:1300px;background:radial-gradient(circle,rgba(38,171,160,.55),rgba(38,171,160,0) 65%)}
@@ -178,6 +186,7 @@ function render(t){
   var outro=t>=TL.outro;
   S.forEach(function(o,i){o.el.style.display=(!outro&&i===cur)?"block":"none"});
   $("#out").style.display=outro?"block":"none";
+  $("#bg").style.opacity=(!outro&&TL.fx&&TL.fx[cur])?0:1;
   $("#brand").style.opacity=outro?0:cl(t/.4);
   var wx=200;bounds.forEach(function(b){var p=(t-(b-.34))/.68;if(p>=0&&p<=1)wx=200-400*io(p)});
   $("#wipe").style.transform="translateX("+wx+"%) skewX(-14deg)";
@@ -212,12 +221,55 @@ function render(t){
     var done=lt>1.45;o.btn.style.background=done?"linear-gradient(90deg,#1f9d63,#3ee08f)":"";o.b1.style.opacity=done?0:1;o.b2.style.opacity=done?1:0;
     o.btn.style.transform="scale("+(lt>1.32&&lt<1.5?.96:1)+")"}
 }
-window.render=render;
+function fit(){S.forEach(function(o){var h=$("h1",o.el);o.el.style.display="block";
+  var fs=parseFloat(getComputedStyle(h).fontSize),max=o.card?200:340,lim=o.card?1280:1250;
+  while((h.offsetHeight>max||h.offsetTop+h.offsetHeight>lim)&&fs>54){fs-=4;h.style.fontSize=fs+"px"}
+  var top=Math.max(o.card?1330:1290,h.offsetTop+h.offsetHeight+36);o.cap.style.top=top+"px";
+  var cf=parseFloat(getComputedStyle(o.cap).fontSize);while(top+o.cap.offsetHeight>1560&&cf>32){cf-=3;o.cap.style.fontSize=cf+"px"}
+  o.el.style.display="none"})}
+window.render=render;window.fit=fit;
 </script></body></html>`;
+}
+
+function run(args) {
+  return new Promise((res, rej) => spawn("ffmpeg", ["-y", "-loglevel", "error"].concat(args), { stdio: ["ignore", "inherit", "inherit"] })
+    .on("close", c => c === 0 ? res() : rej(new Error("ffmpeg " + c))));
+}
+
+async function buildBackground(tl) {
+  const marks = tl.scenes.map((s, i) => i === 0 ? 0 : s.start).concat([tl.total]);
+  const list = [];
+  for (let i = 0; i < tl.scenes.length; i++) {
+    const a = Math.round(marks[i] * FPS), b = i === tl.scenes.length - 1 ? Math.ceil(tl.total * FPS) : Math.round(marks[i + 1] * FPS);
+    const n = Math.max(b - a, 1), D = (n / FPS).toFixed(2);
+    const seg = path.join(OUT, "seg" + i + ".mp4");
+    const src = path.join(OUT, "bg" + i + ".mp4");
+    const enc = ["-frames:v", String(n), "-an", "-c:v", "libx264", "-preset", "veryfast", "-crf", "18", "-pix_fmt", "yuv420p", seg];
+    if (tl.fx[i]) {
+      await run(["-stream_loop", "-1", "-i", src, "-vf",
+        "scale=1080:1920:force_original_aspect_ratio=increase,crop=1080:1920,fps=" + FPS +
+        ",scale=w='trunc(1080*(1+0.08*t/" + D + ")/2)*2':h=-2:eval=frame,crop=1080:1920,eq=contrast=1.06:saturation=1.1,setsar=1"].concat(enc));
+    } else {
+      await run(["-f", "lavfi", "-i", "color=c=0x041f1d:s=1080x1920:r=" + FPS].concat(enc));
+    }
+    list.push("file '" + seg + "'");
+  }
+  const lst = path.join(OUT, "segs.txt");
+  fs.writeFileSync(lst, list.join("\n") + "\n");
+  const bg = path.join(OUT, "bg.mp4");
+  await run(["-f", "concat", "-safe", "0", "-i", lst, "-c", "copy", bg]);
+  return bg;
 }
 
 async function main() {
   const tl = JSON.parse(fs.readFileSync(path.join(OUT, "timeline.json"), "utf8"));
+  tl.fx = tl.scenes.map((s, i) => i < tl.scenes.length - 1 && fs.existsSync(path.join(OUT, "bg" + i + ".mp4")));
+  const anyFx = tl.fx.some(Boolean);
+  let bg = null;
+  if (anyFx) {
+    try { bg = await buildBackground(tl); log("لقطات حقيقية: " + tl.fx.filter(Boolean).length + " مشاهد"); }
+    catch (e) { log("تعذر تجهيز اللقطات: " + e.message); tl.fx = tl.fx.map(() => false); }
+  }
   const html = path.join(OUT, "reel.html");
   fs.writeFileSync(html, page(tl), "utf8");
   const pw = loadPW();
@@ -226,17 +278,20 @@ async function main() {
   const pg = await browser.newPage({ viewport: { width: 1080, height: 1920 }, deviceScaleFactor: 1 });
   await pg.goto("file://" + html, { waitUntil: "load", timeout: 60000 }).catch(() => {});
   await pg.evaluate(() => Promise.race([document.fonts.ready, new Promise(r => setTimeout(r, 6000))]));
+  await pg.evaluate(() => window.fit());
   const frames = Math.ceil(tl.total * FPS);
   const silent = path.join(OUT, "video.mp4");
-  const ff = spawn("ffmpeg", ["-y", "-loglevel", "error", "-f", "image2pipe", "-framerate", String(FPS), "-c:v", "mjpeg", "-i", "-",
-    "-c:v", "libx264", "-preset", "medium", "-crf", "23", "-pix_fmt", "yuv420p", "-r", String(FPS), silent], { stdio: ["pipe", "inherit", "inherit"] });
+  const enc = ["-c:v", "libx264", "-preset", "medium", "-crf", "22", "-pix_fmt", "yuv420p", "-r", String(FPS), silent];
+  const args = bg
+    ? ["-y", "-loglevel", "error", "-i", bg, "-f", "image2pipe", "-framerate", String(FPS), "-c:v", "png", "-i", "-",
+       "-filter_complex", "[0:v][1:v]overlay=0:0:format=auto:shortest=1,format=yuv420p", "-frames:v", String(frames)].concat(enc)
+    : ["-y", "-loglevel", "error", "-f", "image2pipe", "-framerate", String(FPS), "-c:v", "mjpeg", "-i", "-"].concat(enc);
+  const ff = spawn("ffmpeg", args, { stdio: ["pipe", "inherit", "inherit"] });
   const t0 = Date.now();
   for (let f = 0; f < frames; f++) {
-    const t = f / FPS;
-    await pg.evaluate(x => window.render(x), t);
-    const buf = await pg.screenshot({ type: "jpeg", quality: 92 });
+    await pg.evaluate(x => window.render(x), f / FPS);
+    const buf = bg ? await pg.screenshot({ type: "png", omitBackground: true }) : await pg.screenshot({ type: "jpeg", quality: 92 });
     if (!ff.stdin.write(buf)) await new Promise(r => ff.stdin.once("drain", r));
-    if (Math.abs(t - (tl.scenes[0].start + 0.9)) < 0.5 / FPS) fs.writeFileSync(path.join(OUT, "cover.jpg"), buf);
     if (f % 150 === 0) log("إطار " + f + "/" + frames);
   }
   ff.stdin.end();
@@ -245,11 +300,12 @@ async function main() {
   log("الرسم استغرق " + Math.round((Date.now() - t0) / 1000) + " ث");
   const mix = path.join(OUT, "mix.wav");
   const final = path.join(OUT, "reel.mp4");
-  const args = ["-y", "-loglevel", "error", "-i", silent];
-  if (fs.existsSync(mix)) args.push("-i", mix, "-c:a", "aac", "-b:a", "160k", "-shortest");
-  args.push("-c:v", "copy", "-movflags", "+faststart", final);
-  await new Promise((res, rej) => spawn("ffmpeg", args, { stdio: "inherit" }).on("close", c => c === 0 ? res() : rej(new Error("mux " + c))));
-  log("تم: " + final + " (" + tl.total.toFixed(1) + " ث)");
+  const margs = ["-i", silent];
+  if (fs.existsSync(mix)) margs.push("-i", mix, "-c:a", "aac", "-b:a", "192k", "-shortest");
+  margs.push("-c:v", "copy", "-movflags", "+faststart", final);
+  await run(margs);
+  await run(["-ss", (tl.scenes[0].start + 1.0).toFixed(2), "-i", final, "-frames:v", "1", "-q:v", "3", path.join(OUT, "cover.jpg")]);
+  log("تم: " + final + " (" + tl.total.toFixed(1) + " ث، المحرك الصوتي: " + (tl.engine || "?") + ")");
 }
 
 main().catch(e => { console.error(e); process.exit(1); });
