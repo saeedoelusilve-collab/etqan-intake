@@ -8,6 +8,9 @@ const ARCHIVE = path.join(OUT, "archive");
 const KEY = process.env.GEMINI_API_KEY || "";
 const FALLBACK_MODELS = ["gemini-flash-latest", "gemini-2.5-flash", "gemini-flash-lite-latest"];
 let MODELS = null;
+const MODEL_CACHE = path.join(process.cwd(), "social", "models.json");
+function readModelCache() { try { return JSON.parse(fs.readFileSync(MODEL_CACHE, "utf8")); } catch (e) { return {}; } }
+function writeModelCache(m) { try { const c = readModelCache(); if (c.last_ok !== m) { c.last_ok = m; c.date = new Date().toISOString().slice(0, 10); fs.mkdirSync(path.dirname(MODEL_CACHE), { recursive: true }); fs.writeFileSync(MODEL_CACHE, JSON.stringify(c)); } } catch (e) {} }
 
 async function pickModels() {
   if (MODELS) return MODELS;
@@ -22,6 +25,8 @@ async function pickModels() {
   const score = n => ver(n) * 10 - (n.includes("lite") ? 5 : 0) - (n.includes("preview") ? 1 : 0);
   found.sort((a, b) => score(b) - score(a));
   MODELS = found.slice(0, 6).concat(FALLBACK_MODELS.filter(x => !found.includes(x)));
+  const last = readModelCache().last_ok;
+  if (last) { const rest = MODELS.filter(x => x !== last); MODELS = rest.slice(0, 1).concat([last], rest.slice(1)); }
   log("ترتيب النماذج: " + MODELS.join(" ، "));
   return MODELS;
 }
@@ -172,7 +177,7 @@ async function callModel(model, prompt) {
     for (let attempt = 1; attempt <= 2; attempt++) {
       let res;
       try {
-        res = await fetch(url, { method: "POST", headers: { "Content-Type": "application/json" }, signal: AbortSignal.timeout(180000),
+        res = await fetch(url, { method: "POST", headers: { "Content-Type": "application/json" }, signal: AbortSignal.timeout(90000),
           body: JSON.stringify({ contents: [{ parts: [{ text: prompt }] }], generationConfig: gc }) });
       } catch (e) { log(model + " شبكة/مهلة: " + e.message); DEAD.add(model); return null; }
       if (res.status === 429) {
@@ -180,7 +185,7 @@ async function callModel(model, prompt) {
         log(model + " ← 429 (الحصة المجانية غير متاحة أو انتهت) — ننتقل للنموذج التالي. " + msg);
         DEAD.add(model); return null;
       }
-      if (res.status === 503 && attempt === 1) { log(model + " مشغول — محاولة أخيرة بعد 8 ث"); await sleep(8000); continue; }
+      if (res.status === 503) { log(model + " مشغول الآن (503) — ننتقل للتالي"); return null; }
       if (res.status === 400 && gc.responseMimeType) { gc = { temperature: 0.8, maxOutputTokens: 8192 }; continue; }
       if (res.status === 404) break;
       if (!res.ok) { log(model + " " + ver + " ← " + res.status); DEAD.add(model); return null; }
@@ -349,7 +354,7 @@ async function ask(prompt) {
   for (const m of await pickModels()) {
     if (!DEAD.has(m)) log("تجربة النموذج: " + m);
     const out = await callModel(m, prompt);
-    if (out) { log("نجح: " + m); return out; }
+    if (out) { log("نجح: " + m); writeModelCache(m); return out; }
   }
   return null;
 }
