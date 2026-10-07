@@ -32,14 +32,28 @@ const log = m => console.log("[المحتوى] " + m);
 const TRADES = ["سباكة", "كهرباء", "تكييف", "أجهزة كهربائية", "نجارة", "تبليط", "دهان", "جبس بورد", "سمنت بورد", "حدادة", "بناء ولياسة"];
 
 const TYPES = {
-  6: { name: "نصيحة عملية", audience: "أصحاب البيوت", brief: "نصيحة واحدة واضحة ومفيدة فوراً لصاحب البيت" },
-  0: { name: "علامات تحذيرية", audience: "أصحاب البيوت", brief: "3 أو 4 علامات مبكرة تدل على مشكلة قادمة يجب ألا تُتجاهل" },
+  6: { name: "كيف لا تُغش", audience: "أصحاب البيوت", brief: "ما يجب أن يعرفه صاحب البيت قبل أن يدفع لأي فني: علامة الفني المحترف، سؤال يكشف غير المتمكن، أو خطأ في التنفيذ يظهر بعد أشهر" },
+  0: { name: "علامات خطر", audience: "أصحاب البيوت", brief: "علامات مبكرة تبدو بسيطة لكنها تنذر بخسارة كبيرة أو خطر على العائلة إن تُركت" },
   1: { name: "الفنادق والشقق المفروشة", audience: "ملاك الفنادق والشقق الفندقية والمفروشة ومكاتب العقار", brief: "خاطبهم بلغة الخسارة والإيراد: الغرفة المعطلة تخسر إيرادها اليومي وتجلب تقييماً سيئاً، والمنجز يوفر لهم فنيين في كل التخصصات برقم واحد" },
-  2: { name: "دليل طوارئ", audience: "أصحاب البيوت", brief: "خطوات مرقمة لأول دقائق عند عطل طارئ قبل وصول الفني" },
-  3: { name: "خرافة وحقيقة", audience: "أصحاب البيوت", brief: "اعتقاد شائع خاطئ عن الصيانة وتصحيحه بوضوح" },
-  4: { name: "المقاولون والمشاريع", audience: "المقاولون وأصحاب مشاريع التشطيب", brief: "عمالة تشطيب متخصصة جاهزة، وترتيب مراحل التشطيب الصحيح لتجنب إعادة العمل" },
-  5: { name: "سؤال تفاعلي", audience: "الجميع", brief: "سؤال خفيف يشجع التعليق والمشاركة، بلا بيع مباشر، بأسلوب هادئ يليق بيوم الجمعة" }
+  2: { name: "موقف طارئ", audience: "أصحاب البيوت", brief: "سيناريو طارئ واقعي (منتصف الليل، ضيوف في البيت، حرّ شديد) وما تفعله في أول دقائق قبل وصول الفني" },
+  3: { name: "خرافة تكلّفك", audience: "أصحاب البيوت", brief: "اعتقاد شائع يبدو صحيحاً لكنه يكلّف صاحبه مالاً أو يعرّضه للخطر، ثم الحقيقة المفاجئة" },
+  4: { name: "المقاولون والمشاريع", audience: "المقاولون وأصحاب مشاريع التشطيب", brief: "تأخير يوم واحد أو إعادة عمل تكلّف المشروع كثيراً؛ عمالة تشطيب متخصصة جاهزة وترتيب المراحل الصحيح" },
+  5: { name: "تحدٍّ للمشاهد", audience: "الجميع", brief: "سؤال أو اختبار سريع يثير الفضول ويدفع للتعليق (هل تعرف..؟ ماذا تختار..؟)، بلا بيع مباشر" }
 };
+
+const ANGLES = [
+  "الخسارة الخفية: مال يتسرب أو جهاز يتلف دون أن يشعر صاحب البيت",
+  "أمان العائلة: خطر حقيقي (حريق، صعق، تسرب غاز، سقوط) يُعرض بهدوء دون تهويل",
+  "كيف لا تُغش: ما يكشف الفني غير المحترف قبل أن تدفع",
+  "سر المهنة: معلومة يعرفها الفنيون ولا يعرفها أغلب الناس",
+  "الخطأ الشائع المكلف: شيء يفعله أغلب الناس ويدفعون ثمنه لاحقاً",
+  "سيناريو طارئ: موقف يحدث فجأة وماذا تفعل في أول دقائق",
+  "قرار كبير: قبل التشطيب أو التجديد أو شراء جهاز، ما الذي يجب أن تعرفه",
+  "الرخيص الغالي: الحل الرخيص اليوم الذي يكلّف أضعافه غداً",
+  "اختبار سريع: سؤال يتحدى معلومة المشاهد",
+  "عناء البحث: الاتصال بعشرة فنيين وانتظار من لا يأتي، والحل بطلب واحد"
+];
+
 
 function riyadhParts(d) {
   const f = new Intl.DateTimeFormat("en-GB", { timeZone: "Asia/Riyadh", year: "numeric", month: "2-digit", day: "2-digit", weekday: "short" });
@@ -175,6 +189,13 @@ ${ctx.hijriSeason ? "- مناسبة هجرية: " + ctx.hijriSeason : ""}
 ${ctx.occ ? "- مناسبة وطنية/موسمية: " + ctx.occ : ""}
 - إطار الكتابة: ${ctx.framework}
 - أسلوب الخطاف المطلوب اليوم: «${ctx.hook.n}» — ${ctx.hook.t}
+${ctx.idea ? `
+الفكرة المختارة (ابنِ كل المحتوى حولها بقوة):
+- الفكرة: ${ctx.idea.idea}
+- الزاوية: ${ctx.idea.angle || ""}
+- الخطاف المقترح: ${ctx.idea.hook}
+- ما يخسره المشاهد: ${ctx.idea.stakes || ""}
+- لقطات مقترحة: ${ctx.idea.visual || ""}` : ""}
 
 مواضيع وخطافات نُشرت مؤخراً (ممنوع تكرارها أو تشابهها):
 ${recent || "- لا يوجد"}
@@ -193,7 +214,8 @@ ${recent || "- لا يوجد"}
 9) لكل مشهد اختر icon واحداً فقط من هذه القائمة: ac, drop, bolt, wrench, paint, tile, hammer, clock, alert, check, home, phone, plug, flame, thermo, fan, building, door, calendar, star. و key كلمة واحدة منسوخة حرفياً من text.
 8) اللغة: عربية فصحى معاصرة سهلة وسليمة نحوياً وإملائياً (لغة إعلانات العلامات الكبرى في السعودية)، دافئة وقريبة من الناس، بلا كلمات عامية مكتوبة، وبلا ركاكة. راعِ التذكير والتأنيث، والهمزات، والتاء المربوطة، وعلامات الترقيم.
 13) say نص مكتوب ليُقرأ بصوت معلّق إعلانات محترف: جمل قصيرة متصلة المعنى، تنتهي بنقطة أو علامة استفهام، وكل مشهد يكمل ما قبله كقصة واحدة متماسكة.
-14) broll لكل مشهد عدا الأخير: 2 إلى 4 كلمات إنجليزية لبحث فيديو مخزون يصوّر المشهد بصرياً بلا نص (مثل: air conditioner filter cleaning, water leak under sink).
+14) broll لكل مشهد عدا الأخير: كلمة أو كلمتان إنجليزيتان فقط، اسم شيء ملموس يظهر في لقطة فيديو مخزون (مثل: plumber, faucet, electrical panel, air conditioner, paint roller, carpenter)، بلا أفعال ولا أوصاف.
+15) الإيقاع: المشهد الأول صدمة أو سؤال، والثاني يعمّق الألم أو الخطر، والثالث يكشف السبب أو السر، والرابع الحل، والخامس الدعوة.
 
 حقائق عامة تستعملها عند الحاجة فقط: المدينة المنورة فيها أكثر من 80 ألف غرفة فندقية مرخصة، ومعدل إشغال الضيافة 82% وهو الأعلى في المملكة، ومتوسط سعر الليلة نحو 453 ريالاً.
 
@@ -229,7 +251,7 @@ ${recent || "- لا يوجد"}
 function reviewPrompt(draft) {
   return `أنت مدير إبداعي صارم في وكالة إعلانات سعودية كبرى. أمامك مسودة محتوى يومي لـ"المنجز" (شبكة فنيين في المدينة المنورة، الطلب مجاني).
 
-قيّم المسودة من 10 بهذه المعايير: قوة الخطاف في أول 3 ثوانٍ، وضوح الفكرة الواحدة، الحديث عن ألم العميل لا عن الخدمة، سلامة اللغة العربية وجمالها، وضوح الدعوة للفعل، خلوها من المبالغة والأرقام المختلقة والشهادات المزيفة، مناسبة نص الصوت للقراءة بصوت عالٍ.
+قيّم المسودة من 10 بهذه المعايير: هل الفكرة قوية تستحق المشاهدة أم باهتة (إن كانت باهتة فاجعل زاويتها أقوى بربطها بخسارة أو خطر أو سر)، قوة الخطاف في أول 3 ثوانٍ، وضوح الفكرة الواحدة، الحديث عن ألم العميل لا عن الخدمة، سلامة اللغة العربية وجمالها، وضوح الدعوة للفعل، خلوها من المبالغة والأرقام المختلقة والشهادات المزيفة، مناسبة نص الصوت للقراءة بصوت عالٍ.
 
 ثم أعد كتابة كل جزء ضعيف ليصل إلى 9 من 10 على الأقل، مع الحفاظ على نفس الموضوع ونفس بنية JSON ونفس الحقول تماماً. لا تضف أسعاراً ولا مدد وصول ولا روابط.
 
@@ -263,9 +285,25 @@ const MOCK_DATA = {
   hashtags: ["#المدينة_المنورة", "#المنجز", "#تكييف", "#صيانة_مكيفات", "#صيانة_منزلية"]
 };
 
+function tighten(t) {
+  const w = String(t).trim().split(/\s+/);
+  if (w.length <= 8) return t;
+  const parts = String(t).split(/[،,.!؟?—]+/).map(x => x.trim()).filter(x => x && x.split(/\s+/).length >= 2 && x.split(/\s+/).length <= 8);
+  return parts.length ? parts[0] + (/[؟?]$/.test(t) ? "؟" : "") : t;
+}
+
+function splitLabel(s) {
+  const m = String(s.text).match(/^\s*([^:]{2,18}):\s*(.+)$/);
+  if (m && m[1].trim().split(/\s+/).length <= 2 && m[2].trim().split(/\s+/).length >= 2) {
+    if (!s.label) s.label = m[1].trim();
+    s.text = m[2].trim();
+  }
+  return s;
+}
+
 function fix(o) {
   if (o && (!Array.isArray(o.reel) || o.reel.length < 3) && Array.isArray(o.tiktok_slides)) o.reel = o.tiktok_slides.map(t => ({ text: t, say: t }));
-  if (o && Array.isArray(o.reel)) o.reel = o.reel.filter(s => s && s.text).map(s => ({ text: String(s.text), say: String(s.say || s.text), icon: String(s.icon || ""), key: String(s.key || ""), label: String(s.label || ""), broll: String(s.broll || "") }));
+  if (o && Array.isArray(o.reel)) o.reel = o.reel.filter(s => s && s.text).map(splitLabel).map(s => ({ text: tighten(String(s.text)), say: String(s.say || s.text), icon: String(s.icon || ""), key: String(s.key || ""), label: String(s.label || ""), broll: Array.isArray(s.broll) ? s.broll.join(" ") : String(s.broll || "") }));
   return o;
 }
 
@@ -284,8 +322,44 @@ async function ask(prompt) {
   return null;
 }
 
+function ideasPrompt(ctx) {
+  const recent = ctx.history.slice(-21).map(h => "- " + h.topic).join("\n");
+  return `أنت رئيس قسم الإبداع في وكالة إعلانات سعودية كبرى. عميلك "المنجز": شبكة فنّيين في المدينة المنورة، الطلب مجاني والفني يتواصل مع العميل.
+
+اقترح 6 أفكار مختلفة تماماً لفيديو ريلز قصير (30–40 ثانية) اليوم:
+- التخصص: ${ctx.trade} (كل الأفكار عنه فقط)
+- نوع المحتوى: ${ctx.type.name} — ${ctx.type.brief}
+- الجمهور: ${ctx.type.audience}
+- الموسم: ${ctx.season}${ctx.hijriSeason ? " | " + ctx.hijriSeason : ""}${ctx.occ ? " | " + ctx.occ : ""}
+
+استعمل زوايا قوية من هذا البنك (زاوية مختلفة لكل فكرة):
+${ANGLES.map(a => "- " + a).join("\n")}
+
+ممنوع الأفكار الباهتة قليلة الأثر (صوت بسيط، تزييت، تنظيف عادي، نصيحة يعرفها الجميع) إلا إذا ربطتها بخسارة حقيقية أو خطر حقيقي.
+ممنوع تكرار هذه المواضيع الأخيرة:
+${recent || "- لا يوجد"}
+ممنوع اختلاق أرقام أو إحصاءات أو شهادات عملاء.
+
+قيّم كل فكرة بصرامة من 10 في: stop (قوة إيقاف التمرير في أول ثانيتين)، stakes (حجم ما يخسره المشاهد إن تجاهل)، curiosity (الفضول)، relevance (قربها من حياة صاحب بيت في المدينة)، share (احتمال أن يرسلها لأحد).
+
+أعد JSON فقط:
+{"ideas":[{"angle":"...","idea":"الفكرة في سطر","hook":"خطاف 7 كلمات أو أقل","stakes":"ما الذي يخسره المشاهد","visual":"2-3 لقطات بصرية مقترحة بالإنجليزية بكلمتين لكل لقطة","scores":{"stop":0,"stakes":0,"curiosity":0,"relevance":0,"share":0}}]}`;
+}
+
+async function pickIdea(ctx) {
+  const r = await ask(ideasPrompt(ctx));
+  const list = (r && Array.isArray(r.ideas) ? r.ideas : []).filter(x => x && x.idea && x.hook);
+  if (!list.length) { log("مرحلة الأفكار فشلت — نكمل بدونها"); return null; }
+  const sum = x => { const s = x.scores || {}; return (+s.stop || 0) * 1.5 + (+s.stakes || 0) * 1.3 + (+s.curiosity || 0) + (+s.relevance || 0) + (+s.share || 0) * 0.7; };
+  list.sort((a, b) => sum(b) - sum(a));
+  log("أفضل فكرة من " + list.length + ": " + list[0].idea + " (" + sum(list[0]).toFixed(1) + ")");
+  return list[0];
+}
+
 async function generate(ctx) {
   if (process.env.MOCK) return Object.assign({ score_before: 7, score: 9, notes: "وضع تجريبي" }, MOCK_DATA);
+  ctx.idea = await pickIdea(ctx);
+  await sleep(3000);
   const draft = await ask(buildPrompt(ctx));
   if (!valid(draft)) return null;
   log("المسودة جاهزة — مراجعة المدير الإبداعي");
@@ -302,6 +376,7 @@ function proofPrompt(c) {
 - الهمزات، والتاء المربوطة والهاء، والألف المقصورة والياء، والتنوين.
 - حوّل أي كلمة عامية مكتوبة إلى فصحى معاصرة سهلة، وأزل الركاكة والتكرار.
 - اجعل نص say متماسكاً كقصة واحدة تُقرأ بصوت معلّق محترف، بجمل قصيرة وعلامات ترقيم صحيحة، وأضف التشكيل فقط على الكلمات التي قد يخطئ القارئ الآلي في نطقها.
+- text في مشاهد reel لا يتجاوز 6 كلمات أبداً (اختصره دون أن يفقد معناه)، و say لا يتجاوز 18 كلمة.
 - يجب أن تبقى key كلمة منسوخة حرفياً من text بعد التصحيح.
 - لا تغيّر المعنى ولا الموضوع ولا الحقول ولا القيم الإنجليزية (icon, broll)، ولا الأرقام score.
 أعد JSON نفسه كاملاً مصححاً فقط، مضافاً إليه "fixes": عدد التصحيحات.
@@ -473,7 +548,7 @@ function fb(t){var a=document.createElement("textarea");a.value=t;document.body.
   fs.writeFileSync(path.join(ARCHIVE, ctx.iso + ".html"), html.replace(/\.\.\/logo\.png/g, "../../logo.png"), "utf8");
   fs.writeFileSync(path.join(OUT, "reel.json"), JSON.stringify({ date: ctx.iso, trade: ctx.trade, scenes: c.reel.slice(0, 6) }, null, 1), "utf8");
   const hist = history.filter(x => x.date !== ctx.iso);
-  hist.push({ date: ctx.iso, topic: c.topic, hook: (c.hooks || [])[0] || "", trade: ctx.trade, type: ctx.type.name, score: c.score || null });
+  hist.push({ date: ctx.iso, topic: c.topic, hook: (c.hooks || [])[0] || "", trade: ctx.trade, type: ctx.type.name, angle: (ctx.idea && ctx.idea.angle) || "", score: c.score || null });
   fs.writeFileSync(HISTORY, JSON.stringify(hist.slice(-60), null, 1), "utf8");
   log("تم: social/today.html + reel.json + history.json");
 })();
