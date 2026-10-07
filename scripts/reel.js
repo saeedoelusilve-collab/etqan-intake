@@ -48,6 +48,31 @@ const ICONS = {
 };
 const TRADE_ICON = { "سباكة": "drop", "كهرباء": "bolt", "تكييف": "ac", "أجهزة كهربائية": "plug", "نجارة": "door", "تبليط": "tile", "دهان": "paint", "جبس بورد": "home", "سمنت بورد": "building", "حدادة": "hammer", "بناء ولياسة": "building" };
 const DEFAULT_SEQ = ["alert", "clock", "wrench", "check"];
+const SERVICES = [
+  { n: "سباكة", slug: "plumbing", icon: "drop" }, { n: "كهرباء", slug: "electrical", icon: "bolt" }, { n: "تكييف", slug: "hvac", icon: "ac" },
+  { n: "أجهزة", slug: "appliances", icon: "plug" }, { n: "نجارة", slug: "carpentry", icon: "door" }, { n: "تبليط", slug: "tiling", icon: "tile" },
+  { n: "دهان", slug: "painting", icon: "paint" }, { n: "جبس بورد", slug: "gypsum", icon: "home" }, { n: "سمنت بورد", slug: "cementboard", icon: "building" },
+  { n: "حدادة", slug: "blacksmith", icon: "hammer" }, { n: "بناء", slug: "building", icon: "wrench" }
+];
+const MONTAGE = path.join(ROOT, "social", "montage");
+
+function servicesHTML(s, logo) {
+  const ws = s.words || [];
+  const norm = x => String(x).replace(/[،,.:؛]/g, "").replace(/^و/, "");
+  const times = SERVICES.map((sv, k) => {
+    const tok = sv.n.split(" ")[0];
+    const start = Math.max(0, ws.findIndex(w => /[:：]$/.test(String(w.w))) + 1);
+    const w = ws.slice(start).find(w => norm(w.w) === tok || norm(w.w).startsWith(tok));
+    return w ? w.s : 0.6 + k * 0.35;
+  });
+  const endT = ws.length ? ws[ws.length - 1].s : 0.6 + SERVICES.length * 0.35;
+  const tiles = SERVICES.map((sv, k) => {
+    const img = path.join(MONTAGE, sv.slug + ".jpg");
+    const ph = fs.existsSync(img) ? `<img class="ph" src="file://${img}" alt="">` : "";
+    return `<div class="tile" data-t="${times[k].toFixed(3)}" data-k="${k}">${ph}<div class="tv"></div><svg viewBox="0 0 24 24">${ICONS[sv.icon]}</svg><b>${esc(sv.n)}</b></div>`;
+  }).join("") + `<div class="tile brandtile" data-t="${endT.toFixed(3)}" data-k="${SERVICES.length}"><div class="lgx">${logo}</div><b>المنجز</b></div>`;
+  return `<div class="svh">${esc(s.text || "كل ما يحتاجه بيتك")}</div><div class="grid">${tiles}</div>`;
+}
 
 const esc = s => String(s || "").replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;");
 
@@ -57,6 +82,7 @@ function page(tl) {
   const logo = fs.existsSync(LOGO) ? `<img src="file://${LOGO}" alt="">` : `<b>م</b>`;
   const scenes = tl.scenes.map((s, i) => {
     const last = i === n - 1;
+    if (s.kind === "services") return `<section class="sc svc" id="s${i}"><div class="cam">${servicesHTML(s, logo)}</div><div class="cap" style="display:none"></div></section>`;
     const icon = ICONS[s.icon] ? s.icon : (i === 0 ? tradeIcon : DEFAULT_SEQ[(i - 1) % DEFAULT_SEQ.length]);
     const words = String(s.text || "").split(/\s+/).filter(Boolean);
     const key = String(s.key || "").trim();
@@ -68,7 +94,7 @@ function page(tl) {
     const cap = (s.words || []).map(w => `<span class="cw">${esc(w.w)}</span>`).join(" ");
     const visual = last
       ? `<div class="card"><div class="ct"><span class="dot"></span>طلب فنّي جديد</div>
-         <div class="row"><span>الخدمة</span><b>${esc(tl.trade || "صيانة")}</b></div>
+         <div class="row"><span>الخدمة</span><b>${esc(tl.trade && tl.trade !== "كل الخدمات" ? tl.trade : "أي خدمة في بيتك")}</b></div>
          <div class="row"><span>الحي</span><b>حيّك في المدينة</b></div>
          <div class="row"><span>الوقت</span><b>دقيقة واحدة</b></div>
          <div class="btn"><span class="b1">أرسل الطلب</span><span class="b2">تم استلام طلبك ✓</span></div>
@@ -140,6 +166,19 @@ h1 .w em{text-shadow:0 8px 30px rgba(0,0,0,.35)}
 .btn span{grid-area:1/1}.b2{opacity:0;color:#fff}
 .ptr{position:absolute;width:86px;height:86px;border-radius:50%;background:rgba(255,255,255,.9);box-shadow:0 0 0 14px rgba(255,255,255,.25);left:0;top:0;opacity:0}
 .rip{position:absolute;width:60px;height:60px;border-radius:50%;border:6px solid #fff;left:0;top:0;opacity:0}
+.svh{position:absolute;left:60px;right:60px;top:300px;text-align:center;font-size:84px;font-weight:700;color:#f6d38a;text-shadow:0 8px 30px rgba(0,0,0,.4)}
+.grid{position:absolute;left:66px;right:66px;top:470px;display:grid;grid-template-columns:repeat(3,1fr);gap:22px}
+.tile{position:relative;height:250px;border-radius:34px;overflow:hidden;background:linear-gradient(160deg,#145f5a,#082f2d);border:3px solid rgba(255,255,255,.14);box-shadow:0 18px 40px rgba(0,0,0,.35);display:flex;flex-direction:column;align-items:center;justify-content:flex-end;padding-bottom:26px}
+.tile .ph{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;filter:grayscale(1) brightness(.55)}
+.tile .tv{position:absolute;inset:0;background:linear-gradient(180deg,rgba(4,31,29,.15) 30%,rgba(4,31,29,.88))}
+.tile svg{position:relative;width:76px;height:76px;fill:none;stroke:#f6d38a;stroke-width:1.7;stroke-linecap:round;stroke-linejoin:round;margin-bottom:14px;filter:drop-shadow(0 0 12px rgba(246,211,138,.5))}
+.tile b{position:relative;font-size:46px;font-weight:700;color:#fff}
+.tile.on{border-color:#f6d38a;box-shadow:0 0 0 4px rgba(246,211,138,.35),0 22px 50px rgba(0,0,0,.45)}
+.tile.on .ph{filter:none}
+.brandtile{background:linear-gradient(160deg,#c69541,#f6d38a);justify-content:center;padding:0}
+.brandtile b{color:#1d1300}
+.brandtile .lgx{width:110px;height:110px;border-radius:28px;background:#fff;display:grid;place-items:center;overflow:hidden;margin-bottom:12px}
+.brandtile .lgx img{width:86%;height:86%;object-fit:contain}.brandtile .lgx b{color:#0e4c4a;font-size:60px}
 #wipe{position:absolute;top:-200px;bottom:-200px;width:1700px;left:-310px;z-index:30;transform:translateX(200%) skewX(-14deg);pointer-events:none}
 #wipe .g{position:absolute;inset:0;background:linear-gradient(90deg,#c69541,#f6d38a 50%,#c69541)}
 #wipe .t{position:absolute;top:0;bottom:0;width:260px;right:-260px;background:#0e4c4a}
@@ -171,7 +210,7 @@ var gr=$("#grain"),gx=gr.getContext("2d"),gimg=gx.createImageData(640,1140);
 for(var k=0;k<gimg.data.length;k+=4){var v=Math.random()*255;gimg.data[k]=gimg.data[k+1]=gimg.data[k+2]=v;gimg.data[k+3]=255}
 gx.putImageData(gimg,0,0);gr.style.width="1280px";gr.style.height="2280px";
 var S=TL.scenes.map(function(s,i){var el=$("#s"+i);el.querySelectorAll(".disc svg path,.disc svg circle").forEach(function(p){p.setAttribute("pathLength","1");p.style.strokeDasharray="1";});
-var r=el.querySelector(".btn");return {s:s,el:el,cam:$(".cam",el),words:$$(".w",el),hls:$$(".hl",el),cws:$$(".cw",el),cap:$(".cap",el),ico:$(".ico",el),disc:$(".disc",el),paths:$$(".disc svg path,.disc svg circle",el),rings:$$(".ring",el),card:$(".card",el),btn:r,b1:$(".b1",el),b2:$(".b2",el),ptr:$(".ptr",el),rip:$(".rip",el),rows:$$(".row,.ct",el)}});
+var r=el.querySelector(".btn");return {s:s,el:el,cam:$(".cam",el),words:$$(".w",el),hls:$$(".hl",el),cws:$$(".cw",el),cap:$(".cap",el),ico:$(".ico",el),disc:$(".disc",el),paths:$$(".disc svg path,.disc svg circle",el),rings:$$(".ring",el),card:$(".card",el),btn:r,b1:$(".b1",el),b2:$(".b2",el),ptr:$(".ptr",el),rip:$(".rip",el),rows:$$(".row,.ct",el),tiles:$$(".tile",el),svh:$(".svh",el)}});
 var bounds=TL.scenes.map(function(s){return s.start}).slice(1).concat([TL.outro]);
 function render(t){
   $("#b1").style.transform="translate("+(-300+Math.sin(t*.35)*160)+"px,"+(-350+Math.cos(t*.28)*140)+"px)";
@@ -202,6 +241,9 @@ function render(t){
   var z=1+.045*cl(lt/s.dur);
   if(cur===0){var pz=1.22-.22*ob(lt/.38);z*=pz;var sh=lt<.32?(1-lt/.32):0;o.cam.style.transform="translate("+(Math.sin(lt*90)*14*sh)+"px,"+(Math.cos(lt*77)*10*sh)+"px) scale("+z+")"}
   else o.cam.style.transform="scale("+z+")";
+  if(o.tiles.length){o.svh.style.opacity=cl(lt/.3);o.svh.style.transform="translateY("+(-40*(1-oc(lt/.4)))+"px)";
+    o.tiles.forEach(function(t,k){var p=(lt-.08-k*.045)/.4,on=lt>=+t.dataset.t;t.classList.toggle("on",on);
+      var pulse=on?Math.max(0,1-(lt-(+t.dataset.t))/.35):0;t.style.opacity=cl(p*1.5);t.style.transform="translateY("+(60*(1-oc(p)))+"px) scale("+((.8+.2*ob(p))*(1+.07*pulse))+")"});}
   if(o.ico){o.ico.style.transform="translateY("+(Math.sin(lt*2.2)*10)+"px) scale("+(.55+.45*ob(lt/.5))+")";o.ico.style.opacity=cl(lt/.2);
     o.paths.forEach(function(p,k){p.style.strokeDashoffset=String(1-oc((lt-.12-k*.05)/.7))});
     o.rings.forEach(function(r,k){var c=((lt+k*.7)%1.4)/1.4;r.style.transform="scale("+(1+.55*c)+")";r.style.opacity=String((1-c)*.7*cl(lt/.4))})}
@@ -221,7 +263,7 @@ function render(t){
     var done=lt>1.45;o.btn.style.background=done?"linear-gradient(90deg,#1f9d63,#3ee08f)":"";o.b1.style.opacity=done?0:1;o.b2.style.opacity=done?1:0;
     o.btn.style.transform="scale("+(lt>1.32&&lt<1.5?.96:1)+")"}
 }
-function fit(){S.forEach(function(o){var h=$("h1",o.el);o.el.style.display="block";
+function fit(){S.forEach(function(o){var h=$("h1",o.el);if(!h)return;o.el.style.display="block";
   var fs=parseFloat(getComputedStyle(h).fontSize),max=o.card?200:340,lim=o.card?1280:1250;
   while((h.offsetHeight>max||h.offsetTop+h.offsetHeight>lim)&&fs>54){fs-=4;h.style.fontSize=fs+"px"}
   var top=Math.max(o.card?1330:1290,h.offsetTop+h.offsetHeight+36);o.cap.style.top=top+"px";
@@ -243,12 +285,14 @@ async function buildBackground(tl) {
     const a = Math.round(marks[i] * FPS), b = i === tl.scenes.length - 1 ? Math.ceil(tl.total * FPS) : Math.round(marks[i + 1] * FPS);
     const n = Math.max(b - a, 1), D = (n / FPS).toFixed(2);
     const seg = path.join(OUT, "seg" + i + ".mp4");
-    const src = path.join(OUT, "bg" + i + ".mp4");
+    const vid = path.join(OUT, "bg" + i + ".mp4"), img = path.join(OUT, "bg" + i + ".jpg");
+    const src = fs.existsSync(vid) ? vid : img;
+    const input = src === img ? ["-loop", "1", "-framerate", String(FPS), "-i", src] : ["-stream_loop", "-1", "-i", src];
     const enc = ["-frames:v", String(n), "-an", "-c:v", "libx264", "-preset", "veryfast", "-crf", "18", "-pix_fmt", "yuv420p", seg];
     if (tl.fx[i]) {
-      await run(["-stream_loop", "-1", "-i", src, "-vf",
+      await run(input.concat(["-vf",
         "scale=1080:1920:force_original_aspect_ratio=increase,crop=1080:1920,fps=" + FPS +
-        ",scale=w='trunc(1080*(1+0.08*t/" + D + ")/2)*2':h=-2:eval=frame,crop=1080:1920,eq=contrast=1.06:saturation=1.1,setsar=1"].concat(enc));
+        ",scale=w='trunc(1080*(1+" + (src === img ? "0.12" : "0.08") + "*t/" + D + ")/2)*2':h=-2:eval=frame,crop=1080:1920,eq=contrast=1.06:saturation=1.1,setsar=1"]).concat(enc));
     } else {
       await run(["-f", "lavfi", "-i", "color=c=0x041f1d:s=1080x1920:r=" + FPS].concat(enc));
     }
@@ -263,7 +307,7 @@ async function buildBackground(tl) {
 
 async function main() {
   const tl = JSON.parse(fs.readFileSync(path.join(OUT, "timeline.json"), "utf8"));
-  tl.fx = tl.scenes.map((s, i) => i < tl.scenes.length - 1 && fs.existsSync(path.join(OUT, "bg" + i + ".mp4")));
+  tl.fx = tl.scenes.map((s, i) => i < tl.scenes.length - 1 && (fs.existsSync(path.join(OUT, "bg" + i + ".mp4")) || fs.existsSync(path.join(OUT, "bg" + i + ".jpg"))));
   const anyFx = tl.fx.some(Boolean);
   let bg = null;
   if (anyFx) {
@@ -288,7 +332,7 @@ async function main() {
     await pg.evaluate(() => Promise.race([document.fonts.ready, new Promise(r => setTimeout(r, 6000))]));
     await pg.evaluate(() => window.fit());
     const out = path.join(OUT, "part" + k + ".mp4");
-    const enc = ["-c:v", "libx264", "-preset", "veryfast", "-crf", "21", "-pix_fmt", "yuv420p", "-r", String(FPS), "-frames:v", String(f1 - f0), out];
+    const enc = ["-c:v", "libx264", "-preset", "medium", "-crf", "18", "-pix_fmt", "yuv420p", "-r", String(FPS), "-frames:v", String(f1 - f0), out];
     const args = bg
       ? ["-y", "-loglevel", "error", "-ss", (f0 / FPS).toFixed(4), "-i", bg, "-f", "image2pipe", "-framerate", String(FPS), "-c:v", "png", "-i", "-",
          "-filter_complex", "[0:v][1:v]overlay=0:0:format=auto,format=yuv420p"].concat(enc)
