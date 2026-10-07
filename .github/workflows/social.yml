@@ -2,7 +2,7 @@ name: Munjiz Daily Social
 
 on:
   schedule:
-    - cron: '0 4 * * *'
+    - cron: "0 4 * * *"
   workflow_dispatch:
 
 permissions:
@@ -11,29 +11,60 @@ permissions:
 jobs:
   social:
     runs-on: ubuntu-latest
+    timeout-minutes: 30
     steps:
-      - name: Checkout
-        uses: actions/checkout@v4
+      - uses: actions/checkout@v4
 
-      - name: Setup Node
-        uses: actions/setup-node@v4
+      - uses: actions/setup-node@v4
         with:
-          node-version: '22'
+          node-version: 22
 
-      - name: Generate daily posts
+      - name: Generate daily content
         env:
           GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
         run: node scripts/social.js
 
-      - name: Commit and push
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Install video tools
         run: |
-          git config user.name "Munjiz Engine"
-          git config user.email "engine@munjiz.local"
-          git add -A
-          if git diff --staged --quiet; then
-            echo "no changes"
-          else
-            git commit -m "auto: daily social posts"
-            git pull --rebase
-            git push
-          fi
+          sudo apt-get update -q
+          sudo apt-get install -y -q ffmpeg fonts-noto-core
+          pip install -q edge-tts gTTS
+          npm i --no-save --no-package-lock playwright-core@1
+
+      - name: Voice and music
+        id: voice
+        continue-on-error: true
+        env:
+          REEL_OUT: ${{ runner.temp }}/reel
+        run: python scripts/voice.py
+
+      - name: Render motion video
+        id: reel
+        if: steps.voice.outcome == 'success'
+        continue-on-error: true
+        env:
+          REEL_OUT: ${{ runner.temp }}/reel
+        run: node scripts/reel.js
+
+      - name: Publish reel
+        if: steps.reel.outcome == 'success'
+        continue-on-error: true
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          gh release view daily-reel >/dev/null 2>&1 || gh release create daily-reel --title "فيديو اليوم — المنجز" --notes "يتجدد تلقائياً كل صباح" --latest=false
+          gh release upload daily-reel "${{ runner.temp }}/reel/reel.mp4" "${{ runner.temp }}/reel/cover.jpg" --clobber
+
+      - name: Commit
+        run: |
+          git config user.name "munjiz-bot"
+          git config user.email "munjiz-bot@users.noreply.github.com"
+          git add social
+          git diff --cached --quiet && exit 0
+          git commit -m "محتوى اليوم $(date +%F)"
+          git pull --rebase
+          git push
