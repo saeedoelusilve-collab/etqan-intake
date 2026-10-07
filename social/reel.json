@@ -3,46 +3,47 @@
  "trade": "نجارة",
  "scenes": [
   {
-   "text": "باب بيتك يقفل في وجه ضيوفك؟",
-   "say": "موقف لا تُحسد عليه، بابك الخشبي يرفض الفتح وضيوفك بانتظارك!",
+   "text": "كابوس سقوط باب المطبخ أمام الضيوف!",
+   "say": "أسوأ كابوس لربّة المنزل: سقوط باب المطبخ أمام الضيوف!",
    "icon": "door",
-   "key": "باب بيتك يقفل في وجه ضيوفك؟",
+   "key": "كابوس",
    "label": "",
-   "broll": "door",
-   "visual": "close-up of a wooden door handle jammed with anxious guest silhouettes in the background"
+   "broll": "carpenter",
+   "visual": "close-up of a broken cabinet door hanging loosely"
   },
   {
-   "text": "إياك وكسر الخشب",
-   "say": "لا تندفع وتكسر الباب، فتخسر قيمته وقيمة الإصلاح المضاعفة.",
-   "icon": "alert",
-   "key": "كسر",
-   "label": "الخسارة",
-   "broll": "hammer",
-   "visual": "close-up of hands holding a heavy hammer near a damaged door"
+   "text": "إصلاحه بمسمار عشوائي يدمّر الخشب نهائياً.",
+   "say": "محاولة إصلاحه بمسمار عشوائي تدمر الخشب، وتجعله يسقط مرة أخرى في أسوأ وقت.",
+   "icon": "hammer",
+   "key": "تدمر",
+   "label": "الخرافة",
+   "broll": "hardware",
+   "visual": "close-up of hands screwing a loose hinge"
   },
   {
-   "text": "جرب البطاقة البلاستيكية",
-   "say": "حاول بحذر تمرير بطاقة بلاستيكية لتحريك اللسان العالق بهدوء.",
+   "text": "نعالج الخشب التالف ونثبته باحترافية تامة.",
+   "say": "الحل الجذري ينهي تآكل الخشب، ويحمي ديكور مطبخك من التخريب المستمر.",
    "icon": "wrench",
-   "key": "البطاقة",
-   "label": "الحل",
-   "broll": "carpenter",
-   "visual": "close-up of a plastic card sliding into a door latch smoothly"
+   "key": "احترافية",
+   "label": "الحقيقة",
+   "broll": "tools",
+   "visual": "close-up of tightening screws with proper tools"
   },
   {
-   "text": "استعن بخبير نجارة فوراً",
-   "say": "إن لم يفتح، وفر على نفسك الجهد واطلب فني نجارة يعالج المشكلة باحترافية.",
-   "icon": "home",
-   "key": "خبير",
-   "label": "النتيجة",
-   "broll": "carpenter",
-   "visual": "close-up of hands adjusting a wooden door hinge with a professional screwdriver"
+   "kind": "services",
+   "text": "كل ما يحتاجه بيتك",
+   "key": "",
+   "label": "",
+   "icon": "",
+   "broll": "",
+   "visual": "",
+   "say": "وليس نجارة فقط: سباكة، كهرباء، تكييف، أجهزة، نجارة، تبليط، دهان، جبس بورد، سمنت بورد، حدادة، وبناء. كلها بطلب واحد من المنجز."
   },
   {
-   "text": "اطلب فنيّك مجاناً من المنجز",
-   "say": "لا تحتار، اطلب فني النجارة الآن وبدون أي رسوم زيارة عبر تطبيق المنجز.",
+   "text": "اطلب نجارك المتميز عبر الرابط في البايو.",
+   "say": "لا تخاطر بمظهر مطبخك. اطلب نجارك المحترف الآن عبر الرابط في البايو.",
    "icon": "phone",
-   "key": "مجاناً",
+   "key": "مجاني",
    "label": "",
    "broll": "",
    "visual": ""
