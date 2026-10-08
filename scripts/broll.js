@@ -6,7 +6,7 @@ const OUT = process.env.REEL_OUT || path.join(ROOT, "reel_out");
 const PEXELS = process.env.PEXELS_API_KEY || "";
 const PIXABAY = process.env.PIXABAY_API_KEY || "";
 const GKEY = process.env.GEMINI_API_KEY || "";
-let VISION = ["gemini-3.5-flash-lite", "gemini-flash-lite-latest", "gemini-3.1-flash-lite", "gemini-flash-latest"];
+let VISION = ["gemini-3.5-flash-lite", "gemini-3.5-flash", "gemini-flash-lite-latest", "gemini-3.1-flash-lite", "gemini-flash-latest"];
 try { const c = JSON.parse(fs.readFileSync(path.join(ROOT, "social", "models.json"), "utf8")); if (c.last_ok) VISION = [c.last_ok].concat(VISION.filter(x => x !== c.last_ok)); } catch (e) {}
 const T0 = Date.now();
 const DEADV = new Set();
@@ -28,7 +28,7 @@ const TRADE = {
   "بناء ولياسة": { q: ["construction site", "bricklayer", "plastering", "cement", "building construction", "construction worker"], k: ["construct", "brick", "plaster", "cement", "concrete", "build", "mason", "worker", "site"] }
 };
 const GENERIC = { q: ["home repair", "handyman", "house renovation", "repairman", "tools"], k: ["repair", "handyman", "renovat", "tool", "maintenance", "screwdriver", "drill"] };
-const BLOCK = ["sea", "ocean", "beach", "bird", "animal", "sunset", "sunrise", "mountain", "forest", "flower", "landscape", "sky", "cloud", "lake", "river", "nature", "wildlife", "dog", "cat", "fish", "waterfall", "tree", "leaf", "plant", "abstract", "particles", "background", "galaxy", "space", "fantasy", "christmas", "rain", "snow", "fire", "prayer", "pray", "mosque", "church", "temple", "religio", "worship", "synagogue", "jew", "christian", "cross", "bible", "woman", "women", "girl", "lady", "female", "model", "fashion", "beauty", "bikini", "beer", "wine", "alcohol", "smok", "party", "port", "ship", "harbor", "harbour", "container", "skyline", "traffic", "city", "flag", "dance", "wedding", "kiss", "couple"];
+const BLOCK = ["sea", "ocean", "beach", "bird", "animal", "sunset", "sunrise", "mountain", "forest", "flower", "landscape", "sky", "cloud", "lake", "river", "nature", "wildlife", "dog", "cat", "fish", "waterfall", "tree", "leaf", "plant", "abstract", "particles", "background", "galaxy", "space", "fantasy", "christmas", "rain", "snow", "fire", "prayer", "pray", "mosque", "church", "temple", "religio", "worship", "synagogue", "jew", "christian", "cross", "bible", "woman", "women", "girl", "lady", "female", "model", "fashion", "beauty", "bikini", "beer", "wine", "alcohol", "smok", "party", "port", "ship", "harbor", "harbour", "container", "skyline", "traffic", "city", "flag", "dance", "wedding", "kiss", "couple", "domino", "supermarket", "grocery", "vase", "roof", "statue", "number", "fruit", "eiffel", "bicycle", "textile", "shingle", "legs", "feet", "walking", "shopping", "retail", "antique", "museum", "church"];
 
 function relevant(tags, keys, q) {
   const t = " " + String(tags || "").toLowerCase() + " ";
@@ -100,7 +100,8 @@ async function b64(url) {
   return { data: buf.toString("base64"), mime: r.headers.get("content-type") || "image/jpeg" };
 }
 
-async function judge(scene, trade, cands) {
+async function judge(scene, trade, cands, minScore) {
+  const MIN = minScore || 6;
   if (!GKEY) return null;
   const imgs = [];
   for (const c of cands) {
@@ -112,7 +113,7 @@ async function judge(scene, trade, cands) {
   const prompt = "You are a video editor choosing stock footage for a Saudi home-maintenance ad (Medina, conservative family audience).\n" +
     "Trade: " + trade + ". Scene text (Arabic): " + (scene.text || "") + ". Ideal shot: " + (scene.visual || scene.broll || trade) + ".\n" +
     "Score each numbered image 0-10: 9-10 = shows the ideal shot; 7-8 = clearly shows this trade's work, tools, materials or results (good as background for this scene); 5-6 = related home or maintenance context; 1-4 = weak link.\n" +
-    "Give 0 if ANY of these: unrelated subject; women or girls; a person's face as the main subject; religious buildings, symbols, rituals or gatherings of any religion; alcohol or smoking; nudity or swimwear; visible text, logos or watermarks; nature, landscape, sea, sky or animals; cartoon, 3D render or abstract graphics; flags.\n" +
+    "Give 0 if ANY of these: unrelated subject; women or girls (even partially visible: legs, hands with nail polish, long hair); people walking or body parts as the main subject; decorative patterns, house numbers, art tiles or souvenirs; a person's face as the main subject; religious buildings, symbols, rituals or gatherings of any religion; alcohol or smoking; nudity or swimwear; visible text, logos or watermarks; nature, landscape, sea, sky or animals; cartoon, 3D render or abstract graphics; flags.\n" +
     "First describe what each image actually shows in 3-6 plain English words, then score it.\n" +
     'Return JSON only: {"items":[{"desc":"what the image shows","score":0}]} with one item per image in order';
   const parts = [{ text: prompt }];
@@ -122,7 +123,7 @@ async function judge(scene, trade, cands) {
     for (let attempt = 1; attempt <= 2; attempt++) {
       try {
         const r = await fetch("https://generativelanguage.googleapis.com/v1beta/models/" + m + ":generateContent?key=" + GKEY, {
-          method: "POST", headers: { "Content-Type": "application/json" }, signal: AbortSignal.timeout(45000),
+          method: "POST", headers: { "Content-Type": "application/json" }, signal: AbortSignal.timeout(90000),
           body: JSON.stringify({ contents: [{ parts: parts }], generationConfig: { temperature: 0.1, responseMimeType: "application/json" } })
         });
         if (r.status === 503 && attempt === 1) { await sleep(3000); continue; }
@@ -144,7 +145,7 @@ async function judge(scene, trade, cands) {
         if (items.length) log("الحَكَم رأى: " + items.slice(0, 10).map((it, i) => i + ")" + String(it.desc || "").slice(0, 28) + "=" + sc[i]).join(" | "));
         let best = -1, bs = -1;
         sc.forEach((v, i) => { if (v > bs) { bs = v; best = i; } });
-        if (best < 0 || bs < 6 || !imgs[best]) return { pick: null, scores: sc };
+        if (best < 0 || bs < MIN || !imgs[best]) return { pick: null, scores: sc };
         return { pick: imgs[best].c, score: bs, scores: sc };
       } catch (e) { log("الحَكَم " + m + ": " + e.message); DEADV.add(m); break; }
     }
@@ -213,6 +214,7 @@ async function montageLibrary() {
     ? { q: Object.values(TRADE).map(t => t.q[0]), k: [].concat(...Object.values(TRADE).map(t => t.k)) } : GENERIC);
   const keys = tr.k.concat(GENERIC.k);
   const cache = {};
+  let usedMontage = false;
   fs.mkdirSync(OUT, { recursive: true });
   for (let i = 0; i < n - 1; i++) {
     if (Date.now() - T0 > 7 * 60000) { log("تجاوزنا 7 دقائق — بقية المشاهد بخلفية متحركة"); break; }
@@ -237,17 +239,15 @@ async function montageLibrary() {
       }
       if (!batch.length) continue;
       batch.sort((a, b) => (usedIds.has(a.id) - usedIds.has(b.id)));
-      const cands = batch.slice(0, 10);
-      const j = await judge(s, reel.trade, cands);
+      const cands = batch.slice(0, 8);
+      const j = await judge(s, reel.trade, cands, plan.kind === "photo" ? 8 : 6);
       let pick = null;
       if (j) {
         if (j.pick) { pick = j.pick; log("مشهد " + (i + 1) + ": الحَكَم اختار " + (plan.kind === "photo" ? "صورة" : "فيديو") + " بدرجة " + j.score + "/10"); }
         else { log("مشهد " + (i + 1) + ": رُفضت دفعة " + (plan.kind === "photo" ? "صور" : "فيديو") + " (" + (j.scores || []).join(",") + ")"); await sleep(1200); continue; }
       } else {
-        const strong = cands.filter(v => tr.k.filter(k => String(v.tags).toLowerCase().includes(k)).length >= 2);
-        if (!strong.length) continue;
-        pick = strong[0];
-        log("مشهد " + (i + 1) + ": اختيار بالوسوم المؤكدة (الحَكَم غير متاح)");
+        log("مشهد " + (i + 1) + ": الحَكَم غير متاح — لا نخاطر بلقطة غير مفحوصة");
+        continue;
       }
       try {
         const isPhoto = pick.kind === "photo";
@@ -255,6 +255,11 @@ async function montageLibrary() {
         got = pick;
       } catch (e) { log(e.message); }
       await sleep(1200);
+    }
+    if (!got && !usedMontage) {
+      const SLUG = { "سباكة": "plumbing", "كهرباء": "electrical", "تكييف": "hvac", "أجهزة كهربائية": "appliances", "نجارة": "carpentry", "تبليط": "tiling", "دهان": "painting", "جبس بورد": "gypsum", "سمنت بورد": "cementboard", "حدادة": "blacksmith", "بناء ولياسة": "building" }[reel.trade];
+      const mp = SLUG && path.join(ROOT, "social", "montage", SLUG + ".jpg");
+      if (mp && fs.existsSync(mp)) { fs.copyFileSync(mp, path.join(OUT, "bg" + i + ".jpg")); usedMontage = true; got = { id: "mont-" + SLUG, q: "montage", credit: "Pixabay", src: "مكتبة الخدمات", tags: SLUG }; }
     }
     if (got) {
       taken.add(got.id);
