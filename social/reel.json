@@ -3,31 +3,31 @@
  "trade": "تبليط",
  "scenes": [
   {
-   "text": "طقطقة البلاط سرها تركيب سيء",
-   "say": "الصوت المزعج تحت قدميك سببه خطأ في التركيب",
-   "icon": "tile",
-   "key": "طقطقة",
-   "label": "",
-   "broll": "tiles",
-   "visual": "close-up of hands applying adhesive on large floor tiles"
+   "text": "انتظار الفني يضيع يومك كله",
+   "say": "كم يوم ضاع وأنت تنتظر فني ما أتى بعد العصر؟",
+   "icon": "clock",
+   "key": "العصر",
+   "label": "المماطلة",
+   "broll": "tile cutter",
+   "visual": "close-up of hands measuring ceramic tiles in a kitchen"
   },
   {
-   "text": "الغراء الخاطئ يهدر مالك",
-   "say": "الغراء العادي يفرغ تحته الهواء ويدمر استثمارك",
+   "text": "والمشكلة صدمك السعر بعد أسابيع",
+   "say": "لكن أبو مازن انتظر أسبوعين، والمشكلة طلب ضعف السعر بعد ما حفر البيت.",
    "icon": "alert",
-   "key": "الخاطئ",
-   "label": "الخطأ",
-   "broll": "construction",
-   "visual": "close-up of cracked ceramic tile on the floor"
+   "key": "السعر",
+   "label": "الخسارة",
+   "broll": "construction site",
+   "visual": "close-up of man shaking head in a half-finished kitchen"
   },
   {
-   "text": "احم منزلك من التشطيب المتهالك",
-   "say": "اختر أمهر فنيي التبليط في المدينة المنورة",
+   "text": "والحل مع المنجز بيدك",
+   "say": "لذلك ارتاح، وخذ مبلطاً محترفاً من المنجز يلتزم معك بالوقت والسعر الواضح.",
    "icon": "check",
-   "key": "المتهالك",
+   "key": "المنجز",
    "label": "الحل",
-   "broll": "worker",
-   "visual": "close-up of trowel spreading tile mortar evenly"
+   "broll": "smartphone",
+   "visual": "close-up of finger tapping phone screen on a clean website"
   },
   {
    "kind": "services",
@@ -37,16 +37,14 @@
    "icon": "",
    "broll": "",
    "visual": "",
-   "say": "وليس التبليط فقط: سباكة، كهرباء، تكييف، أجهزة، نجارة، تبليط، دهان، جبس بورد، سمنت بورد، حدادة، وبناء. كلها بطلب واحد من المنجز."
+   "say": "صيانة، تشطيب، أو بناء، المنجز يوصلك بالفني المناسب لكل شي في بيتك."
   },
   {
-   "text": "اطلب فنيك عبر الرابط في البايو",
-   "say": "استعن بخبير يترك أرضياتك ثابتة دون عناء",
    "icon": "phone",
-   "key": "البايو",
+   "key": "مجاناً",
    "label": "",
-   "broll": "",
-   "visual": ""
+   "text": "لا تتعب نفسك بالدوّارة",
+   "say": "لا تتعب نفسك بالدوّارة. اطلب فنيّك مجاناً من المنجز، والرابط في البايو."
   }
  ]
 }
