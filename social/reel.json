@@ -3,31 +3,31 @@
  "trade": "تبليط",
  "scenes": [
   {
-   "text": "انتظار الفني يضيع يومك كله",
-   "say": "كم يوم ضاع وأنت تنتظر فني ما أتى بعد العصر؟",
-   "icon": "clock",
-   "key": "العصر",
-   "label": "المماطلة",
-   "broll": "tile cutter",
-   "visual": "close-up of hands measuring ceramic tiles in a kitchen"
+   "text": "تبني بيتك في الرانونة؟",
+   "say": "جالس تشطب بيتك بالرانونة وخايف من كوارث البلاط؟",
+   "icon": "tile",
+   "key": "الرانونة",
+   "label": "",
+   "broll": "tile",
+   "visual": "Close-up of a worker holding a ceramic tile"
   },
   {
-   "text": "والمشكلة صدمك السعر بعد أسابيع",
-   "say": "لكن أبو مازن انتظر أسبوعين، والمشكلة طلب ضعف السعر بعد ما حفر البيت.",
+   "text": "فواصل التمدد تحمي البلاط",
+   "say": "أبو عبد الرحمن سأل المبلط عن فواصل البورسلان وضاع وما عرف يجاوب.",
    "icon": "alert",
-   "key": "السعر",
-   "label": "الخسارة",
-   "broll": "construction site",
-   "visual": "close-up of man shaking head in a half-finished kitchen"
+   "key": "فواصل",
+   "label": "الخطأ",
+   "broll": "cracked tile",
+   "visual": "Close-up of cracked tiles on the floor"
   },
   {
-   "text": "والحل مع المنجز بيدك",
-   "say": "لذلك ارتاح، وخذ مبلطاً محترفاً من المنجز يلتزم معك بالوقت والسعر الواضح.",
+   "text": "اطلب فني تبليط عبر المنجز",
+   "say": "الحل تطلب فني من المنجز بطلب مجاني، البيت الصح يبدأ بفني صح.",
    "icon": "check",
    "key": "المنجز",
    "label": "الحل",
-   "broll": "smartphone",
-   "visual": "close-up of finger tapping phone screen on a clean website"
+   "broll": "tiler working",
+   "visual": "Close-up of professional hands applying tile spacers"
   },
   {
    "kind": "services",
