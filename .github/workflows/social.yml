@@ -60,6 +60,7 @@ jobs:
           REEL_OUT: ${{ runner.temp }}/reel
           GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
           TTS_VOICE: Puck
+          TTS_LOCK: voice_9yxn008b902r
           BRAND_SAY: "المُنجِز"
           VO_STYLE: white
         run: python scripts/voice.py
