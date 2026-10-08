@@ -13,9 +13,9 @@ PERSONAS = [
     ("munjiz-saudi-warm", "A warm, friendly Saudi man in his early thirties from Medina with a natural Hijazi Saudi accent, speaking like a real person telling a friend a story, relaxed and sincere."),
     ("munjiz-saudi-lively", "An upbeat, natural Saudi man in his late twenties speaking white Saudi dialect with a smiling voice, like a popular Saudi creator talking to his followers.")
 ]
-VOICE_LOG = os.path.join(ROOT, "social", "voice_log.json")
+VOICE_LOG = os.path.join(ROOT, "social", "voice_log_v2.json")
 BRAND_SAY = os.environ.get("BRAND_SAY", "").strip()
-QA_MODELS = ["gemini-3.5-flash-lite", "gemini-flash-lite-latest", "gemini-flash-latest", "gemini-3.1-flash-lite"]
+QA_MODELS = ["gemini-3.5-flash", "gemini-flash-latest", "gemini-3.5-flash-lite", "gemini-flash-lite-latest"]
 HARAKAT = re.compile(r"[\u064C-\u0650\u0652\u0670]")
 EDGE_VOICES = ["ar-SA-HamedNeural", "ar-SA-ZariyahNeural"]
 SR = 44100
@@ -123,19 +123,30 @@ def designed_voices():
     for name, desc in PERSONAS:
         if saved.get(name):
             continue
-        body = {"store": True, "voice": {"type": "prompted", "language_code": "ar-SA", "display_name": name,
-                                         "prompted": {"input": desc, "region_code": "SA"}}}
-        try:
-            j = http(API + "/voices", body, {"x-goog-api-key": KEY}, timeout=120)
-            vid = j.get("id") or (j.get("voice") or {}).get("id") or str(j.get("name", "")).split("/")[-1]
-            if vid:
-                saved[name] = vid
-                changed = True
-                log("صُمّم صوت سعودي جديد: %s ← %s" % (name, vid))
-        except urllib.error.HTTPError as e:
-            log("تصميم الصوت %s ← %s %s" % (name, e.code, e.read().decode(errors="ignore")[:160]))
-        except Exception as e:
-            log("تصميم الصوت %s: %s" % (name, str(e)[:100]))
+        variants = [
+            {"store": True, "voice": {"type": "prompted", "language_code": "ar-SA", "display_name": name, "model": "gemini-3.8-flash-tts", "prompted": {"input": desc}}},
+            {"store": True, "voice": {"type": "prompted", "language_code": "ar-SA", "display_name": name, "prompted": {"input": desc}}},
+            {"store": True, "voice": {"type": "prompted", "language_code": "ar-SA", "prompted": {"input": desc}}},
+            {"store": True, "voice": {"type": "prompted", "prompted": {"input": desc}}}
+        ]
+        for body in variants:
+            try:
+                j = http(API + "/voices", body, {"x-goog-api-key": KEY}, timeout=120)
+                vid = j.get("id") or (j.get("voice") or {}).get("id") or str(j.get("name", "")).split("/")[-1]
+                if vid:
+                    saved[name] = vid
+                    changed = True
+                    log("صُمّم صوت سعودي جديد: %s ← %s" % (name, vid))
+                break
+            except urllib.error.HTTPError as e:
+                msg = e.read().decode(errors="ignore")
+                log("تصميم الصوت %s ← %s %s" % (name, e.code, re.sub(r"\s+", " ", msg)[:140]))
+                if e.code == 400 and ("Unknown" in msg or "Invalid" in msg or "invalid" in msg):
+                    continue
+                break
+            except Exception as e:
+                log("تصميم الصوت %s: %s" % (name, str(e)[:100]))
+                break
     if changed:
         try:
             json.dump(saved, open(VOICES_FILE, "w", encoding="utf-8"), ensure_ascii=False, indent=1)
@@ -188,9 +199,9 @@ def similarity(a, b):
 
 def qa_compare(items, script):
     parts = [{"text": ("You are a strict Saudi commercial voice-over director. Below are %d recordings (A, B, C...) of the SAME Arabic ad script. "
-                       "For EACH: transcribe exactly what you hear in Arabic, list mispronounced words, and rate naturalness 1-10: does it sound like a REAL Saudi person talking (natural Saudi accent and intonation, warm, believable), not an announcer, not robotic, not Egyptian or Levantine? "
+                       "For EACH: transcribe exactly what you hear in Arabic, list mispronounced words, and rate naturalness 1-10: does it sound like a REAL person talking (warm, believable, not an announcer, not robotic)? Also rate saudi 1-10: how authentically SAUDI the accent and intonation are (10 = native Saudi from Hijaz or Najd speaking dialect; 4 = neutral Modern Standard Arabic news style; 2 = Egyptian/Levantine/foreign). Be strict: Fusha-style reading must not exceed 5. "
                        "Then rank them best to worst for a Saudi audience.\n"
-                       'Return JSON only: {"items":{"A":{"transcript":"","mispronounced":[],"naturalness":0,"tags_read":false}},"ranking":["A","B"],"why":"one line"}\n\nScript:\n%s') % (len(items), script)}]
+                       'Return JSON only: {"items":{"A":{"transcript":"","mispronounced":[],"naturalness":0,"saudi":0,"tags_read":false}},"ranking":["A","B"],"why":"one line"}\n\nScript:\n%s') % (len(items), script)}]
     for label, wav in items:
         mp3 = wav + ".qa.mp3"
         ff(["-i", wav, "-ar", "16000", "-ac", "1", "-b:a", "48k", mp3])
@@ -201,7 +212,7 @@ def qa_compare(items, script):
             body = {"contents": [{"parts": parts}], "generationConfig": {"temperature": 0.1, "responseMimeType": "application/json"}}
             j = http(API + "/models/" + m + ":generateContent?key=" + KEY, body, timeout=150)
             txt = "".join(p.get("text", "") for p in j["candidates"][0]["content"]["parts"] if not p.get("thought"))
-            o = json.loads(txt[txt.index("{"):txt.rindex("}") + 1])
+            o = json.loads(re.sub(r"\\u(?![0-9a-fA-F]{4})", r"\\\\u", txt[txt.index("{"):txt.rindex("}") + 1]))
             res, rank = {}, [str(x) for x in (o.get("ranking") or [])]
             for label, _ in items:
                 it = (o.get("items") or {}).get(label, {}) or {}
@@ -209,7 +220,9 @@ def qa_compare(items, script):
                 nat = float(it.get("naturalness") or 6)
                 bonus = (len(items) - rank.index(label)) * 0.6 if label in rank else 0
                 pen = 0.4 * min(len(it.get("mispronounced") or []), 5) + (3 if it.get("tags_read") else 0)
-                res[label] = {"score": round(max(0, 0.45 * nat + 5.5 * sim + bonus - pen - 1.2), 2), "sim": round(sim, 2), "nat": nat,
+                sau = float(it.get("saudi") or 5)
+                core = (0.25 * nat + 0.45 * sau) if VO_STYLE != "fusha" else 0.6 * nat
+                res[label] = {"score": round(max(0, core + 4.0 * sim + bonus - pen), 2), "sim": round(sim, 2), "nat": nat, "saudi": sau,
                               "bad": (it.get("mispronounced") or [])[:6]}
             if o.get("why"):
                 log("رأي مخرج الصوت: " + str(o["why"])[:160])
@@ -235,7 +248,7 @@ def qa_audio(wav, script):
                     "generationConfig": {"temperature": 0.1, "responseMimeType": "application/json"}}
             j = http(API + "/models/" + m + ":generateContent?key=" + KEY, body, timeout=90)
             txt = "".join(p.get("text", "") for p in j["candidates"][0]["content"]["parts"] if not p.get("thought"))
-            o = json.loads(txt[txt.index("{"):txt.rindex("}") + 1])
+            o = json.loads(re.sub(r"\\u(?![0-9a-fA-F]{4})", r"\\\\u", txt[txt.index("{"):txt.rindex("}") + 1]))
             sc = float(o.get("overall", 0))
             sc -= 0.5 * min(len(o.get("mispronounced") or []), 4) + (3 if o.get("tags_read") else 0) + 0.5 * min(len(o.get("skipped") or []), 4)
             o["final"] = round(max(sc, 0), 2)
@@ -277,9 +290,17 @@ CUR_VOICE = [VOICE]
 TTS_MODELS = []
 
 
+LAST_TTS = [0.0]
+
+
 def gemini_tts(text, path):
     if not KEY:
         return None
+    wait = 21 - (time.time() - LAST_TTS[0])
+    if LAST_TTS[0] and wait > 0:
+        log("انتظار %d ث (حد الخطة المجانية 3 طلبات صوت في الدقيقة)" % wait)
+        time.sleep(wait)
+    LAST_TTS[0] = time.time()
     if not TTS_MODELS:
         TTS_MODELS.extend(tts_models())
     for m in TTS_MODELS:
@@ -483,7 +504,7 @@ def main():
             if not r:
                 q = qa_audio(tmp, script)
                 r = {"score": q["final"] if q else 6.0, "sim": None, "nat": q.get("naturalness") if q else None, "bad": (q or {}).get("mispronounced") or []}
-            log("تقييم صوت %s: %s/10 (تطابق النص %s، طبيعية %s)%s" % (v, r["score"], r["sim"], r["nat"], (" — أخطاء: " + "، ".join(r["bad"])[:90]) if r["bad"] else ""))
+            log("تقييم صوت %s: %s (تطابق النص %s، طبيعية %s، سعودية اللهجة %s)%s" % (v, r["score"], r["sim"], r["nat"], r.get("saudi"), (" — أخطاء: " + "، ".join(r["bad"])[:90]) if r["bad"] else ""))
             report.append({"voice": v, "score": r["score"]})
             if not best or r["score"] > best[0]:
                 best = (r["score"], v, tmp, m)
