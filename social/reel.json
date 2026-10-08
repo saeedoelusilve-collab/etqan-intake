@@ -3,31 +3,31 @@
  "trade": "تبليط",
  "scenes": [
   {
-   "text": "تدفع ألوف الريالات على البلاط؟",
-   "say": "تدفع ألوف الريالات على أجمل بلاط.. ثم تضطر لتكسيره بيديك لأنك تجاهلت اختبارا بسيطا قبل التركيب؟",
+   "text": "طقطقة البلاط سرها تركيب سيء",
+   "say": "الصوت المزعج تحت قدميك سببه خطأ في التركيب",
    "icon": "tile",
-   "key": "بلاط",
+   "key": "طقطقة",
    "label": "",
-   "broll": "broken tile",
-   "visual": "close-up of worker hammering expensive floor tiles"
+   "broll": "tiles",
+   "visual": "close-up of hands applying adhesive on large floor tiles"
   },
   {
-   "text": "الفحص بعد التبليط خسارة مضاعفة",
-   "say": "المشكلة ليست في جودة البلاط، بل في كارثة اكتشاف التسريب بعد فوات الأوان.",
+   "text": "الغراء الخاطئ يهدر مالك",
+   "say": "الغراء العادي يفرغ تحته الهواء ويدمر استثمارك",
    "icon": "alert",
-   "key": "والمشكلة",
-   "label": "السبب",
-   "broll": "construction worker",
-   "visual": "medium shot of floor installation tools on concrete"
+   "key": "الخاطئ",
+   "label": "الخطأ",
+   "broll": "construction",
+   "visual": "close-up of cracked ceramic tile on the floor"
   },
   {
-   "text": "اضبط الترتيب واختبر أولا",
-   "say": "الحل يبدأ بترتيب الخطوات صح: اختبر التمديدات بالضغط أولا، ثم اترك البلاط بأمان تام.",
+   "text": "احم منزلك من التشطيب المتهالك",
+   "say": "اختر أمهر فنيي التبليط في المدينة المنورة",
    "icon": "check",
-   "key": "والحل",
+   "key": "المتهالك",
    "label": "الحل",
-   "broll": "measuring tape",
-   "visual": "close-up of hands checking floor levels"
+   "broll": "worker",
+   "visual": "close-up of trowel spreading tile mortar evenly"
   },
   {
    "kind": "services",
@@ -40,10 +40,10 @@
    "say": "وليس التبليط فقط: سباكة، كهرباء، تكييف، أجهزة، نجارة، تبليط، دهان، جبس بورد، سمنت بورد، حدادة، وبناء. كلها بطلب واحد من المنجز."
   },
   {
-   "text": "اطلب فنيّك عبر الرابط في البايو",
-   "say": "وفر تعبك وجهدك، واطلب فني التشطيب من شبكتنا في المدينة المنورة عبر الرابط في البايو.",
+   "text": "اطلب فنيك عبر الرابط في البايو",
+   "say": "استعن بخبير يترك أرضياتك ثابتة دون عناء",
    "icon": "phone",
-   "key": "مجاناً",
+   "key": "البايو",
    "label": "",
    "broll": "",
    "visual": ""
