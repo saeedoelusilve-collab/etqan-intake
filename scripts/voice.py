@@ -162,7 +162,13 @@ def load_vlog():
         return {}
 
 
+LOCK = os.environ.get("TTS_LOCK", "").strip()
+
+
 def candidates():
+    if LOCK:
+        log("الصوت المعتمد للعلامة: %s" % LOCK)
+        return [LOCK]
     vlog = load_vlog()
     avg = lambda v: (sum(vlog[v][-7:]) / len(vlog[v][-7:])) if vlog.get(v) else None
     lib = []
@@ -490,12 +496,21 @@ def main():
     wav = os.path.join(OUT, "narration.wav")
     model, best, report = None, None, []
     takes = []
-    for v in (candidates() if KEY else []):
+    cands = candidates() if KEY else []
+    for v in cands:
         CUR_VOICE[0] = v
         tmp = os.path.join(OUT, "narr_%s.wav" % re.sub(r"\W", "_", v))
         m = gemini_tts(script.replace("المنجز", BRAND_SAY) if BRAND_SAY else script, tmp)
         if m:
             takes.append((v, tmp, m))
+    if not takes and LOCK and KEY:
+        log("الصوت المعتمد لم يعمل اليوم — نجرّب البدائل")
+        for v in [x for x in (designed_voices() + [VOICE, "Charon"]) if x != LOCK][:2]:
+            CUR_VOICE[0] = v
+            tmp = os.path.join(OUT, "narr_%s.wav" % re.sub(r"\W", "_", v))
+            m = gemini_tts(script.replace("المنجز", BRAND_SAY) if BRAND_SAY else script, tmp)
+            if m:
+                takes.append((v, tmp, m))
     if takes:
         labels = "ABCDE"
         res = qa_compare([(labels[i], t[1]) for i, t in enumerate(takes)], script) if len(takes) > 1 else None
