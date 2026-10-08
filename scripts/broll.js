@@ -113,7 +113,8 @@ async function judge(scene, trade, cands) {
     "Trade: " + trade + ". Scene text (Arabic): " + (scene.text || "") + ". Ideal shot: " + (scene.visual || scene.broll || trade) + ".\n" +
     "Score each numbered image 0-10: 9-10 = shows the ideal shot; 7-8 = clearly shows this trade's work, tools, materials or results (good as background for this scene); 5-6 = related home or maintenance context; 1-4 = weak link.\n" +
     "Give 0 if ANY of these: unrelated subject; women or girls; a person's face as the main subject; religious buildings, symbols, rituals or gatherings of any religion; alcohol or smoking; nudity or swimwear; visible text, logos or watermarks; nature, landscape, sea, sky or animals; cartoon, 3D render or abstract graphics; flags.\n" +
-    'Return JSON only: {"scores":[one number per image in order]}';
+    "First describe what each image actually shows in 3-6 plain English words, then score it.\n" +
+    'Return JSON only: {"items":[{"desc":"what the image shows","score":0}]} with one item per image in order';
   const parts = [{ text: prompt }];
   imgs.forEach((x, i) => { parts.push({ text: "Image " + i + ":" }); parts.push({ inline_data: { mime_type: x.img.mime, data: x.img.data } }); });
   for (const m of VISION) {
@@ -130,7 +131,17 @@ async function judge(scene, trade, cands) {
         const t = ((j.candidates || [])[0] || {}).content;
         const txt = ((t && t.parts) || []).filter(x => x.text && !x.thought).map(x => x.text).join("");
         const o = JSON.parse(txt.slice(txt.indexOf("{"), txt.lastIndexOf("}") + 1));
-        const sc = (o.scores || []).map(Number);
+        const tk = (TRADE[trade] || (trade === "كل الخدمات" ? { k: [].concat(...Object.values(TRADE).map(t => t.k)) } : GENERIC)).k.concat(GENERIC.k);
+        const items = Array.isArray(o.items) ? o.items : (o.scores || []).map(v => ({ score: v, desc: "" }));
+        const sc = items.map(it => {
+          const d = String(it.desc || "").toLowerCase();
+          const WEAK = ["floor", "bathroom", "room", "interior", "wall", "kitchen", "home", "house", "site", "worker", "build", "lighting", "color", "colour", "handle", "tool", "repair", "maintenance"];
+          const strong = tk.filter(k => !WEAK.includes(k));
+          const BAD = BLOCK.concat(["supermarket", "shop", "store", "food", "market", "car ", "street", "office", "computer", "laptop", "phone"]);
+          const okDesc = !it.desc || ((strong.length ? strong : tk).some(k => d.includes(k)) && !BAD.some(b => (" " + d).includes(" " + b)));
+          return okDesc ? Number(it.score) || 0 : 0;
+        });
+        if (items.length) log("الحَكَم رأى: " + items.slice(0, 10).map((it, i) => i + ")" + String(it.desc || "").slice(0, 28) + "=" + sc[i]).join(" | "));
         let best = -1, bs = -1;
         sc.forEach((v, i) => { if (v > bs) { bs = v; best = i; } });
         if (best < 0 || bs < 6 || !imgs[best]) return { pick: null, scores: sc };
