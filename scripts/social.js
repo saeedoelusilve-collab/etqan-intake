@@ -24,9 +24,10 @@ async function pickModels() {
   const ver = n => parseFloat((n.match(/gemini-(\d+(?:\.\d+)?)/) || [0, 0])[1]);
   const score = n => ver(n) * 10 - (n.includes("lite") ? 5 : 0) - (n.includes("preview") ? 1 : 0);
   found.sort((a, b) => score(b) - score(a));
-  MODELS = found.slice(0, 6).concat(FALLBACK_MODELS.filter(x => !found.includes(x)));
+  const all = found.slice(0, 8).concat(FALLBACK_MODELS.filter(x => !found.includes(x)));
+  MODELS = all.filter(x => !/lite/.test(x)).concat(all.filter(x => /lite/.test(x)));
   const last = readModelCache().last_ok;
-  if (last) { const rest = MODELS.filter(x => x !== last); MODELS = rest.slice(0, 1).concat([last], rest.slice(1)); }
+  if (last && !/lite/.test(last)) MODELS = [last].concat(MODELS.filter(x => x !== last));
   log("ترتيب النماذج: " + MODELS.join(" ، "));
   return MODELS;
 }
@@ -98,10 +99,11 @@ const ANGLES = [
 ];
 
 
+const DIALECT_GUIDE = "دليل اللهجة السعودية البيضاء (استخدم الكلمة الثانية دائماً في say): الآن←الحين، ماذا←وش، لماذا←ليش، أتى/جاء←جا، يأتي←يجي، لم يأتِ←ما جا، أريد←أبغى، تريد←تبغى، يجب←لازم، فقط←بس، جيد←زين، لا يوجد←ما فيه، هكذا←كذا، المنزل←البيت، الماء←الموية، سوف أتصل←بتصل، انتظرته←انتظرته، كثيراً←مرّة، هذا الشيء←هالشي. بلا تنوين وبلا إعراب: «فني محترف» لا «فنياً محترفاً». جمل قصيرة كما يحكي سعودي لصاحبه.";
 const VO = (process.env.VO_STYLE || "white").toLowerCase();
 const LANG_SAY = VO === "fusha"
   ? "say بفصحى إعلانية سعودية معاصرة حيّة وبسيطة، كما يتكلم معلّق إعلانات سعودي، بلا أسلوب أدبي أو وعظي."
-  : "say باللهجة السعودية البيضاء المهذبة كما يتكلم سعودي من المدينة مع صديقه أو جاره (مثل: الحين، وش، ليش، مو، لين، كذا، يعني، تراه، ما جاء)، طبيعية وصادقة، بلا مبالغة ولا كلمات سوقية، وبإملاء اللهجة المتعارف عليه. ممنوع الفصحى المتكلفة في say.";
+  : DIALECT_GUIDE + " say باللهجة السعودية البيضاء المهذبة كما يتكلم سعودي من المدينة مع صديقه أو جاره (مثل: الحين، وش، ليش، مو، لين، كذا، يعني، تراه، ما جاء)، طبيعية وصادقة، بلا مبالغة ولا كلمات سوقية، وبإملاء اللهجة المتعارف عليه. ممنوع الفصحى المتكلفة في say.";
 const LANG_TEXT = "text على الشاشة بعربية بسيطة سليمة نحوياً وإملائياً (فصحى سهلة أو بيضاء مفهومة)، قصيرة جداً.";
 const PAINS = [
   "الفني يقول «جايك بعد العصر» وما يجي، وتضيع يومك تنتظر",
@@ -390,12 +392,23 @@ function splitLabel(s) {
   return s;
 }
 
-const BANNED = [[/أمهر |أفضل |أقوى /g, ""], [/الأمهر|الأفضل|الأقوى|الأرخص/g, "المناسب"], [/نضمن لك/g, "نساعدك على"], [/نضمن/g, "نساعد على"], [/بضمان\s*\S*/g, ""], [/\s*فوراً|\s*فورا/g, ""], [/خلال ساعة/g, ""], [/معتمدين|معتمد/g, "من شبكتنا"], [/تطبيق المنجز/g, "المنجز"], [/عبر التطبيق|من التطبيق/g, "عبر الرابط في البايو"], [/بلا غرامات|دون غرامات/g, ""]];
+const BANNED = [[/\s*يلتزم(ون)? (معك )?بالوقت( والسعر( الواضح)?)?/g, ""], [/(ب)?(ال)?سعر (ال)?واضح/g, ""], [/أمهر |أفضل |أقوى /g, ""], [/الأمهر|الأفضل|الأقوى|الأرخص/g, "المناسب"], [/نضمن لك/g, "نساعدك على"], [/نضمن/g, "نساعد على"], [/بضمان\s*\S*/g, ""], [/\s*فوراً|\s*فورا/g, ""], [/خلال ساعة/g, ""], [/معتمدين|معتمد/g, "من شبكتنا"], [/تطبيق المنجز/g, "المنجز"], [/عبر التطبيق|من التطبيق/g, "عبر الرابط في البايو"], [/بلا غرامات|دون غرامات/g, ""]];
 
 function sanitize(t) {
   let x = String(t || "");
   BANNED.forEach(([re, rep]) => { x = x.replace(re, rep); });
   return x.replace(/[\u064C-\u0650\u0652]/g, "").replace(/\s+([،.؟!])/g, "$1").replace(/\s{2,}/g, " ").trim();
+}
+
+const SAUDI_MAP = [[/(^|\s)الآن(?=\s|[؟?،.]|$)/g, "$1الحين"], [/(^|\s)ماذا(?=\s|[؟?،.]|$)/g, "$1وش"], [/(^|\s)لماذا(?=\s|[؟?،.]|$)/g, "$1ليش"], [/لم يأت[ِي]?/g, "ما جا"], [/(^|\s)أتى(?=\s|[؟?،.]|$)/g, "$1جا"], [/(^|\s)يأتي(?=\s|[؟?،.]|$)/g, "$1يجي"],
+  [/(^|\s)أريد(?=\s)/g, "$1أبغى"], [/(^|\s)تريد(?=\s)/g, "$1تبغى"], [/(^|\s)يجب أن(?=\s)/g, "$1لازم"], [/(^|\s)يجب(?=\s)/g, "$1لازم"], [/لازم أن /g, "لازم "], [/(^|\s)فقط(?=\s|[؟?،.]|$)/g, "$1بس"], [/لا يوجد/g, "ما فيه"], [/(^|\s)هكذا(?=\s|[؟?،.]|$)/g, "$1كذا"], [/(^|\s)المنزل(?=\s|[؟?،.]|$)/g, "$1البيت"], [/(^|\s)منزلك(?=\s|[؟?،.]|$)/g, "$1بيتك"], [/(^|\s)الماء(?=\s|[؟?،.]|$)/g, "$1الموية"]];
+const KEEP_TANWEEN = ["مجاناً", "شكراً", "أهلاً", "عفواً"];
+
+function saudify(t) {
+  let x = String(t || "");
+  SAUDI_MAP.forEach(([re, r]) => { x = x.replace(re, r); });
+  x = x.split(/(\s+)/).map(w => { const core = w.replace(/[،.؟?!]+$/, ""); return /اً$/.test(core) && !KEEP_TANWEEN.includes(core) ? w.replace(/اً(?=[،.؟?!]*$)/, "") : w; }).join("");
+  return x.replace(/\u064B/g, (m, i) => /مجان|شكر|أهل|عفو/.test(x.slice(Math.max(0, i - 6), i)) ? m : "");
 }
 
 function fix(o) {
@@ -410,12 +423,14 @@ function valid(o) {
   return o && o.topic && o.facebook && Array.isArray(o.reel) && o.reel.length >= 3 && o.reel.every(s => s && s.text && s.say);
 }
 
-async function ask(prompt) {
+async function ask(prompt, tier) {
   if (!KEY) { log("لا يوجد مفتاح Gemini"); return null; }
-  for (const m of await pickModels()) {
+  let list = await pickModels();
+  if (tier === "light") list = list.filter(x => /lite/.test(x)).concat(list.filter(x => !/lite/.test(x)));
+  for (const m of list) {
     if (!DEAD.has(m)) log("تجربة النموذج: " + m);
     const out = await callModel(m, prompt);
-    if (out) { log("نجح: " + m); writeModelCache(m); return out; }
+    if (out) { log("نجح: " + m); if (!/lite/.test(m)) writeModelCache(m); return out; }
   }
   return null;
 }
@@ -478,7 +493,7 @@ async function pickIdea(ctx) {
   const sum = x => { const s = x.scores || {}; return (+s.stop || 0) * 1.5 + (+s.stakes || 0) * 1.3 + (+s.curiosity || 0) + (+s.relevance || 0) + (+s.share || 0) * 0.7; };
   const pts = list.map((x, i) => ({ x, i, p: sum(x) }));
   await sleep(2000);
-  const j = await ask(judgePrompt(list));
+  const j = await ask(judgePrompt(list), "light");
   if (j && Array.isArray(j.order)) {
     j.order.map(Number).filter(n => n >= 0 && n < list.length).forEach((n, rank) => { pts[n].p += (list.length - rank) * 6; });
     if (j.why) log("حكم المشاهد: " + j.why);
@@ -494,12 +509,10 @@ async function generate(ctx) {
   await sleep(3000);
   const draft = await ask(buildPrompt(ctx));
   if (!valid(draft)) return null;
-  log("المسودة جاهزة — مراجعة المدير الإبداعي");
-  await sleep(4000);
-  const final = await ask(reviewPrompt(draft));
-  if (valid(final)) { log("التقييم: " + final.score_before + " ← " + final.score); return await polish(await doctor(final, ctx)); }
-  log("المراجعة فشلت — نعتمد المسودة");
-  return await polish(await doctor(draft, ctx));
+  log("المسودة جاهزة — طبيب السيناريو ثم التدقيق");
+  const out = await polish(await doctor(draft, ctx));
+  if (VO !== "fusha") out.reel.forEach(x => { x.say = saudify(x.say); });
+  return out;
 }
 
 function proofPrompt(c) {
