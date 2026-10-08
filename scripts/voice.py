@@ -9,7 +9,7 @@ STYLE = os.environ.get("TTS_STYLE", "warm, confident commercial voice-over, conv
 VOICE_LOG = os.path.join(ROOT, "social", "voice_log.json")
 BRAND_SAY = os.environ.get("BRAND_SAY", "").strip()
 QA_MODELS = ["gemini-3.5-flash-lite", "gemini-flash-lite-latest", "gemini-flash-latest", "gemini-3.1-flash-lite"]
-HARAKAT = re.compile(r"[\u064B-\u0650\u0652\u0670]")
+HARAKAT = re.compile(r"[\u064C-\u0650\u0652\u0670]")
 EDGE_VOICES = ["ar-SA-HamedNeural", "ar-SA-ZariyahNeural"]
 SR = 44100
 OUTRO = 2.2
@@ -79,26 +79,32 @@ def clean_tts(t):
 
 def discover_voices():
     found = []
-    for q in ["?language_code=ar-SA&region_code=SA", "?languageCode=ar-SA", "?language_code=ar", "?pageSize=200"]:
+    for q in ["?language_code=ar-SA&region_code=SA", "?language_code=ar", "?languageCode=ar", "?pageSize=300"]:
         try:
             j = http(API + "/voices" + q, None, {"x-goog-api-key": KEY}, timeout=30)
-        except Exception as e:
+        except Exception:
             continue
         for v in j.get("voices", []) or []:
             blob = json.dumps(v, ensure_ascii=False).lower()
-            vid = v.get("name") or v.get("id") or v.get("voice") or ""
-            vid = str(vid).split("/")[-1]
-            if not vid or not re.search(r'"ar|arabic|saudi|gulf|khaleeji|hijaz', blob):
+            vid = str(v.get("name") or v.get("id") or v.get("voice") or "").split("/")[-1]
+            if not vid or not (vid.startswith("ar") or re.search(r'arabic|"ar-', blob)):
                 continue
-            score = 3 if re.search(r"saudi|\bsa\b|ar-sa|hijaz|najd", blob) else (2 if re.search(r"gulf|khaleeji|ar-ae|ar-kw", blob) else 1)
-            male = 1 if re.search(r'"male"|\bmale\b', blob) and "female" not in blob else 0
-            found.append((score, male, vid, blob[:160]))
+            sc = 0
+            if re.search(r"saudi|ar-sa|hijaz|najd|gulf|khaleeji", blob): sc += 4
+            if "commercial" in blob: sc += 3
+            if re.search(r"narrat|advertis|promo", blob): sc += 2
+            if "advisor" in blob: sc += 1
+            if re.search(r'\bmale\b', blob) and "female" not in blob: sc += 1
+            found.append((sc, vid))
         if found:
             break
-    found.sort(key=lambda x: (-x[0], -x[1]))
-    for f in found[:6]:
-        log("صوت متاح من المكتبة: %s (درجة لهجة %d)" % (f[2], f[0]))
-    return [f[2] for f in found if f[0] >= 2][:2]
+    found.sort(key=lambda x: -x[0])
+    seen, out = set(), []
+    for sc, vid in found:
+        if vid not in seen:
+            seen.add(vid); out.append(vid)
+    log("أصوات عربية في المكتبة: " + "، ".join(out[:8]))
+    return out[:3]
 
 
 def load_vlog():
@@ -110,19 +116,67 @@ def load_vlog():
 
 def candidates():
     vlog = load_vlog()
-    avg = lambda v: (sum(vlog[v][-7:]) / len(vlog[v][-7:])) if vlog.get(v) else 6.5
+    avg = lambda v: (sum(vlog[v][-7:]) / len(vlog[v][-7:])) if vlog.get(v) else None
     lib = []
     try:
         lib = discover_voices()
     except Exception as e:
         log("مكتبة الأصوات: %s" % str(e)[:80])
-    base = [VOICE, "Charon", "Algieba", "Orus", "Sadachbia"]
-    allv = []
-    for v in lib + base:
-        if v not in allv:
-            allv.append(v)
-    allv.sort(key=lambda v: -avg(v) - (0.8 if v in lib else 0))
-    return allv[:3]
+    pool = []
+    for v in lib[:2] + [VOICE, "Charon", "Algieba"]:
+        if v not in pool:
+            pool.append(v)
+    known = sorted([v for v in pool if avg(v) is not None], key=lambda v: -avg(v))
+    fresh = [v for v in pool if avg(v) is None]
+    picks = (known[:1] + fresh + known[1:])[:3]
+    log("أصوات للتجربة اليوم: " + "، ".join(picks))
+    return picks
+
+
+def norm_ar(t):
+    t = HARAKAT.sub("", str(t)).replace("\u0651", "").replace("\u064B", "")
+    t = re.sub("[إأآا]", "ا", t).replace("ى", "ي").replace("ة", "ه").replace("ـ", "")
+    return re.findall(r"[\u0621-\u064A]+", t)
+
+
+def similarity(a, b):
+    import difflib
+    return difflib.SequenceMatcher(None, norm_ar(a), norm_ar(b)).ratio()
+
+
+def qa_compare(items, script):
+    parts = [{"text": ("You are a strict Saudi commercial voice-over director. Below are %d recordings (A, B, C...) of the SAME Arabic ad script. "
+                       "For EACH: transcribe exactly what you hear in Arabic, list mispronounced words, and rate naturalness 1-10 (human, warm, ad-quality, not robotic). "
+                       "Then rank them best to worst for a Saudi audience.\n"
+                       'Return JSON only: {"items":{"A":{"transcript":"","mispronounced":[],"naturalness":0,"tags_read":false}},"ranking":["A","B"],"why":"one line"}\n\nScript:\n%s') % (len(items), script)}]
+    for label, wav in items:
+        mp3 = wav + ".qa.mp3"
+        ff(["-i", wav, "-ar", "16000", "-ac", "1", "-b:a", "48k", mp3])
+        parts.append({"text": "Recording " + label + ":"})
+        parts.append({"inline_data": {"mime_type": "audio/mp3", "data": base64.b64encode(open(mp3, "rb").read()).decode()}})
+    for m in QA_MODELS:
+        try:
+            body = {"contents": [{"parts": parts}], "generationConfig": {"temperature": 0.1, "responseMimeType": "application/json"}}
+            j = http(API + "/models/" + m + ":generateContent?key=" + KEY, body, timeout=150)
+            txt = "".join(p.get("text", "") for p in j["candidates"][0]["content"]["parts"] if not p.get("thought"))
+            o = json.loads(txt[txt.index("{"):txt.rindex("}") + 1])
+            res, rank = {}, [str(x) for x in (o.get("ranking") or [])]
+            for label, _ in items:
+                it = (o.get("items") or {}).get(label, {}) or {}
+                sim = similarity(it.get("transcript", ""), script) if it.get("transcript") else 0.7
+                nat = float(it.get("naturalness") or 6)
+                bonus = (len(items) - rank.index(label)) * 0.6 if label in rank else 0
+                pen = 0.4 * min(len(it.get("mispronounced") or []), 5) + (3 if it.get("tags_read") else 0)
+                res[label] = {"score": round(max(0, 0.45 * nat + 5.5 * sim + bonus - pen - 1.2), 2), "sim": round(sim, 2), "nat": nat,
+                              "bad": (it.get("mispronounced") or [])[:6]}
+            if o.get("why"):
+                log("رأي مخرج الصوت: " + str(o["why"])[:160])
+            return res
+        except urllib.error.HTTPError as e:
+            log("مخرج الصوت %s ← %s" % (m, e.code))
+        except Exception as e:
+            log("مخرج الصوت %s: %s" % (m, str(e)[:80]))
+    return None
 
 
 def qa_audio(wav, script):
@@ -153,7 +207,7 @@ def qa_audio(wav, script):
 
 def gemini_interactions(model, text, path):
     body = {"model": model,
-            "input": [{"type": "user_input", "content": [{"type": "text", "text": text,
+            "input": [{"type": "user_input", "content": [{"type": "text", "text": text.replace("\n\n", " <short pause> "),
                                                           "annotations": [{"type": "speech_metadata", "style": STYLE}]}]}],
             "response_format": {"type": "audio"},
             "generation_config": {"speech_config": [{"voice": CUR_VOICE[0]}]}}
@@ -372,20 +426,25 @@ def main():
     script = "\n\n".join(sc["say"] for sc in scenes)
     wav = os.path.join(OUT, "narration.wav")
     model, best, report = None, None, []
+    takes = []
     for v in (candidates() if KEY else []):
         CUR_VOICE[0] = v
         tmp = os.path.join(OUT, "narr_%s.wav" % re.sub(r"\W", "_", v))
         m = gemini_tts(script.replace("المنجز", BRAND_SAY) if BRAND_SAY else script, tmp)
-        if not m:
-            continue
-        q = qa_audio(tmp, script)
-        sc = q["final"] if q else 6.0
-        log("تقييم صوت %s: %s/10 %s" % (v, sc, ("— " + str(q.get("accent", "")) + " — " + str(q.get("notes", ""))[:90] + (" — أخطاء: " + "، ".join(q.get("mispronounced") or [])[:80] if q.get("mispronounced") else "")) if q else "(بدون مراجع)"))
-        report.append({"voice": v, "score": sc, "qa": q})
-        if not best or sc > best[0]:
-            best = (sc, v, tmp, m)
-        if sc >= 8.5:
-            break
+        if m:
+            takes.append((v, tmp, m))
+    if takes:
+        labels = "ABCDE"
+        res = qa_compare([(labels[i], t[1]) for i, t in enumerate(takes)], script) if len(takes) > 1 else None
+        for i, (v, tmp, m) in enumerate(takes):
+            r = (res or {}).get(labels[i])
+            if not r:
+                q = qa_audio(tmp, script)
+                r = {"score": q["final"] if q else 6.0, "sim": None, "nat": q.get("naturalness") if q else None, "bad": (q or {}).get("mispronounced") or []}
+            log("تقييم صوت %s: %s/10 (تطابق النص %s، طبيعية %s)%s" % (v, r["score"], r["sim"], r["nat"], (" — أخطاء: " + "، ".join(r["bad"])[:90]) if r["bad"] else ""))
+            report.append({"voice": v, "score": r["score"]})
+            if not best or r["score"] > best[0]:
+                best = (r["score"], v, tmp, m)
     if best:
         shutil.copy(best[2], wav)
         model = best[3]
