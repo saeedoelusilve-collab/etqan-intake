@@ -59,6 +59,7 @@ jobs:
           REEL_OUT: ${{ runner.temp }}/reel
           GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
           TTS_VOICE: Puck
+          BRAND_SAY: ""
         run: python scripts/voice.py
 
       - name: Render motion video
