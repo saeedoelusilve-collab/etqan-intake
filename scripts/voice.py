@@ -1,11 +1,15 @@
-import asyncio, base64, glob, json, os, re, subprocess, sys, urllib.request, urllib.error, time
+import asyncio, base64, glob, json, os, re, shutil, subprocess, sys, urllib.request, urllib.error, time
 
 ROOT = os.getcwd()
 SRC = os.path.join(ROOT, "social", "reel.json")
 OUT = os.environ.get("REEL_OUT", os.path.join(ROOT, "reel_out"))
 KEY = os.environ.get("GEMINI_API_KEY", "")
 VOICE = os.environ.get("TTS_VOICE", "Puck")
-STYLE = os.environ.get("TTS_STYLE", "معلّق إعلانات محترف بصوت دافئ وواثق وحيوي، نطق عربي فصيح واضح، إيقاع إعلاني متوسط السرعة")
+STYLE = os.environ.get("TTS_STYLE", "warm, confident commercial voice-over, conversational and natural, medium-fast pace, slight smile")
+VOICE_LOG = os.path.join(ROOT, "social", "voice_log.json")
+BRAND_SAY = os.environ.get("BRAND_SAY", "").strip()
+QA_MODELS = ["gemini-3.5-flash-lite", "gemini-flash-lite-latest", "gemini-flash-latest", "gemini-3.1-flash-lite"]
+HARAKAT = re.compile(r"[\u064B-\u0650\u0652\u0670]")
 EDGE_VOICES = ["ar-SA-HamedNeural", "ar-SA-ZariyahNeural"]
 SR = 44100
 OUTRO = 2.2
@@ -67,12 +71,92 @@ def save_audio(raw, path, mime=""):
     return probe(path) > 1.0
 
 
+def clean_tts(t):
+    t = HARAKAT.sub("", str(t))
+    t = t.replace("ـ", "")
+    return re.sub(r"\s+", " ", t).strip()
+
+
+def discover_voices():
+    found = []
+    for q in ["?language_code=ar-SA&region_code=SA", "?languageCode=ar-SA", "?language_code=ar", "?pageSize=200"]:
+        try:
+            j = http(API + "/voices" + q, None, {"x-goog-api-key": KEY}, timeout=30)
+        except Exception as e:
+            continue
+        for v in j.get("voices", []) or []:
+            blob = json.dumps(v, ensure_ascii=False).lower()
+            vid = v.get("name") or v.get("id") or v.get("voice") or ""
+            vid = str(vid).split("/")[-1]
+            if not vid or not re.search(r'"ar|arabic|saudi|gulf|khaleeji|hijaz', blob):
+                continue
+            score = 3 if re.search(r"saudi|\bsa\b|ar-sa|hijaz|najd", blob) else (2 if re.search(r"gulf|khaleeji|ar-ae|ar-kw", blob) else 1)
+            male = 1 if re.search(r'"male"|\bmale\b', blob) and "female" not in blob else 0
+            found.append((score, male, vid, blob[:160]))
+        if found:
+            break
+    found.sort(key=lambda x: (-x[0], -x[1]))
+    for f in found[:6]:
+        log("صوت متاح من المكتبة: %s (درجة لهجة %d)" % (f[2], f[0]))
+    return [f[2] for f in found if f[0] >= 2][:2]
+
+
+def load_vlog():
+    try:
+        return json.load(open(VOICE_LOG, encoding="utf-8"))
+    except Exception:
+        return {}
+
+
+def candidates():
+    vlog = load_vlog()
+    avg = lambda v: (sum(vlog[v][-7:]) / len(vlog[v][-7:])) if vlog.get(v) else 6.5
+    lib = []
+    try:
+        lib = discover_voices()
+    except Exception as e:
+        log("مكتبة الأصوات: %s" % str(e)[:80])
+    base = [VOICE, "Charon", "Algieba", "Orus", "Sadachbia"]
+    allv = []
+    for v in lib + base:
+        if v not in allv:
+            allv.append(v)
+    allv.sort(key=lambda v: -avg(v) - (0.8 if v in lib else 0))
+    return allv[:3]
+
+
+def qa_audio(wav, script):
+    mp3 = wav + ".qa.mp3"
+    ff(["-i", wav, "-ar", "16000", "-ac", "1", "-b:a", "48k", mp3])
+    data = base64.b64encode(open(mp3, "rb").read()).decode()
+    prompt = ("You are a strict Saudi commercial voice-over director. Listen to this Arabic ad narration and compare it to the intended script below.\n"
+              "Score 1-10: overall (would a Saudi ad agency accept it), naturalness (human, not robotic), clarity. Identify the accent (saudi, gulf, levantine, egyptian, msa-neutral, foreign).\n"
+              "List Arabic words that were mispronounced, skipped or added, and say if any brackets/tags were read aloud.\n"
+              'Return JSON only: {"overall":0,"naturalness":0,"clarity":0,"accent":"","mispronounced":[],"skipped":[],"tags_read":false,"notes":"one short line"}\n\nScript:\n' + script)
+    for m in QA_MODELS:
+        try:
+            body = {"contents": [{"parts": [{"text": prompt}, {"inline_data": {"mime_type": "audio/mp3", "data": data}}]}],
+                    "generationConfig": {"temperature": 0.1, "responseMimeType": "application/json"}}
+            j = http(API + "/models/" + m + ":generateContent?key=" + KEY, body, timeout=90)
+            txt = "".join(p.get("text", "") for p in j["candidates"][0]["content"]["parts"] if not p.get("thought"))
+            o = json.loads(txt[txt.index("{"):txt.rindex("}") + 1])
+            sc = float(o.get("overall", 0))
+            sc -= 0.5 * min(len(o.get("mispronounced") or []), 4) + (3 if o.get("tags_read") else 0) + 0.5 * min(len(o.get("skipped") or []), 4)
+            o["final"] = round(max(sc, 0), 2)
+            return o
+        except urllib.error.HTTPError as e:
+            log("مراجع الصوت %s ← %s" % (m, e.code))
+        except Exception as e:
+            log("مراجع الصوت %s: %s" % (m, str(e)[:80]))
+    return None
+
+
 def gemini_interactions(model, text, path):
     body = {"model": model,
             "input": [{"type": "user_input", "content": [{"type": "text", "text": text,
                                                           "annotations": [{"type": "speech_metadata", "style": STYLE}]}]}],
             "response_format": {"type": "audio"},
-            "generation_config": {"speech_config": [{"voice": VOICE}]}}
+            "generation_config": {"speech_config": [{"voice": CUR_VOICE[0]}]}}
     j = http(API + "/interactions", body, {"x-goog-api-key": KEY})
     for st in reversed(j.get("steps", [])):
         for c in reversed(st.get("content", []) or []):
@@ -84,7 +168,7 @@ def gemini_interactions(model, text, path):
 def gemini_generate(model, text, path):
     body = {"contents": [{"parts": [{"text": "اقرأ النص التالي بأسلوب " + STYLE + ":\n\n" + text}]}],
             "generationConfig": {"responseModalities": ["AUDIO"],
-                                 "speechConfig": {"voiceConfig": {"prebuiltVoiceConfig": {"voiceName": VOICE}}}}}
+                                 "speechConfig": {"voiceConfig": {"prebuiltVoiceConfig": {"voiceName": CUR_VOICE[0]}}}}}
     j = http(API + "/models/" + model + ":generateContent?key=" + KEY, body)
     for p in j["candidates"][0]["content"]["parts"]:
         d = p.get("inlineData") or p.get("inline_data")
@@ -93,15 +177,21 @@ def gemini_generate(model, text, path):
     return False
 
 
+CUR_VOICE = [VOICE]
+TTS_MODELS = []
+
+
 def gemini_tts(text, path):
     if not KEY:
         return None
-    for m in tts_models():
+    if not TTS_MODELS:
+        TTS_MODELS.extend(tts_models())
+    for m in TTS_MODELS:
         for fn in (gemini_interactions, gemini_generate):
             for attempt in range(2):
                 try:
                     if fn(m, text, path):
-                        log("صوت Gemini: %s (%s)" % (m, VOICE))
+                        log("صوت Gemini: %s (%s)" % (m, CUR_VOICE[0]))
                         return m
                     break
                 except urllib.error.HTTPError as e:
@@ -277,9 +367,37 @@ def main():
     data = json.load(open(SRC, encoding="utf-8"))
     scenes = data.get("scenes", [])[:6]
     os.makedirs(OUT, exist_ok=True)
-    script = "\n\n".join((s.get("say") or s.get("text", "")).strip() for s in scenes)
+    for sc in scenes:
+        sc["say"] = clean_tts(sc.get("say") or sc.get("text", ""))
+    script = "\n\n".join(sc["say"] for sc in scenes)
     wav = os.path.join(OUT, "narration.wav")
-    model = gemini_tts(script, wav)
+    model, best, report = None, None, []
+    for v in (candidates() if KEY else []):
+        CUR_VOICE[0] = v
+        tmp = os.path.join(OUT, "narr_%s.wav" % re.sub(r"\W", "_", v))
+        m = gemini_tts(script.replace("المنجز", BRAND_SAY) if BRAND_SAY else script, tmp)
+        if not m:
+            continue
+        q = qa_audio(tmp, script)
+        sc = q["final"] if q else 6.0
+        log("تقييم صوت %s: %s/10 %s" % (v, sc, ("— " + str(q.get("accent", "")) + " — " + str(q.get("notes", ""))[:90] + (" — أخطاء: " + "، ".join(q.get("mispronounced") or [])[:80] if q.get("mispronounced") else "")) if q else "(بدون مراجع)"))
+        report.append({"voice": v, "score": sc, "qa": q})
+        if not best or sc > best[0]:
+            best = (sc, v, tmp, m)
+        if sc >= 8.5:
+            break
+    if best:
+        shutil.copy(best[2], wav)
+        model = best[3]
+        log("الصوت المختار: %s (%s/10)" % (best[1], best[0]))
+        vlog = load_vlog()
+        for r in report:
+            vlog.setdefault(r["voice"], []).append(r["score"])
+            vlog[r["voice"]] = vlog[r["voice"]][-20:]
+        try:
+            json.dump(vlog, open(VOICE_LOG, "w", encoding="utf-8"), ensure_ascii=False, indent=1)
+        except Exception:
+            pass
     if model:
         segs, t, tracks, engine, voiced = narrated(scenes, wav, model)
     else:
