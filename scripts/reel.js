@@ -61,9 +61,11 @@ function servicesHTML(s, logo) {
   const norm = x => String(x).replace(/[،,.:؛]/g, "").replace(/^و/, "");
   const times = SERVICES.map((sv, k) => {
     const tok = sv.n.split(" ")[0];
-    const start = Math.max(0, ws.findIndex(w => /[:：]$/.test(String(w.w))) + 1);
-    const w = ws.slice(start).find(w => norm(w.w) === tok || norm(w.w).startsWith(tok));
-    return w ? w.s : 0.6 + k * 0.35;
+    const colon = ws.findIndex(w => /[:：]$/.test(String(w.w)));
+    const span = Math.max(2.4, (s.dur || 5) * 0.62);
+    if (colon < 0) return 0.35 + k * (span / SERVICES.length);
+    const w = ws.slice(colon + 1).find(w => norm(w.w) === tok || norm(w.w).startsWith(tok));
+    return w ? w.s : 0.35 + k * (span / SERVICES.length);
   });
   const endT = ws.length ? ws[ws.length - 1].s : 0.6 + SERVICES.length * 0.35;
   const tiles = SERVICES.map((sv, k) => {
@@ -166,7 +168,7 @@ h1 .w em{text-shadow:0 8px 30px rgba(0,0,0,.35)}
 .btn span{grid-area:1/1}.b2{opacity:0;color:#fff}
 .ptr{position:absolute;width:86px;height:86px;border-radius:50%;background:rgba(255,255,255,.9);box-shadow:0 0 0 14px rgba(255,255,255,.25);left:0;top:0;opacity:0}
 .rip{position:absolute;width:60px;height:60px;border-radius:50%;border:6px solid #fff;left:0;top:0;opacity:0}
-.svh{position:absolute;left:60px;right:60px;top:300px;text-align:center;font-size:84px;font-weight:700;color:#f6d38a;text-shadow:0 8px 30px rgba(0,0,0,.4)}
+.svh{position:absolute;left:40px;right:40px;top:300px;text-align:center;font-size:72px;white-space:nowrap;font-weight:700;color:#f6d38a;text-shadow:0 8px 30px rgba(0,0,0,.4)}
 .grid{position:absolute;left:66px;right:66px;top:470px;display:grid;grid-template-columns:repeat(3,1fr);gap:22px}
 .tile{position:relative;height:250px;border-radius:34px;overflow:hidden;background:linear-gradient(160deg,#145f5a,#082f2d);border:3px solid rgba(255,255,255,.14);box-shadow:0 18px 40px rgba(0,0,0,.35);display:flex;flex-direction:column;align-items:center;justify-content:flex-end;padding-bottom:26px}
 .tile .ph{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;filter:grayscale(1) brightness(.55)}
