@@ -5,7 +5,14 @@ SRC = os.path.join(ROOT, "social", "reel.json")
 OUT = os.environ.get("REEL_OUT", os.path.join(ROOT, "reel_out"))
 KEY = os.environ.get("GEMINI_API_KEY", "")
 VOICE = os.environ.get("TTS_VOICE", "Puck")
-STYLE = os.environ.get("TTS_STYLE", "warm, confident commercial voice-over, conversational and natural, medium-fast pace, slight smile")
+VO_STYLE = os.environ.get("VO_STYLE", "white").lower()
+STYLE = os.environ.get("TTS_STYLE") or ("warm, confident commercial voice-over, conversational and natural, medium-fast pace, slight smile" if VO_STYLE == "fusha"
+         else "natural and conversational, like a real person telling a friend a short story; warm, sincere, relaxed pace, not an announcer")
+VOICES_FILE = os.path.join(ROOT, "social", "voices.json")
+PERSONAS = [
+    ("munjiz-saudi-warm", "A warm, friendly Saudi man in his early thirties from Medina with a natural Hijazi Saudi accent, speaking like a real person telling a friend a story, relaxed and sincere."),
+    ("munjiz-saudi-lively", "An upbeat, natural Saudi man in his late twenties speaking white Saudi dialect with a smiling voice, like a popular Saudi creator talking to his followers.")
+]
 VOICE_LOG = os.path.join(ROOT, "social", "voice_log.json")
 BRAND_SAY = os.environ.get("BRAND_SAY", "").strip()
 QA_MODELS = ["gemini-3.5-flash-lite", "gemini-flash-lite-latest", "gemini-flash-latest", "gemini-3.1-flash-lite"]
@@ -107,6 +114,36 @@ def discover_voices():
     return out[:3]
 
 
+def designed_voices():
+    try:
+        saved = json.load(open(VOICES_FILE, encoding="utf-8"))
+    except Exception:
+        saved = {}
+    changed = False
+    for name, desc in PERSONAS:
+        if saved.get(name):
+            continue
+        body = {"store": True, "voice": {"type": "prompted", "language_code": "ar-SA", "display_name": name,
+                                         "prompted": {"input": desc, "region_code": "SA"}}}
+        try:
+            j = http(API + "/voices", body, {"x-goog-api-key": KEY}, timeout=120)
+            vid = j.get("id") or (j.get("voice") or {}).get("id") or str(j.get("name", "")).split("/")[-1]
+            if vid:
+                saved[name] = vid
+                changed = True
+                log("صُمّم صوت سعودي جديد: %s ← %s" % (name, vid))
+        except urllib.error.HTTPError as e:
+            log("تصميم الصوت %s ← %s %s" % (name, e.code, e.read().decode(errors="ignore")[:160]))
+        except Exception as e:
+            log("تصميم الصوت %s: %s" % (name, str(e)[:100]))
+    if changed:
+        try:
+            json.dump(saved, open(VOICES_FILE, "w", encoding="utf-8"), ensure_ascii=False, indent=1)
+        except Exception:
+            pass
+    return [saved[n] for n, _ in PERSONAS if saved.get(n)]
+
+
 def load_vlog():
     try:
         return json.load(open(VOICE_LOG, encoding="utf-8"))
@@ -122,8 +159,13 @@ def candidates():
         lib = discover_voices()
     except Exception as e:
         log("مكتبة الأصوات: %s" % str(e)[:80])
+    mine = []
+    try:
+        mine = designed_voices()
+    except Exception as e:
+        log("الأصوات المصممة: %s" % str(e)[:80])
     pool = []
-    for v in lib[:2] + [VOICE, "Charon", "Algieba"]:
+    for v in mine + lib[:2] + [VOICE, "Charon", "Algieba"]:
         if v not in pool:
             pool.append(v)
     known = sorted([v for v in pool if avg(v) is not None], key=lambda v: -avg(v))
@@ -146,7 +188,7 @@ def similarity(a, b):
 
 def qa_compare(items, script):
     parts = [{"text": ("You are a strict Saudi commercial voice-over director. Below are %d recordings (A, B, C...) of the SAME Arabic ad script. "
-                       "For EACH: transcribe exactly what you hear in Arabic, list mispronounced words, and rate naturalness 1-10 (human, warm, ad-quality, not robotic). "
+                       "For EACH: transcribe exactly what you hear in Arabic, list mispronounced words, and rate naturalness 1-10: does it sound like a REAL Saudi person talking (natural Saudi accent and intonation, warm, believable), not an announcer, not robotic, not Egyptian or Levantine? "
                        "Then rank them best to worst for a Saudi audience.\n"
                        'Return JSON only: {"items":{"A":{"transcript":"","mispronounced":[],"naturalness":0,"tags_read":false}},"ranking":["A","B"],"why":"one line"}\n\nScript:\n%s') % (len(items), script)}]
     for label, wav in items:
