@@ -93,7 +93,13 @@ function page(tl) {
     const head = words.map((w, k) => k === keyIdx ? `<span class="w key"><i class="hl"></i><em>${esc(w)}</em></span>` : `<span class="w"><em>${esc(w)}</em></span>`).join(" ");
     const lab = String(s.label || "").trim() || ["المشكلة", "السبب", "الحل", "النتيجة"][Math.min(i - 1, 3)];
     const chip = i === 0 || last ? "" : `<div class="chip">${esc(lab.split(/\s+/).slice(0, 2).join(" "))}</div>`;
-    const cap = (s.words || []).map(w => `<span class="cw">${esc(w.w)}</span>`).join(" ");
+    let ch = 0, inChunk = 0;
+    const cap = (s.words || []).map((w, k, arr) => {
+      if (inChunk >= 4 || (k > 0 && /[،,.؟?!:]$/.test(String(arr[k - 1].w)))) { ch++; inChunk = 0; }
+      inChunk++;
+      return `<span class="cw" data-c="${ch}">${esc(w.w)}</span>`;
+    }).join(" ");
+    const kar = i > 0 && !last;
     const visual = last
       ? `<div class="card"><div class="ct"><span class="dot"></span>طلب فنّي جديد</div>
          <div class="row"><span>الخدمة</span><b>${esc(tl.trade && tl.trade !== "كل الخدمات" ? tl.trade : "أي خدمة في بيتك")}</b></div>
@@ -103,7 +109,7 @@ function page(tl) {
          <div class="ptr"></div><div class="rip"></div></div>`
       : `<div class="ico"><div class="ring"></div><div class="ring r2"></div><div class="disc"><svg viewBox="0 0 24 24">${ICONS[icon]}</svg></div></div>`;
     const fx = tl.fx && tl.fx[i];
-    return `<section class="sc${i === 0 ? " hook" : ""}${last ? " cta" : ""}${fx ? " fx" : ""}" id="s${i}">${fx ? '<div class="scrim"></div>' : ""}
+    return `<section class="sc${i === 0 ? " hook" : ""}${last ? " cta" : ""}${kar ? " kar" : ""}${fx ? " fx" : ""}" id="s${i}">${fx ? '<div class="scrim"></div>' : ""}
       <div class="cam">${visual}${chip}<h1>${head}</h1></div>
       <div class="cap">${cap}</div></section>`;
   }).join("");
@@ -157,6 +163,14 @@ h1 .w em{text-shadow:0 8px 30px rgba(0,0,0,.35)}
 .cap{position:absolute;left:90px;right:90px;top:1300px;text-align:center;font-size:50px;line-height:1.55;font-weight:500}
 .cap{padding:18px 30px;border-radius:28px;background:rgba(0,0,0,.32);backdrop-filter:none}
 .cw{display:inline-block;opacity:.45;transition:none}
+.hook .cap,.cta .cap{display:none}
+.kar h1{display:none}
+.kar .cap{top:870px;left:60px;right:60px;font-size:84px;font-weight:700;line-height:1.35;background:none;padding:0;text-shadow:0 6px 26px rgba(0,0,0,.65)}
+.sc.fx.kar .cap{background:none}
+.kar .cw{display:none;opacity:.6}
+.kar .cw.vis{display:inline-block}
+.kar .cw.on{opacity:1;color:#f6d38a;transform:scale(1.06)}
+.kar .cw.past{opacity:1;color:#fff}
 .cw.on{opacity:1;color:#f6d38a;transform:scale(1.08)}
 .cw.past{opacity:1}
 .card{position:absolute;left:150px;right:150px;top:330px;height:690px;border-radius:44px;background:linear-gradient(160deg,rgba(255,255,255,.16),rgba(255,255,255,.06));border:2px solid rgba(255,255,255,.22);box-shadow:0 40px 100px rgba(0,0,0,.45);padding:50px 50px;overflow:hidden}
@@ -255,7 +269,11 @@ function render(t){
   o.words.forEach(function(w,k){var p=(lt-st-k*sg)/.34;w.style.opacity=cl(p*1.6);w.style.transform="translateY("+(70*(1-oc(p)))+"px) scale("+(.82+.18*ob(p))+")"});
   o.hls.forEach(function(h){h.style.transform="scaleX("+oc((lt-st-.06-nw*sg)/.3)+")"});
   var ws=s.words||[];o.cap.style.opacity=ws.length?cl((lt-.05)/.2):0;
-  o.cws.forEach(function(c,k){var w=ws[k];c.className="cw"+(lt>=w.s&&lt<w.e+.05?" on":lt>=w.e?" past":"")});
+  var isK=o.el.classList.contains("kar"),act=0,cst=0;
+  if(isK){for(var q=0;q<ws.length;q++){if(lt>=ws[q].s-.06){act=+o.cws[q].dataset.c;}}
+    for(var q2=0;q2<ws.length;q2++){if(+o.cws[q2].dataset.c===act){cst=ws[q2].s;break}}
+    var pp=oc((lt-cst+.06)/.18);o.cap.style.transform="translateY("+(18*(1-pp))+"px) scale("+(.94+.06*pp)+")";o.cap.style.opacity=ws.length?1:0}
+  o.cws.forEach(function(c,k){var w=ws[k];c.className="cw"+(lt>=w.s&&lt<w.e+.05?" on":lt>=w.e?" past":"")+(isK&&+c.dataset.c===act?" vis":"")});
   if(o.card){o.card.style.transform="translateY("+(160*(1-oc(lt/.5)))+"px) scale("+(.9+.1*oc(lt/.5))+")";o.card.style.opacity=cl(lt/.3);
     o.rows.forEach(function(r,k){var p=(lt-.2-k*.12)/.35;r.style.opacity=cl(p);r.style.transform="translateX("+(-50*(1-oc(p)))+"px)"});
     var bx=o.btn.offsetLeft+o.btn.offsetWidth*.32,by=o.btn.offsetTop+o.btn.offsetHeight*.5;
@@ -265,7 +283,7 @@ function render(t){
     var done=lt>1.45;o.btn.style.background=done?"linear-gradient(90deg,#1f9d63,#3ee08f)":"";o.b1.style.opacity=done?0:1;o.b2.style.opacity=done?1:0;
     o.btn.style.transform="scale("+(lt>1.32&&lt<1.5?.96:1)+")"}
 }
-function fit(){S.forEach(function(o){var h=$("h1",o.el);if(!h)return;o.el.style.display="block";
+function fit(){S.forEach(function(o){var h=$("h1",o.el);if(!h||o.el.classList.contains("kar"))return;o.el.style.display="block";
   var fs=parseFloat(getComputedStyle(h).fontSize),max=o.card?200:340,lim=o.card?1280:1250;
   while((h.offsetHeight>max||h.offsetTop+h.offsetHeight>lim)&&fs>54){fs-=4;h.style.fontSize=fs+"px"}
   var top=Math.max(o.card?1330:1290,h.offsetTop+h.offsetHeight+36);o.cap.style.top=top+"px";
