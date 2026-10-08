@@ -3,31 +3,31 @@
  "trade": "تبليط",
  "scenes": [
   {
-   "text": "تبني بيتك في الرانونة؟",
-   "say": "جالس تشطب بيتك بالرانونة وخايف من كوارث البلاط؟",
+   "text": "إهمال فواصل التمدد يخرب حوشك",
+   "say": "أهملت فواصل التمدد بحوش بيتك تحت شمس المدينة؟",
    "icon": "tile",
-   "key": "الرانونة",
+   "key": "التمدد",
    "label": "",
-   "broll": "tile",
-   "visual": "Close-up of a worker holding a ceramic tile"
+   "broll": "cracked tiles",
+   "visual": "buckled and cracked outdoor courtyard floor tiles"
   },
   {
-   "text": "فواصل التمدد تحمي البلاط",
-   "say": "أبو عبد الرحمن سأل المبلط عن فواصل البورسلان وضاع وما عرف يجاوب.",
+   "text": "تكسر البلاط قبل عزيمتك",
+   "say": "لكن الحرارة خلت البلاط يقبع ويتكسر قبل عزيمتك.",
    "icon": "alert",
-   "key": "فواصل",
-   "label": "الخطأ",
-   "broll": "cracked tile",
-   "visual": "Close-up of cracked tiles on the floor"
+   "key": "البلاط",
+   "label": "السبب",
+   "broll": "broken tile",
+   "visual": "hands lifting broken loose outdoor tile pieces"
   },
   {
-   "text": "اطلب فني تبليط عبر المنجز",
-   "say": "الحل تطلب فني من المنجز بطلب مجاني، البيت الصح يبدأ بفني صح.",
-   "icon": "check",
+   "text": "مبلط المنجز ينهي المشكلة",
+   "say": "والحل مبلط من المنجز يوزن الفواصل صح وتنسى هم البلاط.",
+   "icon": "hammer",
    "key": "المنجز",
    "label": "الحل",
-   "broll": "tiler working",
-   "visual": "Close-up of professional hands applying tile spacers"
+   "broll": "tile installation",
+   "visual": "tiler hands placing spacers between ceramic tiles"
   },
   {
    "kind": "services",
@@ -43,8 +43,8 @@
    "icon": "phone",
    "key": "مجاناً",
    "label": "",
-   "text": "لا تتعب نفسك بالدوّارة",
-   "say": "لا تتعب نفسك بالدوّارة. اطلب فنيّك مجاناً من المنجز، والرابط في البايو."
+   "text": "لا تتعب نفسك تدوّر",
+   "say": "لا تتعب نفسك تدوّر على فني. اطلب فنيّك مجاناً من المنجز، والرابط في البايو."
   }
  ]
 }
