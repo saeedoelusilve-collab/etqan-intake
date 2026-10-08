@@ -74,6 +74,16 @@ function factsFor(ctx) {
   return f;
 }
 
+const BEATS = {
+  "قصة قصيرة": "1) موقف محدد بصيغة «أنت» (متى؟ أين؟ ماذا حدث؟) 2) التصعيد: ما الذي ساء بعدها 3) اللحظة الفارقة: المعلومة التي تقلب الموقف 4) الدعوة",
+  "عدّ تنازلي": "1) «علامتان لو شفتهما...» وعد بقائمة قصيرة 2) العلامة الأولى ومعناها 3) العلامة الثانية ومعناها 4) الدعوة",
+  "خطأ وصح": "1) الخطأ الذي يفعله أغلب الناس 2) ثمنه الحقيقي 3) الطريقة الصحيحة في جملة واحدة 4) الدعوة",
+  "سؤال ومفاجأة": "1) سؤال يتحدى معلومة المشاهد 2) الإجابة المفاجئة 3) ماذا تفعل الآن 4) الدعوة",
+  "سر الفني": "1) «لو سألت أي فني محترف...» 2) السر الذي لا يقوله الجميع 3) كيف تستفيد منه 4) الدعوة",
+  "ثلاثة مواقف": "1) موقف من تخصص أول 2) موقف من تخصص ثانٍ 3) موقف من تخصص ثالث (كل مشهد موقف قصير بصيغة «أنت») 4) الدعوة"
+};
+const TYPE_BEAT = { 0: "عدّ تنازلي", 1: "قصة قصيرة", 2: "قصة قصيرة", 3: "خطأ وصح", 4: "خطأ وصح", 5: "ثلاثة مواقف", 6: "سر الفني" };
+
 const ANGLES = [
   "الخسارة الخفية: مال يتسرب أو جهاز يتلف دون أن يشعر صاحب البيت",
   "أمان العائلة: خطر حقيقي (حريق، صعق، تسرب غاز، سقوط) يُعرض بهدوء دون تهويل",
@@ -233,6 +243,7 @@ ${ctx.hijriSeason ? "- مناسبة هجرية: " + ctx.hijriSeason : ""}
 ${ctx.occ ? "- مناسبة وطنية/موسمية: " + ctx.occ : ""}
 - إطار الكتابة: ${ctx.framework}
 - أسلوب الخطاف المطلوب اليوم: «${ctx.hook.n}» — ${ctx.hook.t}
+- قالب السيناريو اليوم «${ctx.beat}»: ${BEATS[ctx.beat]}
 ${ctx.idea ? `
 الفكرة المختارة (ابنِ كل المحتوى حولها بقوة):
 - الفكرة: ${ctx.idea.idea}
@@ -359,7 +370,7 @@ const BANNED = [[/نضمن لك/g, "نساعدك على"], [/نضمن/g, "نسا
 function sanitize(t) {
   let x = String(t || "");
   BANNED.forEach(([re, rep]) => { x = x.replace(re, rep); });
-  return x.replace(/[\u064B-\u0650\u0652]/g, "").replace(/\s+([،.؟!])/g, "$1").replace(/\s{2,}/g, " ").trim();
+  return x.replace(/[\u064C-\u0650\u0652]/g, "").replace(/\s+([،.؟!])/g, "$1").replace(/\s{2,}/g, " ").trim();
 }
 
 function fix(o) {
@@ -457,9 +468,9 @@ async function generate(ctx) {
   log("المسودة جاهزة — مراجعة المدير الإبداعي");
   await sleep(4000);
   const final = await ask(reviewPrompt(draft));
-  if (valid(final)) { log("التقييم: " + final.score_before + " ← " + final.score); return await polish(final); }
+  if (valid(final)) { log("التقييم: " + final.score_before + " ← " + final.score); return await polish(await doctor(final, ctx)); }
   log("المراجعة فشلت — نعتمد المسودة");
-  return await polish(draft);
+  return await polish(await doctor(draft, ctx));
 }
 
 function proofPrompt(c) {
@@ -476,6 +487,40 @@ function proofPrompt(c) {
 أعد JSON نفسه كاملاً مصححاً فقط، مضافاً إليه "fixes": عدد التصحيحات.
 
 ${JSON.stringify(c)}`;
+}
+
+function doctorPrompt(c, ctx) {
+  const lines = c.reel.map((x, i) => ({ i: i, text: x.text, say: x.say }));
+  return `أنت أفضل كاتب سيناريو إعلانات قصيرة في السعودية (مستوى جوائز كان ليونز). أمامك سيناريو ريلز لـ"المنجز" (شبكة فنيين في المدينة المنورة، الطلب مجاني عبر الرابط في البايو). القالب: «${ctx.beat}» — ${BEATS[ctx.beat]}.
+
+أعد كتابة text و say لكل مشهد ليصبح السيناريو أقوى وأكثر طبيعية عند سماعه:
+- say في المشهد الأول 10 كلمات كحد أقصى، وبقية المشاهد 14 كلمة كحد أقصى، جملة أو جملتان بنَفَس واحد.
+- إيقاع منطوق: كلمات بسيطة يقولها الناس فعلاً، صورة واحدة في كل جملة، ولا جمل اعتراضية.
+- اربط المشاهد بكلمات انتقال (لكن، والمشكلة، والحل، لذلك) حتى تُسمع كقصة واحدة لها تصاعد ثم لحظة تحوّل.
+- اختم المشهد قبل الأخير بجملة قوية تُحفظ.
+- اذكر «المنجز» مرة في المشهد الثاني أو الثالث، ومرة في الدعوة.
+- text على الشاشة 6 كلمات كحد أقصى، ويلخّص say ولا يكرره حرفياً.
+- فصحى إعلانية سعودية حيّة، بلا أسلوب أدبي أو وعظي. لا تشكيل إلا تنوين الفتح في الأحوال (أولاً، مجاناً، دائماً).
+- لا وعود: نضمن، فوراً، خلال ساعة، معتمد، الأفضل، تطبيق. لا أرقام إلا الموجودة أصلاً.
+- لا تغيّر الفكرة ولا ترتيب المشاهد ولا عددها.
+
+السيناريو:
+${JSON.stringify(lines)}
+
+أعد JSON فقط: {"reel":[{"i":0,"text":"...","say":"..."}],"note":"سطر: ما الذي حسّنته"}`;
+}
+
+async function doctor(c, ctx) {
+  await sleep(2500);
+  const r = await ask(doctorPrompt(c, ctx));
+  if (!r || !Array.isArray(r.reel)) { log("طبيب السيناريو لم يرد — نكمل"); return c; }
+  let n = 0;
+  r.reel.forEach((x, idx) => {
+    const i = x.i != null && !isNaN(+x.i) ? +x.i : idx;
+    if (c.reel[i] && x.text && x.say) { c.reel[i].text = x.text; c.reel[i].say = x.say; n++; }
+  });
+  log("طبيب السيناريو أعاد كتابة " + n + " مشاهد" + (r.note ? ": " + r.note : ""));
+  return c;
 }
 
 async function polish(c) {
@@ -629,6 +674,7 @@ function fb(t){var a=document.createElement("textarea");a.value=t;document.body.
     occ: occasion(p),
     framework: FRAMEWORKS[p.wd],
     hook: HOOKS[doy % HOOKS.length],
+    beat: TYPE_BEAT[p.wd] || "قصة قصيرة",
     history: history
   };
   log("اليوم: " + ctx.iso + " | " + ctx.type.name + " | " + ctx.trade + " | خطاف: " + ctx.hook.n);
