@@ -2,7 +2,7 @@
 <html lang="ar" dir="rtl"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="robots" content="noindex, nofollow">
 <title>محتوى اليوم — المنجز</title>
-<link rel="icon" href="../logo.png">
+<link rel="icon" href="../../logo.png">
 <style>
 :root{--p:#0e4c4a;--pd:#08302e;--gold:#c69541;--bg:#f5f4f0;--line:#e4e1d9;--mut:#62706e}
 *{box-sizing:border-box}body{margin:0;font-family:system-ui,"Segoe UI",Tahoma,sans-serif;background:var(--bg);color:#16201f;line-height:1.7}
@@ -144,7 +144,7 @@ return c}
 function build(logo){var box=document.getElementById("sl");box.innerHTML="";SL.forEach(function(t,i){var u;try{u=draw(t,i,logo).toDataURL("image/png")}catch(e){u=draw(t,i,null).toDataURL("image/png")}
 var d=document.createElement("div"),im=document.createElement("img");im.src=u;var a=document.createElement("a");a.className="dl";a.textContent="حفظ "+(i+1);a.href=u;a.download="munjiz-"+(i+1)+".png";d.appendChild(im);d.appendChild(a);box.appendChild(d)})}
 build(null);
-var lg=new Image();lg.onload=function(){build(lg)};lg.src="../logo.png";
+var lg=new Image();lg.onload=function(){build(lg)};lg.src="../../logo.png";
 function cp(b){var t=b.parentNode.parentNode.querySelector("pre").innerText;
 function done(){b.textContent="✓ تم";b.className="ok";setTimeout(function(){b.textContent="نسخ";b.className="";},1600);}
 if(navigator.clipboard&&navigator.clipboard.writeText){navigator.clipboard.writeText(t).then(done,function(){fb(t);done();});}else{fb(t);done();}}

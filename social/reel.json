@@ -1,50 +1,71 @@
 {
- "date": "2026-10-08",
+ "date": "2026-10-09",
  "trade": "تبليط",
  "scenes": [
   {
-   "text": "إهمال فواصل التمدد يخرب حوشك",
-   "say": "أهملت فواصل التمدد بحوش بيتك تحت شمس المدينة؟",
    "icon": "tile",
-   "key": "التمدد",
+   "key": "انتفخ",
    "label": "",
-   "broll": "cracked tiles",
-   "visual": "buckled and cracked outdoor courtyard floor tiles"
+   "broll": [
+    "floor tiles",
+    "tiles"
+   ],
+   "visual": "outdoor floor tiles close-up",
+   "text": "البلاط انتفخ قبل العزيمة",
+   "say": "قبل عزيمة ولدك بأسبوع، تطلع الحوش وتلقى البلاط منتفخ ومكسّر."
   },
   {
-   "text": "تكسر البلاط قبل عزيمتك",
-   "say": "لكن الحرارة خلت البلاط يقبع ويتكسر قبل عزيمتك.",
    "icon": "alert",
-   "key": "البلاط",
+   "key": "فواصل",
    "label": "السبب",
-   "broll": "broken tile",
-   "visual": "hands lifting broken loose outdoor tile pieces"
+   "broll": [
+    "tiling",
+    "tile installation"
+   ],
+   "visual": "tiler laying floor tiles with spacers",
+   "text": "بلّطوه بدون فواصل تمدد",
+   "say": "والسبب؟ المبلّط ركّب البلاط لاصق في بعض، بدون فواصل تمدد."
   },
   {
-   "text": "مبلط المنجز ينهي المشكلة",
-   "say": "والحل مبلط من المنجز يوزن الفواصل صح وتنسى هم البلاط.",
-   "icon": "hammer",
-   "key": "المنجز",
+   "icon": "thermo",
+   "key": "الحر",
+   "label": "العاقبة",
+   "broll": [
+    "ceramic tiles",
+    "floor tiles"
+   ],
+   "visual": "damaged ceramic floor tiles",
+   "text": "والحر ما يرحم البلاط",
+   "say": "وجات حرارة الصيف، تمدد البلاط، وما لقى مكان فانكسر."
+  },
+  {
+   "icon": "check",
+   "key": "صح",
    "label": "الحل",
-   "broll": "tile installation",
-   "visual": "tiler hands placing spacers between ceramic tiles"
+   "broll": [
+    "tile installation",
+    "tiler"
+   ],
+   "visual": "professional tiler leveling new floor tiles",
+   "text": "مبلّط يعرف شغله صح",
+   "say": "عشان كذا، اطلب مبلّط من المنجز يترك فواصل التمدد صح من البداية."
   },
   {
    "kind": "services",
-   "text": "فنيّ لكل شيء في بيتك",
+   "text": "بيتك كله في طلب واحد",
    "key": "",
    "label": "",
    "icon": "",
    "broll": "",
    "visual": "",
-   "say": "صيانة، تشطيب، أو بناء، المنجز يوصلك بالفني المناسب لكل شي في بيتك."
+   "say": "أي شي في بيتك يحتاج فني، تلقاه في المنجز."
   },
   {
    "icon": "phone",
    "key": "مجاناً",
    "label": "",
-   "text": "لا تتعب نفسك تدوّر",
-   "say": "لا تتعب نفسك تدوّر على فني. اطلب فنيّك مجاناً من المنجز، والرابط في البايو."
+   "text": "بيتك يستاهل راحة بالك",
+   "say": "بيتك يستاهل راحة بالك. اطلب فنيّك مجاناً من المنجز، الرابط في البايو."
   }
  ]
 }
