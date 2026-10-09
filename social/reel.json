@@ -1,71 +1,75 @@
 {
- "date": "2026-10-09",
- "trade": "تكييف",
+ "date": "2026-10-10",
+ "trade": "تبليط",
  "scenes": [
   {
-   "icon": "ac",
-   "key": "وقف",
+   "icon": "tile",
+   "key": "انتفخ",
    "label": "",
    "broll": [
-    "air conditioner",
-    "split air conditioner"
+    "floor tiles",
+    "tiles"
    ],
-   "visual": "indoor split air conditioner on a wall",
-   "text": "الضيوف جايين والمكيف وقف",
-   "say": "الساعة عشرة بالليل، الضيوف بعد ساعة، والمكيف فجأة وقف."
+   "visual": "outdoor floor tiles close-up",
+   "text": "البلاط انتفخ قبل العزيمة",
+   "say": "قبل عزيمة ولدك بأسبوع، تطلع الحوش وتلقى البلاط منتفخ ومكسّر.",
+   "gen": "sunny courtyard of a Saudi villa, beige ceramic floor tiles buckled and lifted up into a tented ridge, cracked tiles, beige stone walls"
   },
   {
-   "icon": "phone",
-   "key": "يرد",
-   "label": "المشكلة",
-   "broll": [
-    "air conditioning",
-    "hvac"
-   ],
-   "visual": "air conditioner unit close-up",
-   "text": "تتصل.. ولا أحد يرد",
-   "say": "تتصل على فني، وثاني، وثالث، ولا أحد يرد عليك."
-  },
-  {
-   "icon": "fan",
-   "key": "فلتر",
+   "icon": "alert",
+   "key": "فواصل",
    "label": "السبب",
    "broll": [
-    "air filter",
-    "air conditioner"
+    "tiling",
+    "tile installation"
    ],
-   "visual": "dirty air conditioner filter being removed",
-   "text": "والسبب ممكن فلتر وسخ",
-   "say": "وأحياناً السبب بسيط: فلتر ما انغسل من بداية الصيف."
+   "visual": "tiler laying floor tiles with spacers",
+   "text": "بلّطوه بدون فواصل تمدد",
+   "say": "والسبب؟ المبلّط ركّب البلاط لاصق في بعض، بدون فواصل تمدد.",
+   "gen": "close-up of outdoor floor tiles laid tightly edge to edge with no gaps, a long crack through the grout line"
+  },
+  {
+   "icon": "thermo",
+   "key": "الحر",
+   "label": "العاقبة",
+   "broll": [
+    "ceramic tiles",
+    "floor tiles"
+   ],
+   "visual": "damaged ceramic floor tiles",
+   "text": "والحر ما يرحم البلاط",
+   "say": "وجات حرارة الصيف، تمدد البلاط، وما لقى مكان فانكسر.",
+   "gen": "harsh midday summer sun over an outdoor tiled courtyard, heat haze, several broken ceramic tiles popped up from the floor"
   },
   {
    "icon": "check",
-   "key": "يتواصل",
+   "key": "صح",
    "label": "الحل",
    "broll": [
-    "hvac technician",
-    "air conditioner repair"
+    "tile installation",
+    "tiler"
    ],
-   "visual": "technician servicing an air conditioner",
-   "text": "فني تكييف يتواصل معك",
-   "say": "مع المنجز، تكتب طلبك، وفني التكييف هو اللي يتواصل معك."
+   "visual": "professional tiler leveling new floor tiles",
+   "text": "مبلّط يعرف شغله صح",
+   "say": "عشان كذا، اطلب مبلّط من المنجز يترك فواصل التمدد صح من البداية.",
+   "gen": "a man's gloved hands placing plastic tile spacers between new ceramic floor tiles, spirit level nearby, outdoor courtyard"
   },
   {
    "kind": "services",
-   "text": "بيتك كله في طلب واحد",
+   "text": "كل ما يحتاجه بيتك",
    "key": "",
    "label": "",
    "icon": "",
    "broll": "",
    "visual": "",
-   "say": "أي شي في بيتك يحتاج فني، تلقاه في المنجز."
+   "say": "من أصغر عطل لين تشطيب البيت كامل، كل اللي يحتاجه بيتك بطلب واحد من المنجز."
   },
   {
    "icon": "phone",
    "key": "مجاناً",
    "label": "",
-   "text": "بيتك يستاهل راحة بالك",
-   "say": "بيتك يستاهل راحة بالك. اطلب فنيّك مجاناً من المنجز، الرابط في البايو."
+   "text": "طلب واحد.. والفني يتواصل معك",
+   "say": "اكتب طلبك مرة وحدة، والفني يتواصل معك مباشرة. الرابط في البايو."
   }
  ]
 }

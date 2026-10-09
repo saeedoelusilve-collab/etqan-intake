@@ -79,32 +79,6 @@
    "added": "2026-10-09"
   },
   {
-   "id": "pb14133",
-   "kind": "video",
-   "trade": "أجهزة كهربائية",
-   "desc": "checking meat temperature in oven",
-   "score": 9,
-   "url": "https://cdn.pixabay.com/video/2018/02/05/14133-254487725_large.mp4",
-   "thumb": "https://cdn.pixabay.com/video/2018/02/05/14133-254487725_small.jpg",
-   "credit": "Pixabay",
-   "src": "Pixabay",
-   "tags": "flesh, oven, grill, fried meat, preparation, in the oven, food, pork, chop, hot dish",
-   "added": "2026-10-09"
-  },
-  {
-   "id": "pb66",
-   "kind": "video",
-   "trade": "أجهزة كهربائية",
-   "desc": "cookies baking in oven tray",
-   "score": 8,
-   "url": "https://cdn.pixabay.com/video/2015/08/08/66-135732262_large.mp4",
-   "thumb": "https://cdn.pixabay.com/video/2015/08/08/66-135732262_small.jpg",
-   "credit": "DistillVideos",
-   "src": "Pixabay",
-   "tags": "cookies, oven, baking, melting, molten, bakery, heat, warm, greasy, baking sheet, baking tray, cooking",
-   "added": "2026-10-09"
-  },
-  {
    "id": "pb85341",
    "kind": "video",
    "trade": "دهان",
@@ -284,6 +258,32 @@
    "credit": "Life-Of-Vids",
    "src": "Pixabay",
    "tags": "construction worker, angle grinder, grinder, worker, construction, tool, work, industrial, cut, building, grinding, metalwork, mechanic, professional, industry",
+   "added": "2026-10-09"
+  },
+  {
+   "id": "pb30704",
+   "kind": "video",
+   "trade": "أجهزة كهربائية",
+   "desc": "Washing machine spinning colorful laundry",
+   "score": 7,
+   "url": "https://cdn.pixabay.com/video/2019/12/30/30704-383980332_large.mp4",
+   "thumb": "https://cdn.pixabay.com/video/2019/12/30/30704-383980332_small.jpg",
+   "credit": "iha31",
+   "src": "Pixabay",
+   "tags": "laundry, washing machine, cleaning clothes, clean clothes, water, iron, hairdryer, refrigerator, clean",
+   "added": "2026-10-09"
+  },
+  {
+   "id": "pb1191",
+   "kind": "video",
+   "trade": "نجارة",
+   "desc": "Conference room with wooden chairs",
+   "score": 7,
+   "url": "https://cdn.pixabay.com/video/2015/10/27/1191-143842658_large.mp4",
+   "thumb": "https://cdn.pixabay.com/video/2015/10/27/1191-143842658_small.jpg",
+   "credit": "Vimeo-Free-Videos",
+   "src": "Pixabay",
+   "tags": "conference room, furniture, modern, equipment, conference, business, chair, table, interior, boardroom, workplace, board, contemporary, elegant, meetings, place, room, empty, 133411649",
    "added": "2026-10-09"
   }
  ]
