@@ -18,7 +18,7 @@ const TRADE = {
   "سباكة": { q: ["plumber", "faucet", "plumbing", "water leak", "bathroom sink", "pipe wrench"], k: ["plumb", "faucet", "tap", "pipe", "sink", "bathroom", "leak", "drain", "toilet", "shower", "wrench"] },
   "كهرباء": { q: ["electrician", "electrical panel", "electric socket", "wiring", "light bulb", "circuit breaker"], k: ["electric", "wire", "wiring", "socket", "outlet", "cable", "switch", "panel", "breaker", "voltage", "bulb", "lamp"] },
   "تكييف": { q: ["air conditioner", "air conditioning", "hvac", "technician repair", "thermostat", "split air conditioner"], k: ["air condition", "conditioner", "conditioning", "hvac", "ac unit", "cooling", "thermostat", "ventilation", "technician", "split"] },
-  "أجهزة كهربائية": { q: ["washing machine", "refrigerator", "appliance repair", "dishwasher", "kitchen appliance", "oven"], k: ["washing", "washer", "machine", "fridge", "refrigerator", "appliance", "dishwasher", "oven", "microwave", "laundry", "kitchen"] },
+  "أجهزة كهربائية": { q: ["washing machine", "refrigerator", "appliance repair", "dishwasher", "washing machine repair", "fridge"], k: ["washing", "washer", "machine", "fridge", "refrigerator", "appliance", "dishwasher", "oven", "microwave", "laundry", "kitchen"] },
   "نجارة": { q: ["carpenter", "woodworking", "door handle", "wooden door", "kitchen cabinet", "furniture assembly"], k: ["carpent", "wood", "door", "cabinet", "furniture", "drill", "saw", "plank", "hinge", "handle", "wardrobe"] },
   "تبليط": { q: ["tiles", "tiling", "ceramic tiles", "floor tiles", "bathroom tiles", "tile installation"], k: ["tile", "tiling", "ceramic", "floor", "marble", "grout", "porcelain", "bathroom"] },
   "دهان": { q: ["painting wall", "paint roller", "house painting", "painter", "wall paint", "interior painting"], k: ["paint", "painter", "roller", "brush", "wall", "color", "colour", "decorat"] },
@@ -29,6 +29,8 @@ const TRADE = {
 };
 const GENERIC = { q: ["home repair", "handyman", "house renovation", "repairman", "tools"], k: ["repair", "handyman", "renovat", "tool", "maintenance", "screwdriver", "drill"] };
 const BLOCK = ["sea", "ocean", "beach", "bird", "animal", "sunset", "sunrise", "mountain", "forest", "flower", "landscape", "sky", "cloud", "lake", "river", "nature", "wildlife", "dog", "cat", "fish", "waterfall", "tree", "leaf", "plant", "abstract", "particles", "background", "galaxy", "space", "fantasy", "christmas", "rain", "snow", "fire", "prayer", "pray", "mosque", "church", "temple", "religio", "worship", "synagogue", "jew", "christian", "cross", "bible", "woman", "women", "girl", "lady", "female", "model", "fashion", "beauty", "bikini", "beer", "wine", "alcohol", "smok", "party", "port", "ship", "harbor", "harbour", "container", "skyline", "traffic", "city", "flag", "dance", "wedding", "kiss", "couple", "domino", "supermarket", "grocery", "vase", "roof", "statue", "number", "fruit", "eiffel", "bicycle", "textile", "shingle", "legs", "feet", "walking", "shopping", "retail", "antique", "museum", "church"];
+
+const FOOD = ["food", "meat", "cookie", "pizza", "cake", "baking", "bake", "cooking", "cook ", "dough", "macaron", "ribs", "chef", "bread", "dish of", "plate of", "meal"];
 
 function relevant(tags, keys, q) {
   const t = " " + String(tags || "").toLowerCase() + " ";
@@ -138,7 +140,7 @@ async function judge(scene, trade, cands, minScore) {
           const d = String(it.desc || "").toLowerCase();
           const WEAK = ["floor", "bathroom", "room", "interior", "wall", "kitchen", "home", "house", "site", "worker", "build", "lighting", "color", "colour", "handle", "tool", "repair", "maintenance"];
           const strong = tk.filter(k => !WEAK.includes(k));
-          const BAD = BLOCK.concat(["supermarket", "shop", "store", "food", "market", "car ", "street", "office", "computer", "laptop", "phone"]);
+          const BAD = BLOCK.concat(FOOD, ["supermarket", "shop", "store", "market", "car ", "street", "office", "computer", "laptop", "phone", "motherboard", "circuit board", "cpu"]);
           const okDesc = !it.desc || ((strong.length ? strong : tk).some(k => d.includes(k)) && !BAD.some(b => (" " + d).includes(" " + b)));
           return okDesc ? Number(it.score) || 0 : 0;
         });
@@ -202,6 +204,84 @@ async function montageLibrary() {
   log("مكتبة الخدمات: " + Object.keys(meta).length + "/11 جاهزة" + (fresh ? " (أُضيفت " + fresh + " اليوم)" : ""));
 }
 
+
+// ===== صور مولّدة تطابق القصة (Cloudflare Workers AI — مجاني 10,000 وحدة يومياً) =====
+const CF_ID = process.env.CF_ACCOUNT_ID || "", CF_TOKEN = process.env.CF_API_TOKEN || "";
+const CF_MODELS = ["@cf/black-forest-labs/flux-2-klein-4b", "@cf/black-forest-labs/flux-1-schnell"];
+const CF_DEAD = new Set();
+const STYLE = ". Photorealistic documentary photo shot on a smartphone, natural light, realistic textures, Saudi Arabian home in Medina, vertical composition. No text, no letters, no logos, no watermark, no women, no faces, no religious symbols.";
+
+async function cfImage(prompt, seed) {
+  if (!CF_ID || !CF_TOKEN) return null;
+  for (const m of CF_MODELS) {
+    if (CF_DEAD.has(m)) continue;
+    try {
+      const url = "https://api.cloudflare.com/client/v4/accounts/" + CF_ID + "/ai/run/" + m;
+      let r;
+      if (m.includes("flux-2")) {
+        const fd = new FormData();
+        fd.append("prompt", prompt + STYLE); fd.append("width", "864"); fd.append("height", "1536"); fd.append("seed", String(seed));
+        r = await fetch(url, { method: "POST", headers: { Authorization: "Bearer " + CF_TOKEN }, body: fd, signal: AbortSignal.timeout(120000) });
+      } else {
+        r = await fetch(url, { method: "POST", headers: { Authorization: "Bearer " + CF_TOKEN, "Content-Type": "application/json" }, body: JSON.stringify({ prompt: prompt + STYLE, steps: 8, seed: seed }), signal: AbortSignal.timeout(120000) });
+      }
+      if (!r.ok) { const t = (await r.text()).slice(0, 160); log("المولّد " + m.split("/").pop() + " ← " + r.status + " " + t); if (r.status !== 503 && r.status !== 500) CF_DEAD.add(m); continue; }
+      const ct = r.headers.get("content-type") || "";
+      let buf;
+      if (ct.includes("json")) { const j = await r.json(); const b = (j.result && (j.result.image || j.result.images && j.result.images[0])) || j.image; if (!b) { log("المولّد: لا صورة في الرد"); continue; } buf = Buffer.from(b, "base64"); }
+      else buf = Buffer.from(await r.arrayBuffer());
+      if (buf.length < 15000) continue;
+      return { buf: buf, model: m.split("/").pop(), square: !m.includes("flux-2") };
+    } catch (e) { log("المولّد " + m.split("/").pop() + ": " + e.message); }
+  }
+  return null;
+}
+
+async function judgeGen(scene, prompt, bufs) {
+  if (!GKEY) return null;
+  const p = "You are a strict creative director for a Saudi home-maintenance ad (conservative family audience). Intended shot: " + prompt + ". Scene line (Arabic): " + (scene.text || "") + ".\n" +
+    "For each numbered image: describe it in 3-6 words, then score 0-10 how well it shows the intended shot AS A BELIEVABLE REAL PHOTO. Give 0 if: any woman or girl, a visible face, any text/letters/logo, distorted or extra fingers, melted or impossible objects, cartoon or obvious CGI look, religious symbols, alcohol.\n" +
+    'Return JSON only: {"items":[{"desc":"...","score":0}]}';
+  const parts = [{ text: p }];
+  bufs.forEach((b, i) => { parts.push({ text: "Image " + i + ":" }); parts.push({ inline_data: { mime_type: "image/jpeg", data: b.toString("base64") } }); });
+  for (const m of VISION) {
+    if (DEADV.has(m)) continue;
+    try {
+      const r = await fetch("https://generativelanguage.googleapis.com/v1beta/models/" + m + ":generateContent?key=" + GKEY, {
+        method: "POST", headers: { "Content-Type": "application/json" }, signal: AbortSignal.timeout(90000),
+        body: JSON.stringify({ contents: [{ parts: parts }], generationConfig: { temperature: 0.1, responseMimeType: "application/json" } })
+      });
+      if (!r.ok) { log("حَكَم الصور " + m + " ← " + r.status); if (r.status !== 503) DEADV.add(m); continue; }
+      const j = await r.json();
+      const t = ((j.candidates || [])[0] || {}).content;
+      const txt = ((t && t.parts) || []).filter(x => x.text && !x.thought).map(x => x.text).join("");
+      const o = JSON.parse(txt.slice(txt.indexOf("{"), txt.lastIndexOf("}") + 1));
+      return (o.items || []).map(it => ({ desc: String(it.desc || ""), score: BLOCK.some(b => (" " + String(it.desc).toLowerCase()).includes(" " + b) && !prompt.toLowerCase().includes(b)) ? 0 : Number(it.score) || 0 }));
+    } catch (e) { log("حَكَم الصور " + m + ": " + e.message); DEADV.add(m); }
+  }
+  return null;
+}
+
+async function generated(scene, i, seed) {
+  const prompt = String(scene.gen || scene.visual || "").trim();
+  if (!prompt || !CF_ID || !CF_TOKEN) return null;
+  const outs = [];
+  for (let k = 0; k < 2; k++) { const g = await cfImage(prompt, seed * 10 + i * 3 + k); if (g) outs.push(g); }
+  if (!outs.length) return null;
+  const sc = await judgeGen(scene, prompt, outs.map(o => o.buf));
+  if (!sc) { log("مشهد " + (i + 1) + ": حَكَم الصور غير متاح — لا نستخدم صورة غير مفحوصة"); return null; }
+  let best = -1, bs = -1;
+  sc.forEach((x, k) => { if (k < outs.length && x.score > bs) { bs = x.score; best = k; } });
+  log("مشهد " + (i + 1) + ": صور مولّدة (" + sc.map(x => x.score + ":" + x.desc.slice(0, 30)).join(" | ") + ")");
+  if (best < 0 || bs < 7) return null;
+  const raw = path.join(OUT, "gen" + i + ".img");
+  fs.writeFileSync(raw, outs[best].buf);
+  try {
+    require("child_process").execFileSync("ffmpeg", ["-v", "error", "-y", "-i", raw, "-vf", "scale=1080:1920:force_original_aspect_ratio=increase:flags=lanczos,crop=1080:1920,unsharp=5:5:0.4", "-q:v", "2", path.join(OUT, "bg" + i + ".jpg")]);
+  } catch (e) { log("ffmpeg للصورة المولّدة: " + e.message); return null; }
+  return { id: "gen-" + i, q: "generated", credit: "مولّدة (" + outs[best].model + ")", src: "صورة مولّدة " + bs + "/10", tags: sc[best].desc };
+}
+
 // ===== مكتبة اللقطات المعتمدة: كل لقطة نالت 7+ من الحَكَم تُحفظ وتُستخدم لاحقاً بلا بحث =====
 const LIB = path.join(ROOT, "social", "footage.json");
 const SCENE_CAP = 12 * 60000, HARVEST_CAP = 16 * 60000, MONTAGE_CAP = 19 * 60000;
@@ -242,6 +322,10 @@ async function freshUrl(it) {
   const recent = new Set(used.filter(u => Date.now() - Date.parse(u.date || 0) < 7 * 86400000).map(u => u.id));
   const lib = readJSON(LIB, { items: [] });
   if (!Array.isArray(lib.items)) lib.items = [];
+  const before = lib.items.length;
+  lib.items = lib.items.filter(x => !FOOD.concat(["motherboard", "circuit board", "cpu"]).some(b => (" " + String(x.desc || "").toLowerCase()).includes(" " + b.trim())));
+  if (lib.items.length < before) log("تنظيف المكتبة: حذف " + (before - lib.items.length) + " لقطة غير مناسبة");
+  if (!CF_ID || !CF_TOKEN) log("لا يوجد مفتاح Cloudflare — بدون صور مولّدة (أضف CF_ACCOUNT_ID و CF_API_TOKEN)");
   const saveLib = () => { try { fs.writeFileSync(LIB, JSON.stringify(lib, null, 1)); } catch (e) {} };
   log("مكتبة اللقطات المعتمدة: " + lib.items.length + " لقطة");
   const seed = Math.floor(Date.now() / 86400000);
@@ -291,7 +375,8 @@ async function freshUrl(it) {
     const rot = tr.q.slice((seed + i) % tr.q.length).concat(tr.q.slice(0, (seed + i) % tr.q.length));
     const qs = [...new Set(own.concat(rot, GENERIC.q))];
     const plans = [
-      { kind: "video", qs: qs.slice(0, 2), min: 7 },
+      { kind: "video", qs: qs.slice(0, 2), min: 8 },
+      { kind: "gen" },
       { kind: "library" },
       { kind: "video", qs: qs.slice(2, 4), min: 6 },
       { kind: "photo", qs: qs.slice(0, 2), min: 7 },
@@ -301,6 +386,7 @@ async function freshUrl(it) {
     for (const plan of plans) {
       if (got) break;
       if (plan.kind === "library") { got = await fromLibrary(strade, i); continue; }
+      if (plan.kind === "gen") { got = await generated(s, i, seed); continue; }
       if (Date.now() - T0 > SCENE_CAP) continue;
       const cands = await batchFor(plan.kind, plan.qs, keys);
       if (!cands.length) continue;
