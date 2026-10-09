@@ -93,12 +93,16 @@ function page(tl) {
     const head = words.map((w, k) => k === keyIdx ? `<span class="w key"><i class="hl"></i><em>${esc(w)}</em></span>` : `<span class="w"><em>${esc(w)}</em></span>`).join(" ");
     const lab = String(s.label || "").trim() || ["المشكلة", "السبب", "الحل", "النتيجة"][Math.min(i - 1, 3)];
     const chip = i === 0 || last ? "" : `<div class="chip">${esc(lab.split(/\s+/).slice(0, 2).join(" "))}</div>`;
-    let ch = 0, inChunk = 0;
-    const cap = (s.words || []).map((w, k, arr) => {
-      if (inChunk >= 4 || (k > 0 && /[،,.؟?!:]$/.test(String(arr[k - 1].w)))) { ch++; inChunk = 0; }
-      inChunk++;
-      return `<span class="cw" data-c="${ch}">${esc(w.w)}</span>`;
-    }).join(" ");
+    // تقسيم متوازن: عبارة لكل علامة ترقيم، والعبارة الطويلة تُقسم بالتساوي (لا كلمة يتيمة في آخر السطر)
+    const wl = s.words || [], phr = [];
+    let cur = [];
+    wl.forEach((w, k) => { cur.push(k); if (/[،,.؟?!:]$/.test(String(w.w)) || k === wl.length - 1) { phr.push(cur); cur = []; } });
+    for (let p = phr.length - 1; p > 0; p--) if (phr[p].length === 1 && phr[p - 1].length <= 4) { phr[p - 1] = phr[p - 1].concat(phr[p]); phr.splice(p, 1); }
+    if (phr.length > 1 && phr[0].length === 1 && phr[1].length <= 4) { phr[1] = phr[0].concat(phr[1]); phr.shift(); }
+    const cid = [];
+    let ch = 0;
+    phr.forEach(pp => { const m = Math.ceil(pp.length / 4); pp.forEach((k, j) => { cid[k] = ch + Math.floor(j * m / pp.length); }); ch += m; });
+    const cap = wl.map((w, k) => `<span class="cw" data-c="${cid[k] || 0}">${esc(w.w)}</span>`).join(" ");
     const kar = i > 0 && !last;
     const visual = last
       ? `<div class="card"><div class="ct"><span class="dot"></span>طلب فنّي جديد</div>
