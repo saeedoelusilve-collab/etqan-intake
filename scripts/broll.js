@@ -145,8 +145,9 @@ async function judge(scene, trade, cands, minScore) {
         if (items.length) log("الحَكَم رأى: " + items.slice(0, 10).map((it, i) => i + ")" + String(it.desc || "").slice(0, 28) + "=" + sc[i]).join(" | "));
         let best = -1, bs = -1;
         sc.forEach((v, i) => { if (v > bs) { bs = v; best = i; } });
-        if (best < 0 || bs < MIN || !imgs[best]) return { pick: null, scores: sc };
-        return { pick: imgs[best].c, score: bs, scores: sc };
+        const all = imgs.map((x, i) => ({ c: x.c, score: sc[i] || 0, desc: String((items[i] || {}).desc || "") }));
+        if (best < 0 || bs < MIN || !imgs[best]) return { pick: null, scores: sc, all: all };
+        return { pick: imgs[best].c, score: bs, scores: sc, all: all };
       } catch (e) { log("الحَكَم " + m + ": " + e.message); DEADV.add(m); break; }
     }
   }
@@ -201,54 +202,115 @@ async function montageLibrary() {
   log("مكتبة الخدمات: " + Object.keys(meta).length + "/11 جاهزة" + (fresh ? " (أُضيفت " + fresh + " اليوم)" : ""));
 }
 
+// ===== مكتبة اللقطات المعتمدة: كل لقطة نالت 7+ من الحَكَم تُحفظ وتُستخدم لاحقاً بلا بحث =====
+const LIB = path.join(ROOT, "social", "footage.json");
+const SCENE_CAP = 12 * 60000, HARVEST_CAP = 16 * 60000, MONTAGE_CAP = 19 * 60000;
+const SLUGS = { "سباكة": "plumbing", "كهرباء": "electrical", "تكييف": "hvac", "أجهزة كهربائية": "appliances", "نجارة": "carpentry", "تبليط": "tiling", "دهان": "painting", "جبس بورد": "gypsum", "سمنت بورد": "cementboard", "حدادة": "blacksmith", "بناء ولياسة": "building" };
+const ALL = { q: Object.values(TRADE).map(t => t.q[0]), k: [].concat(...Object.values(TRADE).map(t => t.k)) };
+const tinfo = t => TRADE[t] || (t === "كل الخدمات" ? ALL : GENERIC);
+const today = new Date().toISOString().slice(0, 10);
+
+function libAdd(lib, trade, j) {
+  let n = 0;
+  (j && j.all || []).filter(a => a.score >= 7 && a.c && a.c.id).forEach(a => {
+    if (lib.items.some(x => x.id === a.c.id)) return;
+    lib.items.push({ id: a.c.id, kind: a.c.kind === "photo" ? "photo" : "video", trade: trade, desc: a.desc.slice(0, 60), score: a.score, url: a.c.url, thumb: a.c.thumb, credit: a.c.credit, src: a.c.src, tags: a.c.tags, added: today });
+    n++;
+  });
+  return n;
+}
+
+async function freshUrl(it) {
+  const m = /^(pb|pp)(\d+)$/.exec(it.id);
+  if (!m || !PIXABAY) return it.url;
+  try {
+    const u = (m[1] === "pb" ? "https://pixabay.com/api/videos/?key=" : "https://pixabay.com/api/?key=") + PIXABAY + "&id=" + m[2];
+    const r = await fetch(u, { signal: AbortSignal.timeout(20000) });
+    if (!r.ok) return it.url;
+    const h = ((await r.json()).hits || [])[0];
+    if (!h) return null;
+    if (m[1] === "pb") { const v = ["large", "medium"].map(k => h.videos && h.videos[k]).find(v => v && v.url); return v ? v.url : null; }
+    return h.largeImageURL || it.url;
+  } catch (e) { return it.url; }
+}
+
 (async function main() {
   if (!PEXELS && !PIXABAY) { log("لا يوجد مفتاح Pexels أو Pixabay — الفيديو بخلفية متحركة"); return; }
   const reel = readJSON(path.join(ROOT, "social", "reel.json"), { scenes: [] });
   const used = readJSON(USED, []);
   const usedIds = new Set(used.map(u => u.id));
+  const recent = new Set(used.filter(u => Date.now() - Date.parse(u.date || 0) < 7 * 86400000).map(u => u.id));
+  const lib = readJSON(LIB, { items: [] });
+  if (!Array.isArray(lib.items)) lib.items = [];
+  const saveLib = () => { try { fs.writeFileSync(LIB, JSON.stringify(lib, null, 1)); } catch (e) {} };
+  log("مكتبة اللقطات المعتمدة: " + lib.items.length + " لقطة");
   const seed = Math.floor(Date.now() / 86400000);
   const taken = new Set();
   const credits = [];
-  const n = reel.scenes.length;
-  const tr = TRADE[reel.trade] || (reel.trade === "كل الخدمات"
-    ? { q: Object.values(TRADE).map(t => t.q[0]), k: [].concat(...Object.values(TRADE).map(t => t.k)) } : GENERIC);
-  const keys = tr.k.concat(GENERIC.k);
+  const montageUses = {};
   const cache = {};
-  let usedMontage = false;
+  const n = reel.scenes.length;
   fs.mkdirSync(OUT, { recursive: true });
+
+  async function batchFor(kind, qs, keys) {
+    const batch = [];
+    for (const q of qs) {
+      const key = kind + ":" + q;
+      if (!cache[key]) { try { cache[key] = kind === "photo" ? await pixabayPhotos(q) : await search(q); } catch (e) { log(e.message); cache[key] = []; } }
+      cache[key].filter(v => !taken.has(v.id) && !batch.some(b => b.id === v.id) && !lib.items.some(x => x.id === v.id && x.bad) && relevant(v.tags, keys.concat(q.split(" ").filter(w => w.length > 3)), q))
+        .slice(0, 7).forEach(v => batch.push(Object.assign({ q: q }, v)));
+    }
+    batch.sort((a, b) => (usedIds.has(a.id) - usedIds.has(b.id)));
+    return batch.slice(0, 8);
+  }
+
+  async function fromLibrary(trade, i) {
+    const pool = lib.items.filter(x => !x.dead && !taken.has(x.id) && (x.trade === trade || trade === "كل الخدمات"))
+      .sort((a, b) => (recent.has(a.id) - recent.has(b.id)) || ((b.kind === "video") - (a.kind === "video")) || (b.score - a.score));
+    for (const it of pool.slice(0, 3)) {
+      const url = await freshUrl(it);
+      if (!url) { it.dead = true; continue; }
+      const isPhoto = it.kind === "photo";
+      try {
+        await download(url, path.join(OUT, "bg" + i + (isPhoto ? ".jpg" : ".mp4")), isPhoto ? 20000 : 50000);
+        log("مشهد " + (i + 1) + ": من مكتبة اللقطات المعتمدة (" + it.score + "/10: " + it.desc + ")");
+        return Object.assign({}, it, { q: "library", src: (it.src || "Pixabay") + " · مكتبة" });
+      } catch (e) { log(e.message); }
+    }
+    return null;
+  }
+
   for (let i = 0; i < n - 1; i++) {
-    if (Date.now() - T0 > 7 * 60000) { log("تجاوزنا 7 دقائق — بقية المشاهد بخلفية متحركة"); break; }
     const s = reel.scenes[i];
     if (s.kind === "services") continue;
+    if (Date.now() - T0 > SCENE_CAP) { log("تجاوزنا " + SCENE_CAP / 60000 + " دقيقة للمشاهد — نكمل من المكتبة فقط"); }
+    const strade = s.trade || reel.trade;
+    const tr = tinfo(strade);
+    const keys = tr.k.concat(GENERIC.k);
     const own = [].concat(s.broll || []).map(x => String(x).trim().toLowerCase()).filter(Boolean).map(x => x.split(/\s+/).slice(0, 2).join(" "));
     const rot = tr.q.slice((seed + i) % tr.q.length).concat(tr.q.slice(0, (seed + i) % tr.q.length));
     const qs = [...new Set(own.concat(rot, GENERIC.q))];
-    let got = null;
     const plans = [
-      { kind: "video", qs: qs.slice(0, 2) }, { kind: "video", qs: qs.slice(2, 4) },
-      { kind: "photo", qs: qs.slice(0, 2) }, { kind: "photo", qs: qs.slice(2, 4) }
+      { kind: "video", qs: qs.slice(0, 2), min: 7 },
+      { kind: "library" },
+      { kind: "video", qs: qs.slice(2, 4), min: 6 },
+      { kind: "photo", qs: qs.slice(0, 2), min: 7 },
+      { kind: "photo", qs: qs.slice(2, 4), min: 7 }
     ];
+    let got = null;
     for (const plan of plans) {
-      if (got || Date.now() - T0 > 7 * 60000) break;
-      const batch = [];
-      for (const q of plan.qs) {
-        const key = plan.kind + ":" + q;
-        if (!cache[key]) { try { cache[key] = plan.kind === "photo" ? await pixabayPhotos(q) : await search(q); } catch (e) { log(e.message); cache[key] = []; } }
-        cache[key].filter(v => !taken.has(v.id) && !batch.some(b => b.id === v.id) && relevant(v.tags, keys.concat(q.split(" ").filter(w => w.length > 3)), q))
-          .slice(0, 7).forEach(v => batch.push(Object.assign({ q: q }, v)));
-      }
-      if (!batch.length) continue;
-      batch.sort((a, b) => (usedIds.has(a.id) - usedIds.has(b.id)));
-      const cands = batch.slice(0, 8);
-      const j = await judge(s, reel.trade, cands, plan.kind === "photo" ? 8 : 6);
-      let pick = null;
-      if (j) {
-        if (j.pick) { pick = j.pick; log("مشهد " + (i + 1) + ": الحَكَم اختار " + (plan.kind === "photo" ? "صورة" : "فيديو") + " بدرجة " + j.score + "/10"); }
-        else { log("مشهد " + (i + 1) + ": رُفضت دفعة " + (plan.kind === "photo" ? "صور" : "فيديو") + " (" + (j.scores || []).join(",") + ")"); await sleep(1200); continue; }
-      } else {
-        log("مشهد " + (i + 1) + ": الحَكَم غير متاح — لا نخاطر بلقطة غير مفحوصة");
-        continue;
-      }
+      if (got) break;
+      if (plan.kind === "library") { got = await fromLibrary(strade, i); continue; }
+      if (Date.now() - T0 > SCENE_CAP) continue;
+      const cands = await batchFor(plan.kind, plan.qs, keys);
+      if (!cands.length) continue;
+      const j = await judge(s, strade, cands, plan.min);
+      if (!j) { log("مشهد " + (i + 1) + ": الحَكَم غير متاح — لا نخاطر بلقطة غير مفحوصة"); continue; }
+      const added = libAdd(lib, strade, j);
+      if (added) { log("المكتبة: +" + added + " لقطة معتمدة (" + strade + ")"); saveLib(); }
+      if (!j.pick) { log("مشهد " + (i + 1) + ": رُفضت دفعة " + (plan.kind === "photo" ? "صور" : "فيديو") + " (" + (j.scores || []).join(",") + ")"); await sleep(1200); continue; }
+      const pick = j.pick;
+      log("مشهد " + (i + 1) + ": الحَكَم اختار " + (plan.kind === "photo" ? "صورة" : "فيديو") + " بدرجة " + j.score + "/10");
       try {
         const isPhoto = pick.kind === "photo";
         await download(pick.url, path.join(OUT, "bg" + i + (isPhoto ? ".jpg" : ".mp4")), isPhoto ? 20000 : 50000);
@@ -256,10 +318,14 @@ async function montageLibrary() {
       } catch (e) { log(e.message); }
       await sleep(1200);
     }
-    if (!got && !usedMontage) {
-      const SLUG = { "سباكة": "plumbing", "كهرباء": "electrical", "تكييف": "hvac", "أجهزة كهربائية": "appliances", "نجارة": "carpentry", "تبليط": "tiling", "دهان": "painting", "جبس بورد": "gypsum", "سمنت بورد": "cementboard", "حدادة": "blacksmith", "بناء ولياسة": "building" }[reel.trade];
-      const mp = SLUG && path.join(ROOT, "social", "montage", SLUG + ".jpg");
-      if (mp && fs.existsSync(mp)) { fs.copyFileSync(mp, path.join(OUT, "bg" + i + ".jpg")); usedMontage = true; got = { id: "mont-" + SLUG, q: "montage", credit: "Pixabay", src: "مكتبة الخدمات", tags: SLUG }; }
+    if (!got) {
+      const slug = SLUGS[strade] || (strade === "كل الخدمات" ? Object.values(SLUGS)[(seed + i) % 11] : null);
+      const mp = slug && path.join(ROOT, "social", "montage", slug + ".jpg");
+      if (mp && fs.existsSync(mp) && (montageUses[slug] || 0) < 1) {
+        fs.copyFileSync(mp, path.join(OUT, "bg" + i + ".jpg"));
+        montageUses[slug] = (montageUses[slug] || 0) + 1;
+        got = { id: "mont-" + slug, q: "montage", credit: "Pixabay", src: "مكتبة الخدمات", tags: slug };
+      }
     }
     if (got) {
       taken.add(got.id);
@@ -268,9 +334,29 @@ async function montageLibrary() {
     } else log("مشهد " + (i + 1) + ": بدون لقطة مناسبة — خلفية متحركة");
   }
   fs.writeFileSync(path.join(OUT, "broll.json"), JSON.stringify(credits, null, 1));
-  const date = new Date().toISOString().slice(0, 10);
-  const merged = used.concat(credits.map(c => ({ id: c.id, date: date, credit: c.credit, src: c.src }))).slice(-300);
+  const merged = used.concat(credits.map(c => ({ id: c.id, date: today, credit: c.credit, src: c.src }))).slice(-300);
   fs.writeFileSync(USED, JSON.stringify(merged, null, 1));
-  log("تم: " + credits.length + " لقطة");
-  await montageLibrary();
+  log("تم: " + credits.length + " لقطة حقيقية");
+
+  // ===== الحصاد: نستغل الوقت المتبقي لبناء مكتبة كل التخصصات تدريجياً =====
+  const trades = Object.keys(TRADE);
+  const order = [reel.trade].concat(trades.slice(seed % 11), trades.slice(0, seed % 11)).filter((t, k, a) => TRADE[t] && a.indexOf(t) === k);
+  let harvested = 0;
+  for (const t of order) {
+    if (Date.now() - T0 > HARVEST_CAP) break;
+    const have = lib.items.filter(x => x.trade === t && !x.dead && x.kind === "video").length;
+    if (have >= 15) continue;
+    const q = TRADE[t].q[(seed + have) % TRADE[t].q.length];
+    const cands = (await batchFor("video", [q], TRADE[t].k)).filter(c => !lib.items.some(x => x.id === c.id));
+    if (cands.length < 2) continue;
+    const j = await judge({ text: t, visual: "clearly shows " + q + " work, tools or results inside a home" }, t, cands, 7);
+    const added = libAdd(lib, t, j);
+    harvested += added;
+    log("الحصاد: " + t + " «" + q + "» +" + added + " (المجموع " + (have + added) + ")");
+    saveLib();
+    await sleep(1500);
+  }
+  saveLib();
+  log("مكتبة اللقطات: " + lib.items.length + " لقطة" + (harvested ? " (حصاد اليوم +" + harvested + ")" : ""));
+  if (Date.now() - T0 < MONTAGE_CAP) await montageLibrary();
 })().catch(e => { console.error(e); process.exit(0); });
