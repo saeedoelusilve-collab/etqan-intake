@@ -16,7 +16,8 @@
       "floor tiles",
       "tiles"
      ],
-     "visual": "outdoor floor tiles close-up"
+     "visual": "outdoor floor tiles close-up",
+     "gen": "sunny courtyard of a Saudi villa, beige ceramic floor tiles buckled and lifted up into a tented ridge, cracked tiles, beige stone walls"
     },
     {
      "text": "بلّطوه بدون فواصل تمدد",
@@ -28,7 +29,8 @@
       "tiling",
       "tile installation"
      ],
-     "visual": "tiler laying floor tiles with spacers"
+     "visual": "tiler laying floor tiles with spacers",
+     "gen": "close-up of outdoor floor tiles laid tightly edge to edge with no gaps, a long crack through the grout line"
     },
     {
      "text": "والحر ما يرحم البلاط",
@@ -40,7 +42,8 @@
       "ceramic tiles",
       "floor tiles"
      ],
-     "visual": "damaged ceramic floor tiles"
+     "visual": "damaged ceramic floor tiles",
+     "gen": "harsh midday summer sun over an outdoor tiled courtyard, heat haze, several broken ceramic tiles popped up from the floor"
     },
     {
      "text": "مبلّط يعرف شغله صح",
@@ -52,7 +55,8 @@
       "tile installation",
       "tiler"
      ],
-     "visual": "professional tiler leveling new floor tiles"
+     "visual": "professional tiler leveling new floor tiles",
+     "gen": "a man's gloved hands placing plastic tile spacers between new ceramic floor tiles, spirit level nearby, outdoor courtyard"
     },
     {
      "text": "اطلب فنيّك مجاناً من المنجز",
@@ -88,7 +92,8 @@
       "air conditioner",
       "split air conditioner"
      ],
-     "visual": "indoor split air conditioner on a wall"
+     "visual": "indoor split air conditioner on a wall",
+     "gen": "traditional Saudi majlis at night with floor cushions, a white split air conditioner on the wall switched off, warm lamps, a coffee dallah on a tray"
     },
     {
      "text": "تتصل.. ولا أحد يرد",
@@ -100,7 +105,8 @@
       "air conditioning",
       "hvac"
      ],
-     "visual": "air conditioner unit close-up"
+     "visual": "air conditioner unit close-up",
+     "gen": "a man's hand holding a smartphone to his ear, dim living room at night, blurred split air conditioner in background"
     },
     {
      "text": "والسبب ممكن فلتر وسخ",
@@ -112,7 +118,8 @@
       "air filter",
       "air conditioner"
      ],
-     "visual": "dirty air conditioner filter being removed"
+     "visual": "dirty air conditioner filter being removed",
+     "gen": "close-up of a very dusty clogged air conditioner filter being pulled out of a white split AC unit"
     },
     {
      "text": "فني تكييف يتواصل معك",
@@ -124,7 +131,8 @@
       "hvac technician",
       "air conditioner repair"
      ],
-     "visual": "technician servicing an air conditioner"
+     "visual": "technician servicing an air conditioner",
+     "gen": "a man's gloved hands cleaning the filter of a white split air conditioner on a wall, technician tools"
     },
     {
      "text": "اطلب فنيّك مجاناً من المنجز",
@@ -160,7 +168,8 @@
       "electric socket",
       "power outlet"
      ],
-     "visual": "wall electrical socket close-up"
+     "visual": "wall electrical socket close-up",
+     "gen": "close-up of a white wall power socket with brown scorch marks around it, a plug half inserted"
     },
     {
      "text": "التماس من أخطر الأسباب",
@@ -172,7 +181,8 @@
       "electrical wiring",
       "electrician"
      ],
-     "visual": "electrical wires and cables close-up"
+     "visual": "electrical wires and cables close-up",
+     "gen": "close-up of old tangled electrical wires behind an open wall socket, dark background"
     },
     {
      "text": "أفياش فوق بعض = خطر",
@@ -184,7 +194,8 @@
       "power strip",
       "electric plug"
      ],
-     "visual": "many plugs in a power strip"
+     "visual": "many plugs in a power strip",
+     "gen": "a wall socket overloaded with stacked multi-plug adapters and many plugs, cables everywhere"
     },
     {
      "text": "كهربائي يفحصها قبل المشكلة",
@@ -196,7 +207,8 @@
       "electrician",
       "electrical panel"
      ],
-     "visual": "electrician testing a socket with a tester"
+     "visual": "electrician testing a socket with a tester",
+     "gen": "a man's gloved hands testing a wall socket with a voltage tester screwdriver, open toolbox"
     },
     {
      "text": "اطلب فنيّك مجاناً من المنجز",
@@ -232,7 +244,8 @@
       "house interior",
       "home renovation"
      ],
-     "visual": "empty new apartment interior"
+     "visual": "empty new apartment interior",
+     "gen": "brand new empty Saudi apartment living room, beige walls, marble floor, cardboard moving boxes, daylight"
     },
     {
      "text": "الحمّام يسرّب",
@@ -245,7 +258,8 @@
       "bathroom sink"
      ],
      "visual": "plumber fixing pipe under a sink",
-     "trade": "سباكة"
+     "trade": "سباكة",
+     "gen": "water leaking from a pipe under a bathroom sink cabinet, small puddle on the floor"
     },
     {
      "text": "والفيشة ما تشتغل",
@@ -258,7 +272,8 @@
       "electric socket"
      ],
      "visual": "electrician repairing a wall socket",
-     "trade": "كهرباء"
+     "trade": "كهرباء",
+     "gen": "close-up of a new kitchen wall socket with a plug inserted and an unlit kettle beside it"
     },
     {
      "text": "كل الخدمات في مكان واحد",
@@ -270,7 +285,8 @@
       "handyman",
       "home repair"
      ],
-     "visual": "handyman with tools repairing at home"
+     "visual": "handyman with tools repairing at home",
+     "gen": "an organized toolbox with a pipe wrench, voltage tester, paint roller and hammer on the marble floor of a new home"
     },
     {
      "text": "اطلب فنيّك مجاناً من المنجز",
@@ -306,7 +322,8 @@
       "dripping faucet",
       "faucet"
      ],
-     "visual": "water dripping from a faucet close-up"
+     "visual": "water dripping from a faucet close-up",
+     "gen": "close-up of a chrome faucet with a single water drop falling into a white bathroom sink at night, moody light"
     },
     {
      "text": "11 ألف لتر في السنة",
@@ -318,7 +335,8 @@
       "water tap",
       "sink"
      ],
-     "visual": "water drops falling into a sink"
+     "visual": "water drops falling into a sink",
+     "gen": "water dripping from a chrome tap into a white basin, drops frozen mid-air, close-up"
     },
     {
      "text": "فلوس تروح وأنت ما تدري",
@@ -330,7 +348,8 @@
       "faucet",
       "bathroom sink"
      ],
-     "visual": "running tap in a bathroom sink"
+     "visual": "running tap in a bathroom sink",
+     "gen": "coins scattered in a white sink under a dripping chrome tap"
     },
     {
      "text": "سبّاك يقفل الهدر",
@@ -342,7 +361,8 @@
       "plumber",
       "faucet repair"
      ],
-     "visual": "plumber repairing a faucet with a wrench"
+     "visual": "plumber repairing a faucet with a wrench",
+     "gen": "a man's hands tightening a chrome faucet with an adjustable wrench under a bathroom sink"
     },
     {
      "text": "اطلب فنيّك مجاناً من المنجز",
@@ -378,7 +398,8 @@
       "wall paint",
       "painting wall"
      ],
-     "visual": "peeling paint on an interior wall"
+     "visual": "peeling paint on an interior wall",
+     "gen": "Saudi majlis wall with paint peeling and flaking off in large pieces, floor cushions below, daylight"
     },
     {
      "text": "دهنوا فوق الرطوبة",
@@ -390,7 +411,8 @@
       "painter",
       "wall"
      ],
-     "visual": "damp stained wall before painting"
+     "visual": "damp stained wall before painting",
+     "gen": "close-up of a damp wall with dark moisture stains and bubbling paint"
     },
     {
      "text": "دفعت مرتين",
@@ -402,7 +424,8 @@
       "paint roller",
       "house painting"
      ],
-     "visual": "paint roller and paint tray"
+     "visual": "paint roller and paint tray",
+     "gen": "paint roller and tray on the floor next to a wall with peeling paint"
     },
     {
      "text": "دهّان يجهّز الجدار صح",
@@ -414,7 +437,8 @@
       "painter",
       "paint roller"
      ],
-     "visual": "painter rolling fresh paint on a wall"
+     "visual": "painter rolling fresh paint on a wall",
+     "gen": "a man's hand rolling fresh white paint on a smooth primed wall with a paint roller"
     },
     {
      "text": "اطلب فنيّك مجاناً من المنجز",
@@ -450,7 +474,8 @@
       "washing machine",
       "laundry"
      ],
-     "visual": "front load washing machine with clothes inside"
+     "visual": "front load washing machine with clothes inside",
+     "gen": "front load washing machine stopped mid-cycle with water and clothes trapped inside the glass door, laundry room"
     },
     {
      "text": "وكل واحد يقول: بكرة",
@@ -462,7 +487,8 @@
       "washing machine",
       "appliance"
      ],
-     "visual": "washing machine control panel close-up"
+     "visual": "washing machine control panel close-up",
+     "gen": "close-up of a washing machine glass door with soapy water trapped inside"
     },
     {
      "text": "والغسيل يتكدّس",
@@ -474,7 +500,8 @@
       "laundry basket",
       "laundry"
      ],
-     "visual": "pile of clothes in a laundry basket"
+     "visual": "pile of clothes in a laundry basket",
+     "gen": "overflowing laundry basket full of clothes on a tiled floor next to a washing machine"
     },
     {
      "text": "فني أجهزة يتواصل معك",
@@ -486,7 +513,8 @@
       "appliance repair",
       "washing machine repair"
      ],
-     "visual": "technician repairing a washing machine"
+     "visual": "technician repairing a washing machine",
+     "gen": "a man's gloved hands repairing the back panel of a washing machine with a screwdriver"
     },
     {
      "text": "اطلب فنيّك مجاناً من المنجز",
@@ -522,7 +550,8 @@
       "metal gate",
       "iron gate"
      ],
-     "visual": "metal house gate close-up"
+     "visual": "metal house gate close-up",
+     "gen": "old metal courtyard gate of a Saudi house in beige stone walls, sunny, gate half open"
     },
     {
      "text": "الصدا أكل المفصلات",
@@ -534,7 +563,8 @@
       "rusty metal",
       "metal hinge"
      ],
-     "visual": "rusty metal hinge close-up"
+     "visual": "rusty metal hinge close-up",
+     "gen": "extreme close-up of a rusty corroded metal hinge on an iron gate"
     },
     {
      "text": "التأخير يكبّر الإصلاح",
@@ -546,7 +576,8 @@
       "metal work",
       "welding"
      ],
-     "visual": "metal workshop with steel parts"
+     "visual": "metal workshop with steel parts",
+     "gen": "badly rusted bottom edge of a metal gate with flaking paint"
     },
     {
      "text": "حدّاد يرجّعه زي الجديد",
@@ -558,7 +589,8 @@
       "welder",
       "welding"
      ],
-     "visual": "welder working on a metal gate with sparks"
+     "visual": "welder working on a metal gate with sparks",
+     "gen": "a welder in a welding mask welding a metal gate hinge with bright sparks"
     },
     {
      "text": "اطلب فنيّك مجاناً من المنجز",
@@ -594,7 +626,8 @@
       "hotel room",
       "air conditioner"
      ],
-     "visual": "hotel room with air conditioner"
+     "visual": "hotel room with air conditioner",
+     "gen": "clean hotel room with a made bed and a white split air conditioner on the wall, a suitcase by the door"
     },
     {
      "text": "كل غرفة مقفلة خسارة",
@@ -606,7 +639,8 @@
       "hotel room",
       "hotel"
      ],
-     "visual": "empty hotel room bed"
+     "visual": "empty hotel room bed",
+     "gen": "empty hotel corridor with closed room doors, warm lights"
     },
     {
      "text": "وفريق الصيانة مشغول",
@@ -618,7 +652,8 @@
       "maintenance",
       "hvac technician"
      ],
-     "visual": "maintenance technician with tools"
+     "visual": "maintenance technician with tools",
+     "gen": "hotel maintenance tool cart in a corridor"
     },
     {
      "text": "فنيين من شبكة المنجز",
@@ -630,7 +665,8 @@
       "hvac technician",
       "air conditioner repair"
      ],
-     "visual": "technician servicing an air conditioner"
+     "visual": "technician servicing an air conditioner",
+     "gen": "a man's gloved hands servicing a split air conditioner in a hotel room"
     },
     {
      "text": "اطلب فنيّك مجاناً من المنجز",
@@ -666,7 +702,8 @@
       "wardrobe door",
       "cabinet door"
      ],
-     "visual": "wooden wardrobe door close-up"
+     "visual": "wooden wardrobe door close-up",
+     "gen": "wooden wardrobe with one door hanging crooked from a broken hinge, bedroom"
     },
     {
      "text": "مفصلة رخيصة ومرتخية",
@@ -678,7 +715,8 @@
       "door hinge",
       "cabinet hinge"
      ],
-     "visual": "cabinet hinge close-up"
+     "visual": "cabinet hinge close-up",
+     "gen": "close-up of a loose cabinet hinge with screws pulled out of the wood"
     },
     {
      "text": "والترقيع ما يدوم",
@@ -690,7 +728,8 @@
       "carpenter",
       "wooden cabinet"
      ],
-     "visual": "loose wooden cabinet door"
+     "visual": "loose wooden cabinet door",
+     "gen": "wardrobe door held with tape as a temporary fix, close-up"
     },
     {
      "text": "نجار يضبطه صح",
@@ -702,7 +741,8 @@
       "carpenter",
       "woodworking"
      ],
-     "visual": "carpenter fixing a cabinet door with a drill"
+     "visual": "carpenter fixing a cabinet door with a drill",
+     "gen": "a man's hands installing a new cabinet hinge with a cordless drill"
     },
     {
      "text": "اطلب فنيّك مجاناً من المنجز",
@@ -738,7 +778,8 @@
       "ceiling",
       "drywall"
      ],
-     "visual": "white gypsum ceiling close-up"
+     "visual": "white gypsum ceiling close-up",
+     "gen": "white gypsum board ceiling with a long crack running across it, living room with a chandelier"
     },
     {
      "text": "تثبيت ضعيف أو تسريب",
@@ -750,7 +791,8 @@
       "ceiling",
       "plasterboard"
      ],
-     "visual": "ceiling with water stain"
+     "visual": "ceiling with water stain",
+     "gen": "gypsum ceiling with a brown water stain and a crack"
     },
     {
      "text": "ممكن لوح كامل ينزل",
@@ -762,7 +804,8 @@
       "drywall",
       "ceiling repair"
      ],
-     "visual": "damaged drywall ceiling panel"
+     "visual": "damaged drywall ceiling panel",
+     "gen": "sagging damaged gypsum ceiling panel in a room"
     },
     {
      "text": "فني جبس يصلّحه من أصله",
@@ -774,7 +817,8 @@
       "drywall",
       "plasterer"
      ],
-     "visual": "worker installing drywall ceiling"
+     "visual": "worker installing drywall ceiling",
+     "gen": "a man on a ladder fixing a gypsum board ceiling with a drill"
     },
     {
      "text": "اطلب فنيّك مجاناً من المنجز",
@@ -810,7 +854,8 @@
       "electricity meter",
       "air conditioner"
      ],
-     "visual": "electricity meter close-up"
+     "visual": "electricity meter close-up",
+     "gen": "electricity meter on the outside wall of a Saudi house, sunny"
     },
     {
      "text": "التكييف 70% من الاستهلاك",
@@ -822,7 +867,8 @@
       "air conditioner",
       "split air conditioner"
      ],
-     "visual": "air conditioner unit on a wall"
+     "visual": "air conditioner unit on a wall",
+     "gen": "several white split air conditioner outdoor units on a house wall, hot summer day"
     },
     {
      "text": "مكيف وسخ يشتغل أكثر",
@@ -834,7 +880,8 @@
       "air filter",
       "air conditioner cleaning"
      ],
-     "visual": "dusty air conditioner filter"
+     "visual": "dusty air conditioner filter",
+     "gen": "close-up of thick dust inside the fins and filter of a split air conditioner"
     },
     {
      "text": "غسيل وصيانة.. وخلّه على 24",
@@ -846,7 +893,8 @@
       "hvac technician",
       "air conditioner cleaning"
      ],
-     "visual": "technician cleaning an air conditioner"
+     "visual": "technician cleaning an air conditioner",
+     "gen": "a man's hands cleaning an air conditioner coil with a spray bottle"
     },
     {
      "text": "اطلب فنيّك مجاناً من المنجز",
@@ -882,7 +930,8 @@
       "bricklayer",
       "brick wall"
      ],
-     "visual": "bricklayer building a brick wall"
+     "visual": "bricklayer building a brick wall",
+     "gen": "unfinished concrete block room extension on a Saudi house rooftop, cement bags, sunny"
     },
     {
      "text": "المعلّم اختفى والشغل واقف",
@@ -894,7 +943,8 @@
       "construction site",
       "bricks"
      ],
-     "visual": "unfinished brick wall at a construction site"
+     "visual": "unfinished brick wall at a construction site",
+     "gen": "half-built block wall left unfinished with tools on the ground, construction site"
     },
     {
      "text": "اللياسة المستعجلة تتشقق",
@@ -906,7 +956,8 @@
       "plastering",
       "cement wall"
      ],
-     "visual": "cracked plaster wall"
+     "visual": "cracked plaster wall",
+     "gen": "close-up of a plastered wall covered with hairline cracks"
     },
     {
      "text": "معلّم بناء ولياسة يتواصل معك",
@@ -918,7 +969,8 @@
       "plastering",
       "mason"
      ],
-     "visual": "worker plastering a wall with a trowel"
+     "visual": "worker plastering a wall with a trowel",
+     "gen": "a man's hands plastering a wall with a trowel and cement"
     },
     {
      "text": "اطلب فنيّك مجاناً من المنجز",
@@ -954,7 +1006,8 @@
       "construction",
       "renovation"
      ],
-     "visual": "rooftop room construction"
+     "visual": "rooftop room construction",
+     "gen": "rooftop room annex of a Saudi house with swollen water-damaged wall boards after rain"
     },
     {
      "text": "ألواح ما تتحمل الموية",
@@ -966,7 +1019,8 @@
       "construction worker",
       "building construction"
      ],
-     "visual": "construction worker installing wall boards"
+     "visual": "construction worker installing wall boards",
+     "gen": "close-up of swollen crumbling water-damaged wall board"
     },
     {
      "text": "السمنت بورد للأماكن الرطبة",
@@ -978,7 +1032,8 @@
       "cement board",
       "construction"
      ],
-     "visual": "cement board panels on a construction site"
+     "visual": "cement board panels on a construction site",
+     "gen": "stack of grey cement boards on a construction site"
     },
     {
      "text": "فني سمنت بورد يركّبه صح",
@@ -990,7 +1045,8 @@
       "construction worker",
       "renovation"
      ],
-     "visual": "worker fixing boards with a drill"
+     "visual": "worker fixing boards with a drill",
+     "gen": "a man's gloved hands screwing a cement board panel onto a metal frame with a drill"
     },
     {
      "text": "اطلب فنيّك مجاناً من المنجز",
@@ -1026,7 +1082,8 @@
       "construction site",
       "renovation"
      ],
-     "visual": "interior renovation work in progress"
+     "visual": "interior renovation work in progress",
+     "gen": "villa interior renovation in progress, stacked floor tiles, scaffolding, daylight"
     },
     {
      "text": "كل يوم تأخير يكلّفك",
@@ -1039,7 +1096,8 @@
       "tile installation"
      ],
      "visual": "tiler laying floor tiles",
-     "trade": "تبليط"
+     "trade": "تبليط",
+     "gen": "a man's hands laying large floor tiles with a trowel in an unfinished villa"
     },
     {
      "text": "والبحث يضيّع يومك",
@@ -1052,7 +1110,8 @@
       "paint roller"
      ],
      "visual": "painter rolling paint on a wall",
-     "trade": "دهان"
+     "trade": "دهان",
+     "gen": "half-painted villa interior wall with paint buckets and a roller"
     },
     {
      "text": "فنيين من شبكة المنجز",
@@ -1064,7 +1123,8 @@
       "construction worker",
       "builder"
      ],
-     "visual": "construction workers on a building site"
+     "visual": "construction workers on a building site",
+     "gen": "construction tools and materials organized at a villa site, hard hats"
     },
     {
      "text": "اطلب فنيّك مجاناً من المنجز",
@@ -1086,4 +1146,4 @@
    ]
   }
  ]
-}
+    }
