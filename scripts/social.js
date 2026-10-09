@@ -506,8 +506,35 @@ async function pickIdea(ctx) {
   return pts[0].x;
 }
 
+const BANK_FILE = path.join(OUT, "bank.json");
+function fromBank(ctx) {
+  if (/^(off|0|no|false)$/i.test(process.env.BANK || "")) return null;
+  let items = [];
+  try { items = JSON.parse(fs.readFileSync(BANK_FILE, "utf8")).items || []; } catch (e) { return null; }
+  const done = new Set(ctx.history.map(h => h.bank).filter(Boolean));
+  const e = items.find(x => x && x.id && !done.has(x.id) && Array.isArray(x.reel) && x.reel.length >= 4);
+  if (!e) { if (items.length) log("بنك السيناريوهات المعتمدة انتهى (" + items.length + ") — نرجع للتوليد الآلي"); return null; }
+  ctx.trade = e.trade || ctx.trade;
+  ctx.bank = e.id;
+  const r = e.reel.map(x => Object.assign({ icon: "", key: "", label: "", broll: "", visual: "" }, x));
+  const first = String(e.facebook || "").split("\n")[0];
+  const label = ctx.trade === "كل الخدمات" ? "صيانة وتشطيب المنازل" : ctx.trade;
+  log("سيناريو معتمد من البنك: «" + e.id + "» — " + e.topic + " (" + (items.length - done.size - 1) + " متبقٍ)");
+  return {
+    topic: e.topic, hooks: [r[0].text], reel: r,
+    snap: e.snap || [r[0].text, r[1].text, "اطلب فنيّك مجاناً من المنجز"],
+    poll: e.poll || "", facebook: e.facebook, first_comment: e.first_comment || "",
+    tiktok_slides: e.tiktok_slides || r.map(x => x.text),
+    tiktok_caption: e.tiktok_caption || (first + "\n" + (e.first_comment || "")),
+    whatsapp: e.whatsapp || first, haraj_title: e.haraj_title || (label + " في المدينة المنورة | المنجز").slice(0, 60),
+    hashtags: e.hashtags || ["#المدينة_المنورة", "#المنجز"], score: null, notes: "سيناريو معتمد يدوياً"
+  };
+}
+
 async function generate(ctx) {
   if (process.env.MOCK) return Object.assign({ score_before: 7, score: 9, notes: "وضع تجريبي" }, MOCK_DATA);
+  const banked = fromBank(ctx);
+  if (banked) return banked;
   ctx.idea = await pickIdea(ctx);
   await sleep(3000);
   const draft = await ask(buildPrompt(ctx));
@@ -746,11 +773,15 @@ function fb(t){var a=document.createElement("textarea");a.value=t;document.body.
     { text: "لا تتعب نفسك تدوّر", say: "لا تتعب نفسك تدوّر على فني. اطلب فنيّك مجاناً من المنجز، والرابط في البايو." },
     { text: "بيتك يستاهل راحة بالك", say: "بيتك يستاهل راحة بالك. اطلب فنيّك مجاناً من المنجز، الرابط في البايو." }
   ];
-  const cta = Object.assign({ icon: "phone", key: "مجاناً", label: "" }, CTAS[doy % CTAS.length]);
+  const told = story.map(x => x.say || "").join(" ");
+  const MARK = ["مرة وحدة", "تدوّر", "راحة بال"];
+  let ci = doy % CTAS.length;
+  for (let k = 0; k < CTAS.length && told.includes(MARK[ci]); k++) ci = (ci + 1) % CTAS.length;
+  const cta = Object.assign({ icon: "phone", key: "مجاناً", label: "" }, CTAS[ci]);
   const scenes = story.slice(0, 4).concat([servicesScene(ctx, doy)], [cta]);
   fs.writeFileSync(path.join(OUT, "reel.json"), JSON.stringify({ date: ctx.iso, trade: ctx.trade, scenes: scenes }, null, 1), "utf8");
   const hist = history.filter(x => x.date !== ctx.iso);
-  hist.push({ date: ctx.iso, topic: c.topic, hook: (c.hooks || [])[0] || "", trade: ctx.trade, type: ctx.type.name, angle: (ctx.idea && ctx.idea.angle) || "", score: c.score || null });
+  hist.push({ date: ctx.iso, topic: c.topic, hook: (c.hooks || [])[0] || "", trade: ctx.trade, type: ctx.type.name, angle: (ctx.idea && ctx.idea.angle) || "", bank: ctx.bank || null, score: c.score || null });
   fs.writeFileSync(HISTORY, JSON.stringify(hist.slice(-60), null, 1), "utf8");
   log("تم: social/today.html + reel.json + history.json");
 })();
