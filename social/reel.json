@@ -1,54 +1,54 @@
 {
  "date": "2026-10-09",
- "trade": "تبليط",
+ "trade": "تكييف",
  "scenes": [
   {
-   "icon": "tile",
-   "key": "انتفخ",
+   "icon": "ac",
+   "key": "وقف",
    "label": "",
    "broll": [
-    "floor tiles",
-    "tiles"
+    "air conditioner",
+    "split air conditioner"
    ],
-   "visual": "outdoor floor tiles close-up",
-   "text": "البلاط انتفخ قبل العزيمة",
-   "say": "قبل عزيمة ولدك بأسبوع، تطلع الحوش وتلقى البلاط منتفخ ومكسّر."
+   "visual": "indoor split air conditioner on a wall",
+   "text": "الضيوف جايين والمكيف وقف",
+   "say": "الساعة عشرة بالليل، الضيوف بعد ساعة، والمكيف فجأة وقف."
   },
   {
-   "icon": "alert",
-   "key": "فواصل",
+   "icon": "phone",
+   "key": "يرد",
+   "label": "المشكلة",
+   "broll": [
+    "air conditioning",
+    "hvac"
+   ],
+   "visual": "air conditioner unit close-up",
+   "text": "تتصل.. ولا أحد يرد",
+   "say": "تتصل على فني، وثاني، وثالث، ولا أحد يرد عليك."
+  },
+  {
+   "icon": "fan",
+   "key": "فلتر",
    "label": "السبب",
    "broll": [
-    "tiling",
-    "tile installation"
+    "air filter",
+    "air conditioner"
    ],
-   "visual": "tiler laying floor tiles with spacers",
-   "text": "بلّطوه بدون فواصل تمدد",
-   "say": "والسبب؟ المبلّط ركّب البلاط لاصق في بعض، بدون فواصل تمدد."
-  },
-  {
-   "icon": "thermo",
-   "key": "الحر",
-   "label": "العاقبة",
-   "broll": [
-    "ceramic tiles",
-    "floor tiles"
-   ],
-   "visual": "damaged ceramic floor tiles",
-   "text": "والحر ما يرحم البلاط",
-   "say": "وجات حرارة الصيف، تمدد البلاط، وما لقى مكان فانكسر."
+   "visual": "dirty air conditioner filter being removed",
+   "text": "والسبب ممكن فلتر وسخ",
+   "say": "وأحياناً السبب بسيط: فلتر ما انغسل من بداية الصيف."
   },
   {
    "icon": "check",
-   "key": "صح",
+   "key": "يتواصل",
    "label": "الحل",
    "broll": [
-    "tile installation",
-    "tiler"
+    "hvac technician",
+    "air conditioner repair"
    ],
-   "visual": "professional tiler leveling new floor tiles",
-   "text": "مبلّط يعرف شغله صح",
-   "say": "عشان كذا، اطلب مبلّط من المنجز يترك فواصل التمدد صح من البداية."
+   "visual": "technician servicing an air conditioner",
+   "text": "فني تكييف يتواصل معك",
+   "say": "مع المنجز، تكتب طلبك، وفني التكييف هو اللي يتواصل معك."
   },
   {
    "kind": "services",
