@@ -1,75 +1,75 @@
 {
- "date": "2026-10-10",
- "trade": "كهرباء",
+ "date": "2026-10-11",
+ "trade": "تبليط",
  "scenes": [
   {
-   "icon": "plug",
-   "key": "تسخن؟",
+   "icon": "tile",
+   "key": "انتفخ",
    "label": "",
    "broll": [
-    "electric socket",
-    "power outlet"
+    "floor tiles",
+    "tiles"
    ],
-   "visual": "wall electrical socket close-up",
-   "text": "فيشة تسخن؟ لا تطنّشها",
-   "say": "لو فيشة في بيتك تسخن، أو ريحتها محروقة، لا تطنّشها.",
-   "gen": "close-up of a white wall power socket with brown scorch marks around it, a plug half inserted"
+   "visual": "outdoor floor tiles close-up",
+   "text": "البلاط انتفخ قبل العزيمة",
+   "say": "قبل عزيمة ولدك بأسبوع، تطلع الحوش وتلقى البلاط منتفخ ومكسّر.",
+   "gen": "sunny courtyard of a Saudi villa, beige ceramic floor tiles buckled and lifted up into a tented ridge, cracked tiles, beige stone walls"
   },
   {
-   "icon": "flame",
-   "key": "التماس",
-   "label": "الحقيقة",
-   "broll": [
-    "electrical wiring",
-    "electrician"
-   ],
-   "visual": "electrical wires and cables close-up",
-   "text": "التماس من أخطر الأسباب",
-   "say": "الدفاع المدني يقول إن التماس الكهربائي من أكثر أسباب حرائق البيوت.",
-   "gen": "close-up of old tangled electrical wires behind an open wall socket, dark background"
-  },
-  {
-   "icon": "bolt",
-   "key": "خطر",
+   "icon": "alert",
+   "key": "فواصل",
    "label": "السبب",
    "broll": [
-    "power strip",
-    "electric plug"
+    "tiling",
+    "tile installation"
    ],
-   "visual": "many plugs in a power strip",
-   "text": "أفياش فوق بعض = خطر",
-   "say": "والأفياش المركّبة فوق بعض، تحمّل السلك فوق طاقته.",
-   "gen": "a wall socket overloaded with stacked multi-plug adapters and many plugs, cables everywhere"
+   "visual": "tiler laying floor tiles with spacers",
+   "text": "بلّطوه بدون فواصل تمدد",
+   "say": "والسبب؟ المبلّط ركّب البلاط لاصق في بعض، بدون فواصل تمدد.",
+   "gen": "close-up of outdoor floor tiles laid tightly edge to edge with no gaps, a long crack through the grout line"
+  },
+  {
+   "icon": "thermo",
+   "key": "الحر",
+   "label": "العاقبة",
+   "broll": [
+    "ceramic tiles",
+    "floor tiles"
+   ],
+   "visual": "damaged ceramic floor tiles",
+   "text": "والحر ما يرحم البلاط",
+   "say": "وجات حرارة الصيف، تمدد البلاط، وما لقى مكان فانكسر.",
+   "gen": "harsh midday summer sun over an outdoor tiled courtyard, heat haze, several broken ceramic tiles popped up from the floor"
   },
   {
    "icon": "check",
-   "key": "يفحصها",
+   "key": "صح",
    "label": "الحل",
    "broll": [
-    "electrician",
-    "electrical panel"
+    "tile installation",
+    "tiler"
    ],
-   "visual": "electrician testing a socket with a tester",
-   "text": "كهربائي يفحصها قبل المشكلة",
-   "say": "اطلب كهربائي من المنجز، يفحص الأفياش والتمديدات قبل لا تصير مشكلة.",
-   "gen": "a man's gloved hands testing a wall socket with a voltage tester screwdriver, open toolbox"
+   "visual": "professional tiler leveling new floor tiles",
+   "text": "مبلّط يعرف شغله صح",
+   "say": "عشان كذا، اطلب مبلّط من المنجز يترك فواصل التمدد صح من البداية.",
+   "gen": "a man's gloved hands placing plastic tile spacers between new ceramic floor tiles, spirit level nearby, outdoor courtyard"
   },
   {
    "kind": "services",
-   "text": "كل ما يحتاجه بيتك",
+   "text": "فنيّ لكل شيء في بيتك",
    "key": "",
    "label": "",
    "icon": "",
    "broll": "",
    "visual": "",
-   "say": "من أصغر عطل لين تشطيب البيت كامل، كل اللي يحتاجه بيتك بطلب واحد من المنجز."
+   "say": "صيانة، تشطيب، أو بناء، المنجز يوصلك بالفني المناسب لكل شي في بيتك."
   },
   {
    "icon": "phone",
    "key": "مجاناً",
    "label": "",
-   "text": "طلب واحد.. والفني يتواصل معك",
-   "say": "اكتب طلبك مرة وحدة، والفني يتواصل معك مباشرة. الرابط في البايو."
+   "text": "لا تتعب نفسك تدوّر",
+   "say": "لا تتعب نفسك تدوّر على فني. اطلب فنيّك مجاناً من المنجز، والرابط في البايو."
   }
  ]
 }
