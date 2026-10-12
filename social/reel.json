@@ -1,75 +1,77 @@
 {
- "date": "2026-10-11",
- "trade": "تبليط",
+ "date": "2026-10-12",
+ "trade": "كل الخدمات",
  "scenes": [
   {
-   "icon": "tile",
-   "key": "انتفخ",
+   "icon": "home",
+   "key": "الملاحظات",
    "label": "",
    "broll": [
-    "floor tiles",
-    "tiles"
+    "house interior",
+    "home renovation"
    ],
-   "visual": "outdoor floor tiles close-up",
-   "text": "البلاط انتفخ قبل العزيمة",
-   "say": "قبل عزيمة ولدك بأسبوع، تطلع الحوش وتلقى البلاط منتفخ ومكسّر.",
-   "gen": "sunny courtyard of a Saudi villa, beige ceramic floor tiles buckled and lifted up into a tented ridge, cracked tiles, beige stone walls"
+   "visual": "empty new apartment interior",
+   "text": "استلمت البيت.. وبدأت الملاحظات",
+   "say": "استلمت بيتك الجديد، وبعد أسبوع بدأت الملاحظات وحدة ورا الثانية.",
+   "gen": "brand new empty Saudi apartment living room, beige walls, marble floor, cardboard moving boxes, daylight"
   },
   {
-   "icon": "alert",
-   "key": "فواصل",
-   "label": "السبب",
+   "icon": "drop",
+   "key": "يسرّب",
+   "label": "ملاحظة ١",
    "broll": [
-    "tiling",
-    "tile installation"
+    "plumber",
+    "bathroom sink"
    ],
-   "visual": "tiler laying floor tiles with spacers",
-   "text": "بلّطوه بدون فواصل تمدد",
-   "say": "والسبب؟ المبلّط ركّب البلاط لاصق في بعض، بدون فواصل تمدد.",
-   "gen": "close-up of outdoor floor tiles laid tightly edge to edge with no gaps, a long crack through the grout line"
+   "visual": "plumber fixing pipe under a sink",
+   "text": "الحمّام يسرّب",
+   "say": "الحمّام يسرّب، والموية تحت المغسلة ما وقفت.",
+   "trade": "سباكة",
+   "gen": "water leaking from a pipe under a bathroom sink cabinet, small puddle on the floor"
   },
   {
-   "icon": "thermo",
-   "key": "الحر",
-   "label": "العاقبة",
+   "icon": "plug",
+   "key": "الفيشة",
+   "label": "ملاحظة ٢",
    "broll": [
-    "ceramic tiles",
-    "floor tiles"
+    "electrician",
+    "electric socket"
    ],
-   "visual": "damaged ceramic floor tiles",
-   "text": "والحر ما يرحم البلاط",
-   "say": "وجات حرارة الصيف، تمدد البلاط، وما لقى مكان فانكسر.",
-   "gen": "harsh midday summer sun over an outdoor tiled courtyard, heat haze, several broken ceramic tiles popped up from the floor"
+   "visual": "electrician repairing a wall socket",
+   "text": "والفيشة ما تشتغل",
+   "say": "وفيشة المطبخ ما تشتغل، وباب الغرفة ما يقفل.",
+   "trade": "كهرباء",
+   "gen": "close-up of a new kitchen wall socket with a plug inserted and an unlit kettle beside it"
   },
   {
    "icon": "check",
-   "key": "صح",
+   "key": "واحد",
    "label": "الحل",
    "broll": [
-    "tile installation",
-    "tiler"
+    "handyman",
+    "home repair"
    ],
-   "visual": "professional tiler leveling new floor tiles",
-   "text": "مبلّط يعرف شغله صح",
-   "say": "عشان كذا، اطلب مبلّط من المنجز يترك فواصل التمدد صح من البداية.",
-   "gen": "a man's gloved hands placing plastic tile spacers between new ceramic floor tiles, spirit level nearby, outdoor courtyard"
+   "visual": "handyman with tools repairing at home",
+   "text": "كل الخدمات في مكان واحد",
+   "say": "مع المنجز، كل خدمة يحتاجها بيتك تطلبها من مكان واحد.",
+   "gen": "an organized toolbox with a pipe wrench, voltage tester, paint roller and hammer on the marble floor of a new home"
   },
   {
    "kind": "services",
-   "text": "فنيّ لكل شيء في بيتك",
+   "text": "بيتك كله في طلب واحد",
    "key": "",
    "label": "",
    "icon": "",
    "broll": "",
    "visual": "",
-   "say": "صيانة، تشطيب، أو بناء، المنجز يوصلك بالفني المناسب لكل شي في بيتك."
+   "say": "أي شي في بيتك يحتاج فني، تلقاه في المنجز."
   },
   {
    "icon": "phone",
    "key": "مجاناً",
    "label": "",
-   "text": "لا تتعب نفسك تدوّر",
-   "say": "لا تتعب نفسك تدوّر على فني. اطلب فنيّك مجاناً من المنجز، والرابط في البايو."
+   "text": "بيتك يستاهل راحة بالك",
+   "say": "بيتك يستاهل راحة بالك. اطلب فنيّك مجاناً من المنجز، الرابط في البايو."
   }
  ]
 }
