@@ -1,77 +1,75 @@
 {
- "date": "2026-10-12",
- "trade": "كل الخدمات",
+ "date": "2026-10-13",
+ "trade": "سباكة",
  "scenes": [
   {
-   "icon": "home",
-   "key": "الملاحظات",
+   "icon": "drop",
+   "key": "يكلّفك",
    "label": "",
    "broll": [
-    "house interior",
-    "home renovation"
+    "dripping faucet",
+    "faucet"
    ],
-   "visual": "empty new apartment interior",
-   "text": "استلمت البيت.. وبدأت الملاحظات",
-   "say": "استلمت بيتك الجديد، وبعد أسبوع بدأت الملاحظات وحدة ورا الثانية.",
-   "gen": "brand new empty Saudi apartment living room, beige walls, marble floor, cardboard moving boxes, daylight"
+   "visual": "water dripping from a faucet close-up",
+   "text": "صوت النقطة هذا يكلّفك",
+   "say": "هالنقطة اللي تسمعها بالليل من المغسلة، مو بسيطة زي ما تتوقع.",
+   "gen": "close-up of a chrome faucet with a single water drop falling into a white bathroom sink at night, moody light"
   },
   {
-   "icon": "drop",
-   "key": "يسرّب",
-   "label": "ملاحظة ١",
+   "icon": "alert",
+   "key": "لتر",
+   "label": "الحقيقة",
    "broll": [
-    "plumber",
+    "water tap",
+    "sink"
+   ],
+   "visual": "water drops falling into a sink",
+   "text": "11 ألف لتر في السنة",
+   "say": "الحنفية اللي تنقّط تهدر قرابة أحد عشر ألف لتر بالسنة.",
+   "gen": "water dripping from a chrome tap into a white basin, drops frozen mid-air, close-up"
+  },
+  {
+   "icon": "clock",
+   "key": "فلوس",
+   "label": "العاقبة",
+   "broll": [
+    "faucet",
     "bathroom sink"
    ],
-   "visual": "plumber fixing pipe under a sink",
-   "text": "الحمّام يسرّب",
-   "say": "الحمّام يسرّب، والموية تحت المغسلة ما وقفت.",
-   "trade": "سباكة",
-   "gen": "water leaking from a pipe under a bathroom sink cabinet, small puddle on the floor"
+   "visual": "running tap in a bathroom sink",
+   "text": "فلوس تروح وأنت ما تدري",
+   "say": "يعني موية وفلوس تروح، وأنت ما تدري.",
+   "gen": "coins scattered in a white sink under a dripping chrome tap"
   },
   {
-   "icon": "plug",
-   "key": "الفيشة",
-   "label": "ملاحظة ٢",
-   "broll": [
-    "electrician",
-    "electric socket"
-   ],
-   "visual": "electrician repairing a wall socket",
-   "text": "والفيشة ما تشتغل",
-   "say": "وفيشة المطبخ ما تشتغل، وباب الغرفة ما يقفل.",
-   "trade": "كهرباء",
-   "gen": "close-up of a new kitchen wall socket with a plug inserted and an unlit kettle beside it"
-  },
-  {
-   "icon": "check",
-   "key": "واحد",
+   "icon": "wrench",
+   "key": "الهدر",
    "label": "الحل",
    "broll": [
-    "handyman",
-    "home repair"
+    "plumber",
+    "faucet repair"
    ],
-   "visual": "handyman with tools repairing at home",
-   "text": "كل الخدمات في مكان واحد",
-   "say": "مع المنجز، كل خدمة يحتاجها بيتك تطلبها من مكان واحد.",
-   "gen": "an organized toolbox with a pipe wrench, voltage tester, paint roller and hammer on the marble floor of a new home"
+   "visual": "plumber repairing a faucet with a wrench",
+   "text": "سبّاك يقفل الهدر",
+   "say": "والحل بسيط: سبّاك من المنجز يغيّر الجلدة أو الخلاط، وترتاح.",
+   "gen": "a man's hands tightening a chrome faucet with an adjustable wrench under a bathroom sink"
   },
   {
    "kind": "services",
-   "text": "بيتك كله في طلب واحد",
+   "text": "كل ما يحتاجه بيتك",
    "key": "",
    "label": "",
    "icon": "",
    "broll": "",
    "visual": "",
-   "say": "أي شي في بيتك يحتاج فني، تلقاه في المنجز."
+   "say": "من أصغر عطل لين تشطيب البيت كامل، كل اللي يحتاجه بيتك بطلب واحد من المنجز."
   },
   {
    "icon": "phone",
    "key": "مجاناً",
    "label": "",
-   "text": "بيتك يستاهل راحة بالك",
-   "say": "بيتك يستاهل راحة بالك. اطلب فنيّك مجاناً من المنجز، الرابط في البايو."
+   "text": "طلب واحد.. والفني يتواصل معك",
+   "say": "اكتب طلبك مرة وحدة، والفني يتواصل معك مباشرة. الرابط في البايو."
   }
  ]
 }
