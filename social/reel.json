@@ -1,75 +1,75 @@
 {
- "date": "2026-10-13",
- "trade": "سباكة",
+ "date": "2026-10-14",
+ "trade": "دهان",
  "scenes": [
   {
-   "icon": "drop",
-   "key": "يكلّفك",
+   "icon": "paint",
+   "key": "قشّر",
    "label": "",
    "broll": [
-    "dripping faucet",
-    "faucet"
+    "wall paint",
+    "painting wall"
    ],
-   "visual": "water dripping from a faucet close-up",
-   "text": "صوت النقطة هذا يكلّفك",
-   "say": "هالنقطة اللي تسمعها بالليل من المغسلة، مو بسيطة زي ما تتوقع.",
-   "gen": "close-up of a chrome faucet with a single water drop falling into a white bathroom sink at night, moody light"
+   "visual": "peeling paint on an interior wall",
+   "text": "الدهان قشّر قدّام الضيوف",
+   "say": "دهنت المجلس قبل شهرين، واليوم الدهان يقشّر قدّام الضيوف.",
+   "gen": "Saudi majlis wall with paint peeling and flaking off in large pieces, floor cushions below, daylight"
   },
   {
    "icon": "alert",
-   "key": "لتر",
-   "label": "الحقيقة",
+   "key": "الرطوبة",
+   "label": "السبب",
    "broll": [
-    "water tap",
-    "sink"
+    "painter",
+    "wall"
    ],
-   "visual": "water drops falling into a sink",
-   "text": "11 ألف لتر في السنة",
-   "say": "الحنفية اللي تنقّط تهدر قرابة أحد عشر ألف لتر بالسنة.",
-   "gen": "water dripping from a chrome tap into a white basin, drops frozen mid-air, close-up"
+   "visual": "damp stained wall before painting",
+   "text": "دهنوا فوق الرطوبة",
+   "say": "لأن الدهّان دهن فوق الرطوبة، وما عالج الجدار قبلها.",
+   "gen": "close-up of a damp wall with dark moisture stains and bubbling paint"
   },
   {
    "icon": "clock",
-   "key": "فلوس",
+   "key": "مرتين",
    "label": "العاقبة",
    "broll": [
-    "faucet",
-    "bathroom sink"
+    "paint roller",
+    "house painting"
    ],
-   "visual": "running tap in a bathroom sink",
-   "text": "فلوس تروح وأنت ما تدري",
-   "say": "يعني موية وفلوس تروح، وأنت ما تدري.",
-   "gen": "coins scattered in a white sink under a dripping chrome tap"
+   "visual": "paint roller and paint tray",
+   "text": "دفعت مرتين",
+   "say": "يعني دفعت مرة، وبتدفع مرة ثانية عشان تعيده من جديد.",
+   "gen": "paint roller and tray on the floor next to a wall with peeling paint"
   },
   {
-   "icon": "wrench",
-   "key": "الهدر",
+   "icon": "check",
+   "key": "صح",
    "label": "الحل",
    "broll": [
-    "plumber",
-    "faucet repair"
+    "painter",
+    "paint roller"
    ],
-   "visual": "plumber repairing a faucet with a wrench",
-   "text": "سبّاك يقفل الهدر",
-   "say": "والحل بسيط: سبّاك من المنجز يغيّر الجلدة أو الخلاط، وترتاح.",
-   "gen": "a man's hands tightening a chrome faucet with an adjustable wrench under a bathroom sink"
+   "visual": "painter rolling fresh paint on a wall",
+   "text": "دهّان يجهّز الجدار صح",
+   "say": "مع المنجز، تلقى دهّان يعالج الجدار ويجهّزه قبل أول طبقة.",
+   "gen": "a man's hand rolling fresh white paint on a smooth primed wall with a paint roller"
   },
   {
    "kind": "services",
-   "text": "كل ما يحتاجه بيتك",
+   "text": "فنيّ لكل شيء في بيتك",
    "key": "",
    "label": "",
    "icon": "",
    "broll": "",
    "visual": "",
-   "say": "من أصغر عطل لين تشطيب البيت كامل، كل اللي يحتاجه بيتك بطلب واحد من المنجز."
+   "say": "صيانة، تشطيب، أو بناء، المنجز يوصلك بالفني المناسب لكل شي في بيتك."
   },
   {
    "icon": "phone",
    "key": "مجاناً",
    "label": "",
-   "text": "طلب واحد.. والفني يتواصل معك",
-   "say": "اكتب طلبك مرة وحدة، والفني يتواصل معك مباشرة. الرابط في البايو."
+   "text": "لا تتعب نفسك تدوّر",
+   "say": "لا تتعب نفسك تدوّر على فني. اطلب فنيّك مجاناً من المنجز، والرابط في البايو."
   }
  ]
 }
