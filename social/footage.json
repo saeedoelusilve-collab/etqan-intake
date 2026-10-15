@@ -974,6 +974,71 @@
    "src": "Pixabay",
    "tags": "wash your hands, water, soap, water tap, hygiene, hand, clean, hand washing, bathroom sink, coronavirus",
    "added": "2026-10-14"
+  },
+  {
+   "id": "pb142744",
+   "kind": "video",
+   "trade": "أجهزة كهربائية",
+   "desc": "row of commercial washing machines",
+   "score": 8,
+   "url": "https://cdn.pixabay.com/video/2022/12/12/142744-780599604_large.mp4",
+   "thumb": "https://cdn.pixabay.com/video/2022/12/12/142744-780599604_small.jpg",
+   "credit": "Onixphoto",
+   "src": "Pixabay",
+   "tags": "laundry, laundromat, clothes, dryer",
+   "added": "2026-10-15"
+  },
+  {
+   "id": "pb199841",
+   "kind": "video",
+   "trade": "أجهزة كهربائية",
+   "desc": "inside of an empty refrigerator",
+   "score": 9,
+   "url": "https://cdn.pixabay.com/video/2024/02/08/199841-911406596_large.mp4",
+   "thumb": "https://cdn.pixabay.com/video/2024/02/08/199841-911406596_small.jpg",
+   "credit": "conte_public",
+   "src": "Pixabay",
+   "tags": "fridge, egg, leek, empty, food, open, door",
+   "added": "2026-10-15"
+  },
+  {
+   "id": "pb85348",
+   "kind": "video",
+   "trade": "دهان",
+   "desc": "painters working inside building",
+   "score": 7,
+   "url": "https://cdn.pixabay.com/video/2021/08/16/85348-590746467_large.mp4",
+   "thumb": "https://cdn.pixabay.com/video/2021/08/16/85348-590746467_small.jpg",
+   "credit": "AlexKopeykin",
+   "src": "Pixabay",
+   "tags": "renovate, painter, roller, dye, paint, repair, design, wall, work, cushion, interior",
+   "added": "2026-10-15"
+  },
+  {
+   "id": "pb1009",
+   "kind": "video",
+   "trade": "بناء ولياسة",
+   "desc": "unfinished concrete building structure",
+   "score": 8,
+   "url": "https://cdn.pixabay.com/video/2015/10/16/1009-142621189_large.mp4",
+   "thumb": "https://cdn.pixabay.com/video/2015/10/16/1009-142621189_small.jpg",
+   "credit": "Coverr-Free-Footage",
+   "src": "Pixabay",
+   "tags": "construction site, elevator, building, build, architecture, construction, industrial, industry, structure, concrete, engineering, safety, worker, cement, technology, heavy, lift, elevating, builder, machine, lifting",
+   "added": "2026-10-15"
+  },
+  {
+   "id": "pb109166",
+   "kind": "video",
+   "trade": "بناء ولياسة",
+   "desc": "workers on a construction site",
+   "score": 8,
+   "url": "https://cdn.pixabay.com/video/2022/03/01/109166-683572827_large.mp4",
+   "thumb": "https://cdn.pixabay.com/video/2022/03/01/109166-683572827_small.jpg",
+   "credit": "mplace_911",
+   "src": "Pixabay",
+   "tags": "job, creativity, buildings, architecture, worker, cement, concrete, building, drone, flight",
+   "added": "2026-10-15"
   }
  ]
 }

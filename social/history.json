@@ -76,5 +76,15 @@
   "angle": "",
   "bank": "paint-humidity",
   "score": null
+ },
+ {
+  "date": "2026-10-15",
+  "topic": "الغسالة وقفت نص الغسيل",
+  "hook": "الغسالة وقفت نص الغسيل",
+  "trade": "أجهزة كهربائية",
+  "type": "المقاولون والمشاريع",
+  "angle": "",
+  "bank": "appl-washer",
+  "score": null
  }
 ]

@@ -1,75 +1,75 @@
 {
- "date": "2026-10-14",
- "trade": "دهان",
+ "date": "2026-10-15",
+ "trade": "أجهزة كهربائية",
  "scenes": [
   {
-   "icon": "paint",
-   "key": "قشّر",
+   "icon": "alert",
+   "key": "وقفت",
    "label": "",
    "broll": [
-    "wall paint",
-    "painting wall"
+    "washing machine",
+    "laundry"
    ],
-   "visual": "peeling paint on an interior wall",
-   "text": "الدهان قشّر قدّام الضيوف",
-   "say": "دهنت المجلس قبل شهرين، واليوم الدهان يقشّر قدّام الضيوف.",
-   "gen": "Saudi majlis wall with paint peeling and flaking off in large pieces, floor cushions below, daylight"
+   "visual": "front load washing machine with clothes inside",
+   "text": "الغسالة وقفت نص الغسيل",
+   "say": "نص الغسيل، الغسالة وقفت، والموية والملابس داخلها.",
+   "gen": "front load washing machine stopped mid-cycle with water and clothes trapped inside the glass door, laundry room"
   },
   {
-   "icon": "alert",
-   "key": "الرطوبة",
-   "label": "السبب",
+   "icon": "phone",
+   "key": "بكرة",
+   "label": "المشكلة",
    "broll": [
-    "painter",
-    "wall"
+    "washing machine",
+    "appliance"
    ],
-   "visual": "damp stained wall before painting",
-   "text": "دهنوا فوق الرطوبة",
-   "say": "لأن الدهّان دهن فوق الرطوبة، وما عالج الجدار قبلها.",
-   "gen": "close-up of a damp wall with dark moisture stains and bubbling paint"
+   "visual": "washing machine control panel close-up",
+   "text": "وكل واحد يقول: بكرة",
+   "say": "تتصل على أكثر من محل، وكل واحد يقول: بكرة إن شاء الله.",
+   "gen": "close-up of a washing machine glass door with soapy water trapped inside"
   },
   {
    "icon": "clock",
-   "key": "مرتين",
+   "key": "يتكدّس",
    "label": "العاقبة",
    "broll": [
-    "paint roller",
-    "house painting"
+    "laundry basket",
+    "laundry"
    ],
-   "visual": "paint roller and paint tray",
-   "text": "دفعت مرتين",
-   "say": "يعني دفعت مرة، وبتدفع مرة ثانية عشان تعيده من جديد.",
-   "gen": "paint roller and tray on the floor next to a wall with peeling paint"
+   "visual": "pile of clothes in a laundry basket",
+   "text": "والغسيل يتكدّس",
+   "say": "والغسيل يتكدّس، والبيت كله ينتظر.",
+   "gen": "overflowing laundry basket full of clothes on a tiled floor next to a washing machine"
   },
   {
    "icon": "check",
-   "key": "صح",
+   "key": "يتواصل",
    "label": "الحل",
    "broll": [
-    "painter",
-    "paint roller"
+    "appliance repair",
+    "washing machine repair"
    ],
-   "visual": "painter rolling fresh paint on a wall",
-   "text": "دهّان يجهّز الجدار صح",
-   "say": "مع المنجز، تلقى دهّان يعالج الجدار ويجهّزه قبل أول طبقة.",
-   "gen": "a man's hand rolling fresh white paint on a smooth primed wall with a paint roller"
+   "visual": "technician repairing a washing machine",
+   "text": "فني أجهزة يتواصل معك",
+   "say": "اكتب طلبك في المنجز، وفني الأجهزة يتواصل معك مباشرة.",
+   "gen": "a man's gloved hands repairing the back panel of a washing machine with a screwdriver"
   },
   {
    "kind": "services",
-   "text": "فنيّ لكل شيء في بيتك",
+   "text": "بيتك كله في طلب واحد",
    "key": "",
    "label": "",
    "icon": "",
    "broll": "",
    "visual": "",
-   "say": "صيانة، تشطيب، أو بناء، المنجز يوصلك بالفني المناسب لكل شي في بيتك."
+   "say": "أي شي في بيتك يحتاج فني، تلقاه في المنجز."
   },
   {
    "icon": "phone",
    "key": "مجاناً",
    "label": "",
-   "text": "لا تتعب نفسك تدوّر",
-   "say": "لا تتعب نفسك تدوّر على فني. اطلب فنيّك مجاناً من المنجز، والرابط في البايو."
+   "text": "بيتك يستاهل راحة بالك",
+   "say": "بيتك يستاهل راحة بالك. اطلب فنيّك مجاناً من المنجز، الرابط في البايو."
   }
  ]
 }
