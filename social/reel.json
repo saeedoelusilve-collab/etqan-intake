@@ -1,75 +1,75 @@
 {
- "date": "2026-10-15",
- "trade": "أجهزة كهربائية",
+ "date": "2026-10-16",
+ "trade": "حدادة",
  "scenes": [
   {
-   "icon": "alert",
-   "key": "وقفت",
+   "icon": "door",
+   "key": "يعلّق",
    "label": "",
    "broll": [
-    "washing machine",
-    "laundry"
+    "metal gate",
+    "iron gate"
    ],
-   "visual": "front load washing machine with clothes inside",
-   "text": "الغسالة وقفت نص الغسيل",
-   "say": "نص الغسيل، الغسالة وقفت، والموية والملابس داخلها.",
-   "gen": "front load washing machine stopped mid-cycle with water and clothes trapped inside the glass door, laundry room"
+   "visual": "metal house gate close-up",
+   "text": "باب الحوش يعلّق كل يوم",
+   "say": "كل ما تفتح باب الحوش، يصرّ ويعلّق، وتدفّه بكتفك.",
+   "gen": "old metal courtyard gate of a Saudi house in beige stone walls, sunny, gate half open"
   },
   {
-   "icon": "phone",
-   "key": "بكرة",
-   "label": "المشكلة",
+   "icon": "alert",
+   "key": "الصدا",
+   "label": "السبب",
    "broll": [
-    "washing machine",
-    "appliance"
+    "rusty metal",
+    "metal hinge"
    ],
-   "visual": "washing machine control panel close-up",
-   "text": "وكل واحد يقول: بكرة",
-   "say": "تتصل على أكثر من محل، وكل واحد يقول: بكرة إن شاء الله.",
-   "gen": "close-up of a washing machine glass door with soapy water trapped inside"
+   "visual": "rusty metal hinge close-up",
+   "text": "الصدا أكل المفصلات",
+   "say": "والسبب صدا أكل المفصلات، وشمس الصيف زادت عليه.",
+   "gen": "extreme close-up of a rusty corroded metal hinge on an iron gate"
   },
   {
    "icon": "clock",
-   "key": "يتكدّس",
+   "key": "التأخير",
    "label": "العاقبة",
    "broll": [
-    "laundry basket",
-    "laundry"
+    "metal work",
+    "welding"
    ],
-   "visual": "pile of clothes in a laundry basket",
-   "text": "والغسيل يتكدّس",
-   "say": "والغسيل يتكدّس، والبيت كله ينتظر.",
-   "gen": "overflowing laundry basket full of clothes on a tiled floor next to a washing machine"
+   "visual": "metal workshop with steel parts",
+   "text": "التأخير يكبّر الإصلاح",
+   "say": "وكل ما تأخرت، يتحول الإصلاح البسيط لتغيير كامل.",
+   "gen": "badly rusted bottom edge of a metal gate with flaking paint"
   },
   {
-   "icon": "check",
-   "key": "يتواصل",
+   "icon": "hammer",
+   "key": "حدّاد",
    "label": "الحل",
    "broll": [
-    "appliance repair",
-    "washing machine repair"
+    "welder",
+    "welding"
    ],
-   "visual": "technician repairing a washing machine",
-   "text": "فني أجهزة يتواصل معك",
-   "say": "اكتب طلبك في المنجز، وفني الأجهزة يتواصل معك مباشرة.",
-   "gen": "a man's gloved hands repairing the back panel of a washing machine with a screwdriver"
+   "visual": "welder working on a metal gate with sparks",
+   "text": "حدّاد يرجّعه زي الجديد",
+   "say": "حدّاد من المنجز يصلّح المفصلات، ويدهن الباب ضد الصدا.",
+   "gen": "a welder in a welding mask welding a metal gate hinge with bright sparks"
   },
   {
    "kind": "services",
-   "text": "بيتك كله في طلب واحد",
+   "text": "كل ما يحتاجه بيتك",
    "key": "",
    "label": "",
    "icon": "",
    "broll": "",
    "visual": "",
-   "say": "أي شي في بيتك يحتاج فني، تلقاه في المنجز."
+   "say": "من أصغر عطل لين تشطيب البيت كامل، كل اللي يحتاجه بيتك بطلب واحد من المنجز."
   },
   {
    "icon": "phone",
    "key": "مجاناً",
    "label": "",
-   "text": "بيتك يستاهل راحة بالك",
-   "say": "بيتك يستاهل راحة بالك. اطلب فنيّك مجاناً من المنجز، الرابط في البايو."
+   "text": "طلب واحد.. والفني يتواصل معك",
+   "say": "اكتب طلبك مرة وحدة، والفني يتواصل معك مباشرة. الرابط في البايو."
   }
  ]
 }

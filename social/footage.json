@@ -1039,6 +1039,71 @@
    "src": "Pixabay",
    "tags": "job, creativity, buildings, architecture, worker, cement, concrete, building, drone, flight",
    "added": "2026-10-15"
+  },
+  {
+   "id": "pb223170",
+   "kind": "video",
+   "trade": "حدادة",
+   "desc": "aerial view of scrap metal",
+   "score": 7,
+   "url": "https://cdn.pixabay.com/video/2024/07/25/223170_large.mp4",
+   "thumb": "https://cdn.pixabay.com/video/2024/07/25/223170_small.jpg",
+   "credit": "useche360",
+   "src": "Pixabay",
+   "tags": "scrap, recycling, recovery, metal, trash, sustainability, savings",
+   "added": "2026-10-16"
+  },
+  {
+   "id": "pb40054",
+   "kind": "video",
+   "trade": "حدادة",
+   "desc": "metal factory floor with parts",
+   "score": 7,
+   "url": "https://cdn.pixabay.com/video/2020/05/24/40054-424371552_large.mp4",
+   "thumb": "https://cdn.pixabay.com/video/2020/05/24/40054-424371552_small.jpg",
+   "credit": "AlexKopeykin",
+   "src": "Pixabay",
+   "tags": "industry, factory, steel, iron, iron bars, workers, hard work, work, engineer, assembly, helmet, tool, hard",
+   "added": "2026-10-16"
+  },
+  {
+   "id": "pb6185",
+   "kind": "video",
+   "trade": "حدادة",
+   "desc": "drilling machine with brass chips",
+   "score": 8,
+   "url": "https://cdn.pixabay.com/video/2016/10/30/6185-189700620_large.mp4",
+   "thumb": "https://cdn.pixabay.com/video/2016/10/30/6185-189700620_small.jpg",
+   "credit": "jcax2",
+   "src": "Pixabay",
+   "tags": "factory, industry, manufacturing, industrial, engineering, production, equipment, metal, manufacture, work, machine, tool, worker, process, automated, engineer",
+   "added": "2026-10-16"
+  },
+  {
+   "id": "pb135848",
+   "kind": "video",
+   "trade": "حدادة",
+   "desc": "worker in a metal workshop",
+   "score": 7,
+   "url": "https://cdn.pixabay.com/video/2022/10/21/135848-764362062_large.mp4",
+   "thumb": "https://cdn.pixabay.com/video/2022/10/21/135848-764362062_small.jpg",
+   "credit": "messden",
+   "src": "Pixabay",
+   "tags": "welder, industry, factory, source, transition, work, employee, machine, daniel, steel, heavy industry",
+   "added": "2026-10-16"
+  },
+  {
+   "id": "pb7243",
+   "kind": "video",
+   "trade": "كهرباء",
+   "desc": "Electrical gauge and wiring setup",
+   "score": 8,
+   "url": "https://cdn.pixabay.com/video/2017/01/12/7243-199191000_large.mp4",
+   "thumb": "https://cdn.pixabay.com/video/2017/01/12/7243-199191000_small.jpg",
+   "credit": "2427999",
+   "src": "Pixabay",
+   "tags": "gauge, device, counter, timer, explosion, countdown, decometer, decca, wiring, triggering, timing, detonator, detonation, destruction, ebw, clock, analog, display, deadline, pointer",
+   "added": "2026-10-16"
   }
  ]
 }
