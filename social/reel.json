@@ -1,75 +1,75 @@
 {
- "date": "2026-10-16",
- "trade": "حدادة",
+ "date": "2026-10-17",
+ "trade": "تكييف",
  "scenes": [
   {
-   "icon": "door",
-   "key": "يعلّق",
+   "icon": "ac",
+   "key": "خربان",
    "label": "",
    "broll": [
-    "metal gate",
-    "iron gate"
+    "hotel room",
+    "air conditioner"
    ],
-   "visual": "metal house gate close-up",
-   "text": "باب الحوش يعلّق كل يوم",
-   "say": "كل ما تفتح باب الحوش، يصرّ ويعلّق، وتدفّه بكتفك.",
-   "gen": "old metal courtyard gate of a Saudi house in beige stone walls, sunny, gate half open"
+   "visual": "hotel room with air conditioner",
+   "text": "النزيل وصل.. والمكيف خربان",
+   "say": "نزيل وصل الفندق بعد سفر طويل، ومكيف غرفته ما يبرّد.",
+   "gen": "clean hotel room with a made bed and a white split air conditioner on the wall, a suitcase by the door"
   },
   {
-   "icon": "alert",
-   "key": "الصدا",
-   "label": "السبب",
+   "icon": "calendar",
+   "key": "خسارة",
+   "label": "المشكلة",
    "broll": [
-    "rusty metal",
-    "metal hinge"
+    "hotel room",
+    "hotel"
    ],
-   "visual": "rusty metal hinge close-up",
-   "text": "الصدا أكل المفصلات",
-   "say": "والسبب صدا أكل المفصلات، وشمس الصيف زادت عليه.",
-   "gen": "extreme close-up of a rusty corroded metal hinge on an iron gate"
+   "visual": "empty hotel room bed",
+   "text": "كل غرفة مقفلة خسارة",
+   "say": "وفي موسم الزوار، كل غرفة مقفلة يعني حجز ضايع.",
+   "gen": "empty hotel corridor with closed room doors, warm lights"
   },
   {
-   "icon": "clock",
-   "key": "التأخير",
+   "icon": "wrench",
+   "key": "مشغول",
    "label": "العاقبة",
    "broll": [
-    "metal work",
-    "welding"
+    "maintenance",
+    "hvac technician"
    ],
-   "visual": "metal workshop with steel parts",
-   "text": "التأخير يكبّر الإصلاح",
-   "say": "وكل ما تأخرت، يتحول الإصلاح البسيط لتغيير كامل.",
-   "gen": "badly rusted bottom edge of a metal gate with flaking paint"
+   "visual": "maintenance technician with tools",
+   "text": "وفريق الصيانة مشغول",
+   "say": "وفريق الصيانة عندك مشغول ببلاغات ثانية.",
+   "gen": "hotel maintenance tool cart in a corridor"
   },
   {
-   "icon": "hammer",
-   "key": "حدّاد",
+   "icon": "check",
+   "key": "المنجز",
    "label": "الحل",
    "broll": [
-    "welder",
-    "welding"
+    "hvac technician",
+    "air conditioner repair"
    ],
-   "visual": "welder working on a metal gate with sparks",
-   "text": "حدّاد يرجّعه زي الجديد",
-   "say": "حدّاد من المنجز يصلّح المفصلات، ويدهن الباب ضد الصدا.",
-   "gen": "a welder in a welding mask welding a metal gate hinge with bright sparks"
+   "visual": "technician servicing an air conditioner",
+   "text": "فنيين من شبكة المنجز",
+   "say": "المنجز يوصلك بفنيين تكييف وسباكة وكهرباء في المدينة، بطلب واحد.",
+   "gen": "a man's gloved hands servicing a split air conditioner in a hotel room"
   },
   {
    "kind": "services",
-   "text": "كل ما يحتاجه بيتك",
+   "text": "فنيّ لكل شيء في بيتك",
    "key": "",
    "label": "",
    "icon": "",
    "broll": "",
    "visual": "",
-   "say": "من أصغر عطل لين تشطيب البيت كامل، كل اللي يحتاجه بيتك بطلب واحد من المنجز."
+   "say": "صيانة، تشطيب، أو بناء، المنجز يوصلك بالفني المناسب لكل شي في بيتك."
   },
   {
    "icon": "phone",
    "key": "مجاناً",
    "label": "",
-   "text": "طلب واحد.. والفني يتواصل معك",
-   "say": "اكتب طلبك مرة وحدة، والفني يتواصل معك مباشرة. الرابط في البايو."
+   "text": "لا تتعب نفسك تدوّر",
+   "say": "لا تتعب نفسك تدوّر على فني. اطلب فنيّك مجاناً من المنجز، والرابط في البايو."
   }
  ]
 }
