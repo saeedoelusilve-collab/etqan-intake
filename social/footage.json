@@ -1195,6 +1195,32 @@
    "src": "Pixabay",
    "tags": "water, close up, drip, gout, key, faucet, ecology, economy, broken, old, home, drain, plumbing, liquid, metal, pipeline, rusty, steel, waste",
    "added": "2026-10-17"
+  },
+  {
+   "id": "pb4973",
+   "kind": "video",
+   "trade": "نجارة",
+   "desc": "sawing wood with jigsaw",
+   "score": 7,
+   "url": "https://cdn.pixabay.com/video/2016/09/06/4973-181688494_large.mp4",
+   "thumb": "https://cdn.pixabay.com/video/2016/09/06/4973-181688494_small.jpg",
+   "credit": "klimkin",
+   "src": "Pixabay",
+   "tags": "jigsaw, board, construction, repair, square, pencil, to nag, saw, sawdust, cut off, close-up, carpenter, work",
+   "added": "2026-10-18"
+  },
+  {
+   "id": "pb4974",
+   "kind": "video",
+   "trade": "نجارة",
+   "desc": "measuring wood with ruler",
+   "score": 7,
+   "url": "https://cdn.pixabay.com/video/2016/09/06/4974-181688500_large.mp4",
+   "thumb": "https://cdn.pixabay.com/video/2016/09/06/4974-181688500_small.jpg",
+   "credit": "klimkin",
+   "src": "Pixabay",
+   "tags": "drill, board, hole, repair, construction, square, carpenter, pencil, work, restoration, building, tool, wood, to fix",
+   "added": "2026-10-18"
   }
  ]
 }

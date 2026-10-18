@@ -1,75 +1,75 @@
 {
- "date": "2026-10-17",
- "trade": "تكييف",
+ "date": "2026-10-18",
+ "trade": "نجارة",
  "scenes": [
   {
-   "icon": "ac",
-   "key": "خربان",
+   "icon": "door",
+   "key": "طاح",
    "label": "",
    "broll": [
-    "hotel room",
-    "air conditioner"
+    "wardrobe door",
+    "cabinet door"
    ],
-   "visual": "hotel room with air conditioner",
-   "text": "النزيل وصل.. والمكيف خربان",
-   "say": "نزيل وصل الفندق بعد سفر طويل، ومكيف غرفته ما يبرّد.",
-   "gen": "clean hotel room with a made bed and a white split air conditioner on the wall, a suitcase by the door"
+   "visual": "wooden wardrobe door close-up",
+   "text": "باب الدولاب طاح فجأة",
+   "say": "تفتح باب الدولاب، وفجأة يطيح في يدك.",
+   "gen": "wooden wardrobe with one door hanging crooked from a broken hinge, bedroom"
   },
   {
-   "icon": "calendar",
-   "key": "خسارة",
-   "label": "المشكلة",
+   "icon": "alert",
+   "key": "مفصلة",
+   "label": "السبب",
    "broll": [
-    "hotel room",
-    "hotel"
+    "door hinge",
+    "cabinet hinge"
    ],
-   "visual": "empty hotel room bed",
-   "text": "كل غرفة مقفلة خسارة",
-   "say": "وفي موسم الزوار، كل غرفة مقفلة يعني حجز ضايع.",
-   "gen": "empty hotel corridor with closed room doors, warm lights"
+   "visual": "cabinet hinge close-up",
+   "text": "مفصلة رخيصة ومرتخية",
+   "say": "والسبب مفصلة رخيصة، ومسامير ما انشدّت من يوم التركيب.",
+   "gen": "close-up of a loose cabinet hinge with screws pulled out of the wood"
   },
   {
-   "icon": "wrench",
-   "key": "مشغول",
+   "icon": "clock",
+   "key": "الترقيع",
    "label": "العاقبة",
    "broll": [
-    "maintenance",
-    "hvac technician"
+    "carpenter",
+    "wooden cabinet"
    ],
-   "visual": "maintenance technician with tools",
-   "text": "وفريق الصيانة مشغول",
-   "say": "وفريق الصيانة عندك مشغول ببلاغات ثانية.",
-   "gen": "hotel maintenance tool cart in a corridor"
+   "visual": "loose wooden cabinet door",
+   "text": "والترقيع ما يدوم",
+   "say": "تلزقها، تربطها، وبعد أسبوع ترجع نفس المشكلة.",
+   "gen": "wardrobe door held with tape as a temporary fix, close-up"
   },
   {
-   "icon": "check",
-   "key": "المنجز",
+   "icon": "hammer",
+   "key": "نجار",
    "label": "الحل",
    "broll": [
-    "hvac technician",
-    "air conditioner repair"
+    "carpenter",
+    "woodworking"
    ],
-   "visual": "technician servicing an air conditioner",
-   "text": "فنيين من شبكة المنجز",
-   "say": "المنجز يوصلك بفنيين تكييف وسباكة وكهرباء في المدينة، بطلب واحد.",
-   "gen": "a man's gloved hands servicing a split air conditioner in a hotel room"
+   "visual": "carpenter fixing a cabinet door with a drill",
+   "text": "نجار يضبطه صح",
+   "say": "اطلب نجار من المنجز، يغيّر المفصلات ويضبط الباب صح.",
+   "gen": "a man's hands installing a new cabinet hinge with a cordless drill"
   },
   {
    "kind": "services",
-   "text": "فنيّ لكل شيء في بيتك",
+   "text": "بيتك كله في طلب واحد",
    "key": "",
    "label": "",
    "icon": "",
    "broll": "",
    "visual": "",
-   "say": "صيانة، تشطيب، أو بناء، المنجز يوصلك بالفني المناسب لكل شي في بيتك."
+   "say": "أي شي في بيتك يحتاج فني، تلقاه في المنجز."
   },
   {
    "icon": "phone",
    "key": "مجاناً",
    "label": "",
-   "text": "لا تتعب نفسك تدوّر",
-   "say": "لا تتعب نفسك تدوّر على فني. اطلب فنيّك مجاناً من المنجز، والرابط في البايو."
+   "text": "بيتك يستاهل راحة بالك",
+   "say": "بيتك يستاهل راحة بالك. اطلب فنيّك مجاناً من المنجز، الرابط في البايو."
   }
  ]
 }
