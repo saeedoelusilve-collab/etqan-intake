@@ -1,75 +1,75 @@
 {
- "date": "2026-10-18",
- "trade": "نجارة",
+ "date": "2026-10-19",
+ "trade": "جبس بورد",
  "scenes": [
   {
-   "icon": "door",
-   "key": "طاح",
+   "icon": "home",
+   "key": "يكبر",
    "label": "",
    "broll": [
-    "wardrobe door",
-    "cabinet door"
+    "ceiling",
+    "drywall"
    ],
-   "visual": "wooden wardrobe door close-up",
-   "text": "باب الدولاب طاح فجأة",
-   "say": "تفتح باب الدولاب، وفجأة يطيح في يدك.",
-   "gen": "wooden wardrobe with one door hanging crooked from a broken hinge, bedroom"
+   "visual": "white gypsum ceiling close-up",
+   "text": "شق السقف يكبر",
+   "say": "شق صغير في سقف الجبس، تقول عادي، بس هو يكبر كل يوم.",
+   "gen": "white gypsum board ceiling with a long crack running across it, living room with a chandelier"
+  },
+  {
+   "icon": "drop",
+   "key": "تسريب",
+   "label": "السبب",
+   "broll": [
+    "ceiling",
+    "plasterboard"
+   ],
+   "visual": "ceiling with water stain",
+   "text": "تثبيت ضعيف أو تسريب",
+   "say": "وغالباً السبب تثبيت ضعيف، أو تسريب موية فوقه.",
+   "gen": "gypsum ceiling with a brown water stain and a crack"
   },
   {
    "icon": "alert",
-   "key": "مفصلة",
-   "label": "السبب",
-   "broll": [
-    "door hinge",
-    "cabinet hinge"
-   ],
-   "visual": "cabinet hinge close-up",
-   "text": "مفصلة رخيصة ومرتخية",
-   "say": "والسبب مفصلة رخيصة، ومسامير ما انشدّت من يوم التركيب.",
-   "gen": "close-up of a loose cabinet hinge with screws pulled out of the wood"
-  },
-  {
-   "icon": "clock",
-   "key": "الترقيع",
+   "key": "لوح",
    "label": "العاقبة",
    "broll": [
-    "carpenter",
-    "wooden cabinet"
+    "drywall",
+    "ceiling repair"
    ],
-   "visual": "loose wooden cabinet door",
-   "text": "والترقيع ما يدوم",
-   "say": "تلزقها، تربطها، وبعد أسبوع ترجع نفس المشكلة.",
-   "gen": "wardrobe door held with tape as a temporary fix, close-up"
+   "visual": "damaged drywall ceiling panel",
+   "text": "ممكن لوح كامل ينزل",
+   "say": "ولو تأخرت، ممكن لوح كامل ينزل على الأرض.",
+   "gen": "sagging damaged gypsum ceiling panel in a room"
   },
   {
-   "icon": "hammer",
-   "key": "نجار",
+   "icon": "check",
+   "key": "أصله",
    "label": "الحل",
    "broll": [
-    "carpenter",
-    "woodworking"
+    "drywall",
+    "plasterer"
    ],
-   "visual": "carpenter fixing a cabinet door with a drill",
-   "text": "نجار يضبطه صح",
-   "say": "اطلب نجار من المنجز، يغيّر المفصلات ويضبط الباب صح.",
-   "gen": "a man's hands installing a new cabinet hinge with a cordless drill"
+   "visual": "worker installing drywall ceiling",
+   "text": "فني جبس يصلّحه من أصله",
+   "say": "فني جبس بورد من المنجز يكشف السبب، ويصلّح الشق من أصله.",
+   "gen": "a man on a ladder fixing a gypsum board ceiling with a drill"
   },
   {
    "kind": "services",
-   "text": "بيتك كله في طلب واحد",
+   "text": "كل ما يحتاجه بيتك",
    "key": "",
    "label": "",
    "icon": "",
    "broll": "",
    "visual": "",
-   "say": "أي شي في بيتك يحتاج فني، تلقاه في المنجز."
+   "say": "من أصغر عطل لين تشطيب البيت كامل، كل اللي يحتاجه بيتك بطلب واحد من المنجز."
   },
   {
    "icon": "phone",
    "key": "مجاناً",
    "label": "",
-   "text": "بيتك يستاهل راحة بالك",
-   "say": "بيتك يستاهل راحة بالك. اطلب فنيّك مجاناً من المنجز، الرابط في البايو."
+   "text": "طلب واحد.. والفني يتواصل معك",
+   "say": "اكتب طلبك مرة وحدة، والفني يتواصل معك مباشرة. الرابط في البايو."
   }
  ]
 }
