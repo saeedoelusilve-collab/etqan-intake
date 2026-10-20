@@ -1,75 +1,75 @@
 {
- "date": "2026-10-19",
- "trade": "جبس بورد",
+ "date": "2026-10-20",
+ "trade": "تكييف",
  "scenes": [
   {
-   "icon": "home",
-   "key": "يكبر",
+   "icon": "bolt",
+   "key": "الفاتورة",
    "label": "",
    "broll": [
-    "ceiling",
-    "drywall"
+    "electricity meter",
+    "air conditioner"
    ],
-   "visual": "white gypsum ceiling close-up",
-   "text": "شق السقف يكبر",
-   "say": "شق صغير في سقف الجبس، تقول عادي، بس هو يكبر كل يوم.",
-   "gen": "white gypsum board ceiling with a long crack running across it, living room with a chandelier"
+   "visual": "electricity meter close-up",
+   "text": "ليش الفاتورة كذا؟",
+   "say": "جات فاتورة الكهرباء، وتقول في نفسك: ليش كذا؟",
+   "gen": "electricity meter on the outside wall of a Saudi house, sunny"
   },
   {
-   "icon": "drop",
-   "key": "تسريب",
+   "icon": "ac",
+   "key": "التكييف",
+   "label": "الحقيقة",
+   "broll": [
+    "air conditioner",
+    "split air conditioner"
+   ],
+   "visual": "air conditioner unit on a wall",
+   "text": "التكييف 70% من الاستهلاك",
+   "say": "حسب كفاءة، التكييف ياخذ قرابة سبعين بالمية من استهلاك البيت.",
+   "gen": "several white split air conditioner outdoor units on a house wall, hot summer day"
+  },
+  {
+   "icon": "fan",
+   "key": "وسخ",
    "label": "السبب",
    "broll": [
-    "ceiling",
-    "plasterboard"
+    "air filter",
+    "air conditioner cleaning"
    ],
-   "visual": "ceiling with water stain",
-   "text": "تثبيت ضعيف أو تسريب",
-   "say": "وغالباً السبب تثبيت ضعيف، أو تسريب موية فوقه.",
-   "gen": "gypsum ceiling with a brown water stain and a crack"
+   "visual": "dusty air conditioner filter",
+   "text": "مكيف وسخ يشتغل أكثر",
+   "say": "ولو المكيف ما انغسل، يشتغل أكثر عشان يبرّد نفس الغرفة.",
+   "gen": "close-up of thick dust inside the fins and filter of a split air conditioner"
   },
   {
-   "icon": "alert",
-   "key": "لوح",
-   "label": "العاقبة",
-   "broll": [
-    "drywall",
-    "ceiling repair"
-   ],
-   "visual": "damaged drywall ceiling panel",
-   "text": "ممكن لوح كامل ينزل",
-   "say": "ولو تأخرت، ممكن لوح كامل ينزل على الأرض.",
-   "gen": "sagging damaged gypsum ceiling panel in a room"
-  },
-  {
-   "icon": "check",
-   "key": "أصله",
+   "icon": "thermo",
+   "key": "24",
    "label": "الحل",
    "broll": [
-    "drywall",
-    "plasterer"
+    "hvac technician",
+    "air conditioner cleaning"
    ],
-   "visual": "worker installing drywall ceiling",
-   "text": "فني جبس يصلّحه من أصله",
-   "say": "فني جبس بورد من المنجز يكشف السبب، ويصلّح الشق من أصله.",
-   "gen": "a man on a ladder fixing a gypsum board ceiling with a drill"
+   "visual": "technician cleaning an air conditioner",
+   "text": "غسيل وصيانة.. وخلّه على 24",
+   "say": "اطلب فني تكييف من المنجز للغسيل، وخلّ الحرارة على أربعة وعشرين.",
+   "gen": "a man's hands cleaning an air conditioner coil with a spray bottle"
   },
   {
    "kind": "services",
-   "text": "كل ما يحتاجه بيتك",
+   "text": "فنيّ لكل شيء في بيتك",
    "key": "",
    "label": "",
    "icon": "",
    "broll": "",
    "visual": "",
-   "say": "من أصغر عطل لين تشطيب البيت كامل، كل اللي يحتاجه بيتك بطلب واحد من المنجز."
+   "say": "صيانة، تشطيب، أو بناء، المنجز يوصلك بالفني المناسب لكل شي في بيتك."
   },
   {
    "icon": "phone",
    "key": "مجاناً",
    "label": "",
-   "text": "طلب واحد.. والفني يتواصل معك",
-   "say": "اكتب طلبك مرة وحدة، والفني يتواصل معك مباشرة. الرابط في البايو."
+   "text": "لا تتعب نفسك تدوّر",
+   "say": "لا تتعب نفسك تدوّر على فني. اطلب فنيّك مجاناً من المنجز، والرابط في البايو."
   }
  ]
 }

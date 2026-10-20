@@ -126,5 +126,15 @@
   "angle": "",
   "bank": "gyps-crack",
   "score": null
+ },
+ {
+  "date": "2026-10-20",
+  "topic": "فاتورة الكهرباء والتكييف",
+  "hook": "ليش الفاتورة كذا؟",
+  "trade": "تكييف",
+  "type": "موقف طارئ",
+  "angle": "",
+  "bank": "ac-bill",
+  "score": null
  }
 ]
