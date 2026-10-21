@@ -136,5 +136,15 @@
   "angle": "",
   "bank": "ac-bill",
   "score": null
+ },
+ {
+  "date": "2026-10-21",
+  "topic": "بناء غرفة واختفاء المعلّم",
+  "hook": "ناوي تبني؟ اسمع هذا",
+  "trade": "بناء ولياسة",
+  "type": "خرافة تكلّفك",
+  "angle": "",
+  "bank": "build-wall",
+  "score": null
  }
 ]

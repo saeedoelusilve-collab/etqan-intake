@@ -1,75 +1,75 @@
 {
- "date": "2026-10-20",
- "trade": "تكييف",
+ "date": "2026-10-21",
+ "trade": "بناء ولياسة",
  "scenes": [
   {
-   "icon": "bolt",
-   "key": "الفاتورة",
+   "icon": "building",
+   "key": "تبني؟",
    "label": "",
    "broll": [
-    "electricity meter",
-    "air conditioner"
+    "bricklayer",
+    "brick wall"
    ],
-   "visual": "electricity meter close-up",
-   "text": "ليش الفاتورة كذا؟",
-   "say": "جات فاتورة الكهرباء، وتقول في نفسك: ليش كذا؟",
-   "gen": "electricity meter on the outside wall of a Saudi house, sunny"
+   "visual": "bricklayer building a brick wall",
+   "text": "ناوي تبني؟ اسمع هذا",
+   "say": "ناوي تزيد غرفة أو تبني سور؟ قبل لا تبدأ، اسمع هذا.",
+   "gen": "unfinished concrete block room extension on a Saudi house rooftop, cement bags, sunny"
   },
   {
-   "icon": "ac",
-   "key": "التكييف",
-   "label": "الحقيقة",
+   "icon": "clock",
+   "key": "اختفى",
+   "label": "المشكلة",
    "broll": [
-    "air conditioner",
-    "split air conditioner"
+    "construction site",
+    "bricks"
    ],
-   "visual": "air conditioner unit on a wall",
-   "text": "التكييف 70% من الاستهلاك",
-   "say": "حسب كفاءة، التكييف ياخذ قرابة سبعين بالمية من استهلاك البيت.",
-   "gen": "several white split air conditioner outdoor units on a house wall, hot summer day"
+   "visual": "unfinished brick wall at a construction site",
+   "text": "المعلّم اختفى والشغل واقف",
+   "say": "كثير ناس يبدأ معهم المعلّم، وبعدين يختفي والشغل واقف نصّه.",
+   "gen": "half-built block wall left unfinished with tools on the ground, construction site"
   },
   {
-   "icon": "fan",
-   "key": "وسخ",
-   "label": "السبب",
+   "icon": "alert",
+   "key": "تتشقق",
+   "label": "العاقبة",
    "broll": [
-    "air filter",
-    "air conditioner cleaning"
+    "plastering",
+    "cement wall"
    ],
-   "visual": "dusty air conditioner filter",
-   "text": "مكيف وسخ يشتغل أكثر",
-   "say": "ولو المكيف ما انغسل، يشتغل أكثر عشان يبرّد نفس الغرفة.",
-   "gen": "close-up of thick dust inside the fins and filter of a split air conditioner"
+   "visual": "cracked plaster wall",
+   "text": "اللياسة المستعجلة تتشقق",
+   "say": "واللياسة اللي تنعمل على عجل، تتشقق مع أول صيف.",
+   "gen": "close-up of a plastered wall covered with hairline cracks"
   },
   {
-   "icon": "thermo",
-   "key": "24",
+   "icon": "check",
+   "key": "يتواصل",
    "label": "الحل",
    "broll": [
-    "hvac technician",
-    "air conditioner cleaning"
+    "plastering",
+    "mason"
    ],
-   "visual": "technician cleaning an air conditioner",
-   "text": "غسيل وصيانة.. وخلّه على 24",
-   "say": "اطلب فني تكييف من المنجز للغسيل، وخلّ الحرارة على أربعة وعشرين.",
-   "gen": "a man's hands cleaning an air conditioner coil with a spray bottle"
+   "visual": "worker plastering a wall with a trowel",
+   "text": "معلّم بناء ولياسة يتواصل معك",
+   "say": "في المنجز، تكتب طلبك مرة، ويتواصل معك معلّم بناء ولياسة.",
+   "gen": "a man's hands plastering a wall with a trowel and cement"
   },
   {
    "kind": "services",
-   "text": "فنيّ لكل شيء في بيتك",
+   "text": "بيتك كله في طلب واحد",
    "key": "",
    "label": "",
    "icon": "",
    "broll": "",
    "visual": "",
-   "say": "صيانة، تشطيب، أو بناء، المنجز يوصلك بالفني المناسب لكل شي في بيتك."
+   "say": "أي شي في بيتك يحتاج فني، تلقاه في المنجز."
   },
   {
    "icon": "phone",
    "key": "مجاناً",
    "label": "",
-   "text": "لا تتعب نفسك تدوّر",
-   "say": "لا تتعب نفسك تدوّر على فني. اطلب فنيّك مجاناً من المنجز، والرابط في البايو."
+   "text": "بيتك يستاهل راحة بالك",
+   "say": "بيتك يستاهل راحة بالك. اطلب فنيّك مجاناً من المنجز، الرابط في البايو."
   }
  ]
 }
