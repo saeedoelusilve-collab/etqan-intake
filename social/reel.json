@@ -1,75 +1,75 @@
 {
- "date": "2026-10-21",
- "trade": "بناء ولياسة",
+ "date": "2026-10-22",
+ "trade": "سمنت بورد",
  "scenes": [
   {
    "icon": "building",
-   "key": "تبني؟",
+   "key": "انتفخت",
    "label": "",
    "broll": [
-    "bricklayer",
-    "brick wall"
+    "construction",
+    "renovation"
    ],
-   "visual": "bricklayer building a brick wall",
-   "text": "ناوي تبني؟ اسمع هذا",
-   "say": "ناوي تزيد غرفة أو تبني سور؟ قبل لا تبدأ، اسمع هذا.",
-   "gen": "unfinished concrete block room extension on a Saudi house rooftop, cement bags, sunny"
-  },
-  {
-   "icon": "clock",
-   "key": "اختفى",
-   "label": "المشكلة",
-   "broll": [
-    "construction site",
-    "bricks"
-   ],
-   "visual": "unfinished brick wall at a construction site",
-   "text": "المعلّم اختفى والشغل واقف",
-   "say": "كثير ناس يبدأ معهم المعلّم، وبعدين يختفي والشغل واقف نصّه.",
-   "gen": "half-built block wall left unfinished with tools on the ground, construction site"
+   "visual": "rooftop room construction",
+   "text": "أول مطرة.. والجدران انتفخت",
+   "say": "سوّيت ملحق في السطح، ومع أول مطرة الجدران انتفخت.",
+   "gen": "rooftop room annex of a Saudi house with swollen water-damaged wall boards after rain"
   },
   {
    "icon": "alert",
-   "key": "تتشقق",
-   "label": "العاقبة",
+   "key": "الموية",
+   "label": "السبب",
    "broll": [
-    "plastering",
-    "cement wall"
+    "construction worker",
+    "building construction"
    ],
-   "visual": "cracked plaster wall",
-   "text": "اللياسة المستعجلة تتشقق",
-   "say": "واللياسة اللي تنعمل على عجل، تتشقق مع أول صيف.",
-   "gen": "close-up of a plastered wall covered with hairline cracks"
+   "visual": "construction worker installing wall boards",
+   "text": "ألواح ما تتحمل الموية",
+   "say": "لأنهم ركّبوا ألواح داخلية، ما تتحمل الموية ولا الشمس.",
+   "gen": "close-up of swollen crumbling water-damaged wall board"
   },
   {
    "icon": "check",
-   "key": "يتواصل",
+   "key": "السمنت",
+   "label": "الصح",
+   "broll": [
+    "cement board",
+    "construction"
+   ],
+   "visual": "cement board panels on a construction site",
+   "text": "السمنت بورد للأماكن الرطبة",
+   "say": "والصحيح للأماكن الخارجية والرطبة هو السمنت بورد.",
+   "gen": "stack of grey cement boards on a construction site"
+  },
+  {
+   "icon": "hammer",
+   "key": "صح",
    "label": "الحل",
    "broll": [
-    "plastering",
-    "mason"
+    "construction worker",
+    "renovation"
    ],
-   "visual": "worker plastering a wall with a trowel",
-   "text": "معلّم بناء ولياسة يتواصل معك",
-   "say": "في المنجز، تكتب طلبك مرة، ويتواصل معك معلّم بناء ولياسة.",
-   "gen": "a man's hands plastering a wall with a trowel and cement"
+   "visual": "worker fixing boards with a drill",
+   "text": "فني سمنت بورد يركّبه صح",
+   "say": "اطلب فني سمنت بورد من المنجز، ويركّبه صح من البداية.",
+   "gen": "a man's gloved hands screwing a cement board panel onto a metal frame with a drill"
   },
   {
    "kind": "services",
-   "text": "بيتك كله في طلب واحد",
+   "text": "كل ما يحتاجه بيتك",
    "key": "",
    "label": "",
    "icon": "",
    "broll": "",
    "visual": "",
-   "say": "أي شي في بيتك يحتاج فني، تلقاه في المنجز."
+   "say": "من أصغر عطل لين تشطيب البيت كامل، كل اللي يحتاجه بيتك بطلب واحد من المنجز."
   },
   {
    "icon": "phone",
    "key": "مجاناً",
    "label": "",
-   "text": "بيتك يستاهل راحة بالك",
-   "say": "بيتك يستاهل راحة بالك. اطلب فنيّك مجاناً من المنجز، الرابط في البايو."
+   "text": "طلب واحد.. والفني يتواصل معك",
+   "say": "اكتب طلبك مرة وحدة، والفني يتواصل معك مباشرة. الرابط في البايو."
   }
  ]
 }
