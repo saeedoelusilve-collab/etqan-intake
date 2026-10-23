@@ -1,75 +1,77 @@
 {
- "date": "2026-10-22",
- "trade": "سمنت بورد",
+ "date": "2026-10-23",
+ "trade": "كل الخدمات",
  "scenes": [
   {
-   "icon": "building",
-   "key": "انتفخت",
+   "icon": "calendar",
+   "key": "فني",
    "label": "",
    "broll": [
-    "construction",
+    "construction site",
     "renovation"
    ],
-   "visual": "rooftop room construction",
-   "text": "أول مطرة.. والجدران انتفخت",
-   "say": "سوّيت ملحق في السطح، ومع أول مطرة الجدران انتفخت.",
-   "gen": "rooftop room annex of a Saudi house with swollen water-damaged wall boards after rain"
+   "visual": "interior renovation work in progress",
+   "text": "التسليم قرّب.. وينقصك فني",
+   "say": "عندك مشروع، والتسليم قرّب، وينقصك مبلّط أو دهّان.",
+   "gen": "villa interior renovation in progress, stacked floor tiles, scaffolding, daylight"
   },
   {
-   "icon": "alert",
-   "key": "الموية",
-   "label": "السبب",
+   "icon": "clock",
+   "key": "تأخير",
+   "label": "المشكلة",
    "broll": [
-    "construction worker",
-    "building construction"
+    "tiling",
+    "tile installation"
    ],
-   "visual": "construction worker installing wall boards",
-   "text": "ألواح ما تتحمل الموية",
-   "say": "لأنهم ركّبوا ألواح داخلية، ما تتحمل الموية ولا الشمس.",
-   "gen": "close-up of swollen crumbling water-damaged wall board"
+   "visual": "tiler laying floor tiles",
+   "text": "كل يوم تأخير يكلّفك",
+   "say": "وكل يوم تأخير، يعني ضغط من العميل وخسارة من جيبك.",
+   "trade": "تبليط",
+   "gen": "a man's hands laying large floor tiles with a trowel in an unfinished villa"
+  },
+  {
+   "icon": "phone",
+   "key": "يومك",
+   "label": "العاقبة",
+   "broll": [
+    "painter",
+    "paint roller"
+   ],
+   "visual": "painter rolling paint on a wall",
+   "text": "والبحث يضيّع يومك",
+   "say": "وتقضي يومك تتصل وتسأل، بدل ما تتابع الشغل.",
+   "trade": "دهان",
+   "gen": "half-painted villa interior wall with paint buckets and a roller"
   },
   {
    "icon": "check",
-   "key": "السمنت",
-   "label": "الصح",
-   "broll": [
-    "cement board",
-    "construction"
-   ],
-   "visual": "cement board panels on a construction site",
-   "text": "السمنت بورد للأماكن الرطبة",
-   "say": "والصحيح للأماكن الخارجية والرطبة هو السمنت بورد.",
-   "gen": "stack of grey cement boards on a construction site"
-  },
-  {
-   "icon": "hammer",
-   "key": "صح",
+   "key": "المنجز",
    "label": "الحل",
    "broll": [
     "construction worker",
-    "renovation"
+    "builder"
    ],
-   "visual": "worker fixing boards with a drill",
-   "text": "فني سمنت بورد يركّبه صح",
-   "say": "اطلب فني سمنت بورد من المنجز، ويركّبه صح من البداية.",
-   "gen": "a man's gloved hands screwing a cement board panel onto a metal frame with a drill"
+   "visual": "construction workers on a building site",
+   "text": "فنيين من شبكة المنجز",
+   "say": "اكتب احتياجك في المنجز، ويتواصل معك فنيين من شبكتنا في المدينة.",
+   "gen": "construction tools and materials organized at a villa site, hard hats"
   },
   {
    "kind": "services",
-   "text": "كل ما يحتاجه بيتك",
+   "text": "فنيّ لكل شيء في بيتك",
    "key": "",
    "label": "",
    "icon": "",
    "broll": "",
    "visual": "",
-   "say": "من أصغر عطل لين تشطيب البيت كامل، كل اللي يحتاجه بيتك بطلب واحد من المنجز."
+   "say": "صيانة، تشطيب، أو بناء، المنجز يوصلك بالفني المناسب لكل شي في بيتك."
   },
   {
    "icon": "phone",
    "key": "مجاناً",
    "label": "",
-   "text": "طلب واحد.. والفني يتواصل معك",
-   "say": "اكتب طلبك مرة وحدة، والفني يتواصل معك مباشرة. الرابط في البايو."
+   "text": "لا تتعب نفسك تدوّر",
+   "say": "لا تتعب نفسك تدوّر على فني. اطلب فنيّك مجاناً من المنجز، والرابط في البايو."
   }
  ]
 }

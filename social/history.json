@@ -156,5 +156,15 @@
   "angle": "",
   "bank": "cement-roof",
   "score": null
+ },
+ {
+  "date": "2026-10-23",
+  "topic": "مقاول ينقصه فني",
+  "hook": "التسليم قرّب.. وينقصك فني",
+  "trade": "كل الخدمات",
+  "type": "إعلان المنجز",
+  "angle": "",
+  "bank": "contractor-crew",
+  "score": null
  }
 ]
