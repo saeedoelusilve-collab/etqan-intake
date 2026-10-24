@@ -1,77 +1,50 @@
 {
- "date": "2026-10-23",
- "trade": "كل الخدمات",
+ "date": "2026-10-24",
+ "trade": "بناء ولياسة",
  "scenes": [
   {
-   "icon": "calendar",
-   "key": "فني",
+   "text": "صوت تطبيل بجدار البيت؟",
+   "say": "انت بالمدينة وسمعت صوت تطبيل بجدار بيتك؟",
+   "icon": "hammer",
+   "key": "تطبيل",
    "label": "",
-   "broll": [
-    "construction site",
-    "renovation"
-   ],
-   "visual": "interior renovation work in progress",
-   "text": "التسليم قرّب.. وينقصك فني",
-   "say": "عندك مشروع، والتسليم قرّب، وينقصك مبلّط أو دهّان.",
-   "gen": "villa interior renovation in progress, stacked floor tiles, scaffolding, daylight"
+   "broll": "plaster wall",
+   "visual": "A hand tapping on a newly plastered wall with a small tool."
   },
   {
-   "icon": "clock",
-   "key": "تأخير",
-   "label": "المشكلة",
-   "broll": [
-    "tiling",
-    "tile installation"
-   ],
-   "visual": "tiler laying floor tiles",
-   "text": "كل يوم تأخير يكلّفك",
-   "say": "وكل يوم تأخير، يعني ضغط من العميل وخسارة من جيبك.",
-   "trade": "تبليط",
-   "gen": "a man's hands laying large floor tiles with a trowel in an unfinished villa"
+   "text": "سقوط لياسة الجدار يخسرك الأثاث",
+   "say": "والمشكلة هالشي يعني اللياسة بتطيح على الأثاث وتخسرك كثير",
+   "icon": "alert",
+   "key": "الجدار",
+   "label": "الكارثة",
+   "broll": "cracked wall",
+   "visual": "A cracked plaster wall layer showing signs of peeling and falling off."
   },
   {
-   "icon": "phone",
-   "key": "يومك",
-   "label": "العاقبة",
-   "broll": [
-    "painter",
-    "paint roller"
-   ],
-   "visual": "painter rolling paint on a wall",
-   "text": "والبحث يضيّع يومك",
-   "say": "وتقضي يومك تتصل وتسأل، بدل ما تتابع الشغل.",
-   "trade": "دهان",
-   "gen": "half-painted villa interior wall with paint buckets and a roller"
-  },
-  {
-   "icon": "check",
-   "key": "المنجز",
+   "text": "اطلب معلم بناء عبر المنجز",
+   "say": "لكن مع المنجز يجي معلم بناء فاهم يعالجها قبل تكبر",
+   "icon": "building",
+   "key": "بناء",
    "label": "الحل",
-   "broll": [
-    "construction worker",
-    "builder"
-   ],
-   "visual": "construction workers on a building site",
-   "text": "فنيين من شبكة المنجز",
-   "say": "اكتب احتياجك في المنجز، ويتواصل معك فنيين من شبكتنا في المدينة.",
-   "gen": "construction tools and materials organized at a villa site, hard hats"
+   "broll": "mason",
+   "visual": "A skilled builder carefully inspecting and fixing wall plaster."
   },
   {
    "kind": "services",
-   "text": "فنيّ لكل شيء في بيتك",
+   "text": "بيتك كله في طلب واحد",
    "key": "",
    "label": "",
    "icon": "",
    "broll": "",
    "visual": "",
-   "say": "صيانة، تشطيب، أو بناء، المنجز يوصلك بالفني المناسب لكل شي في بيتك."
+   "say": "أي شي في بيتك يحتاج فني، تلقاه في المنجز."
   },
   {
    "icon": "phone",
    "key": "مجاناً",
    "label": "",
-   "text": "لا تتعب نفسك تدوّر",
-   "say": "لا تتعب نفسك تدوّر على فني. اطلب فنيّك مجاناً من المنجز، والرابط في البايو."
+   "text": "بيتك يستاهل راحة بالك",
+   "say": "بيتك يستاهل راحة بالك. اطلب فنيّك مجاناً من المنجز، الرابط في البايو."
   }
  ]
 }
