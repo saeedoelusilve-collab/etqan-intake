@@ -1,50 +1,50 @@
 {
- "date": "2026-10-24",
- "trade": "بناء ولياسة",
+ "date": "2026-10-25",
+ "trade": "سباكة",
  "scenes": [
   {
-   "text": "صوت تطبيل بجدار البيت؟",
-   "say": "انت بالمدينة وسمعت صوت تطبيل بجدار بيتك؟",
-   "icon": "hammer",
-   "key": "تطبيل",
-   "label": "",
-   "broll": "plaster wall",
-   "visual": "A hand tapping on a newly plastered wall with a small tool."
-  },
-  {
-   "text": "سقوط لياسة الجدار يخسرك الأثاث",
-   "say": "والمشكلة هالشي يعني اللياسة بتطيح على الأثاث وتخسرك كثير",
+   "text": "علامات تدل على خراب السباكة",
+   "say": "علامتين لو شفتها ببيتك اعرف إن السباكة بتخرب",
    "icon": "alert",
-   "key": "الجدار",
-   "label": "الكارثة",
-   "broll": "cracked wall",
-   "visual": "A cracked plaster wall layer showing signs of peeling and falling off."
+   "key": "السباكة",
+   "label": "",
+   "broll": "plumber",
+   "visual": "close-up of a damaged flexible water hose bulging under pressure"
   },
   {
-   "text": "اطلب معلم بناء عبر المنجز",
-   "say": "لكن مع المنجز يجي معلم بناء فاهم يعالجها قبل تكبر",
-   "icon": "building",
-   "key": "بناء",
-   "label": "الحل",
-   "broll": "mason",
-   "visual": "A skilled builder carefully inspecting and fixing wall plaster."
+   "text": "انتفاخ اللي ينذر بغرق البيت",
+   "say": "أولها انتفاخ لي الموية ومعناه إنه بينفجر ويغرق البيت",
+   "icon": "drop",
+   "key": "انتفاخ",
+   "label": "علامات الخطر",
+   "broll": "sink",
+   "visual": "water drops dripping under kitchen sink near pipe"
+  },
+  {
+   "text": "رطوبة الجدار تحتاج فني المنجز",
+   "say": "والثانية بقع رطوبة بالجدار والحل تطلب فني المنجز لأن الوقاية أوفر من التصليح",
+   "icon": "wrench",
+   "key": "المنجز",
+   "label": "الحل الذكي",
+   "broll": "pipe",
+   "visual": "plumber hands tightening water valve with wrench"
   },
   {
    "kind": "services",
-   "text": "بيتك كله في طلب واحد",
+   "text": "كل ما يحتاجه بيتك",
    "key": "",
    "label": "",
    "icon": "",
    "broll": "",
    "visual": "",
-   "say": "أي شي في بيتك يحتاج فني، تلقاه في المنجز."
+   "say": "من أصغر عطل لين تشطيب البيت كامل، كل اللي يحتاجه بيتك بطلب واحد من المنجز."
   },
   {
    "icon": "phone",
    "key": "مجاناً",
    "label": "",
-   "text": "بيتك يستاهل راحة بالك",
-   "say": "بيتك يستاهل راحة بالك. اطلب فنيّك مجاناً من المنجز، الرابط في البايو."
+   "text": "طلب واحد.. والفني يتواصل معك",
+   "say": "اكتب طلبك مرة وحدة، والفني يتواصل معك مباشرة. الرابط في البايو."
   }
  ]
 }
