@@ -1,50 +1,50 @@
 {
- "date": "2026-10-25",
- "trade": "سباكة",
+ "date": "2026-10-26",
+ "trade": "كهرباء",
  "scenes": [
   {
-   "text": "علامات تدل على خراب السباكة",
-   "say": "علامتين لو شفتها ببيتك اعرف إن السباكة بتخرب",
+   "text": "طفت الكهرباء وقربوا ضيوفك؟",
+   "say": "قبل يوصلون ضيوفك بالمدينة طفت الكهرباء ورفض القاطع يرجع!",
    "icon": "alert",
-   "key": "السباكة",
+   "key": "الكهرباء",
    "label": "",
-   "broll": "plumber",
-   "visual": "close-up of a damaged flexible water hose bulging under pressure"
+   "broll": "electrical panel",
+   "visual": "Close-up of a hand trying to flip a tripped circuit breaker."
   },
   {
-   "text": "انتفاخ اللي ينذر بغرق البيت",
-   "say": "أولها انتفاخ لي الموية ومعناه إنه بينفجر ويغرق البيت",
-   "icon": "drop",
-   "key": "انتفاخ",
-   "label": "علامات الخطر",
-   "broll": "sink",
-   "visual": "water drops dripping under kitchen sink near pipe"
+   "text": "اتصالات كثيرة وأسعار متغيرة",
+   "say": "والمشكلة اتصلت على خمسة كل واحد بشرط ويروح يومك وانت تنتظر.",
+   "icon": "phone",
+   "key": "أسعار",
+   "label": "الورطة",
+   "broll": "smartphone",
+   "visual": "Close-up of a person holding a smartphone searching contacts."
   },
   {
-   "text": "رطوبة الجدار تحتاج فني المنجز",
-   "say": "والثانية بقع رطوبة بالجدار والحل تطلب فني المنجز لأن الوقاية أوفر من التصليح",
-   "icon": "wrench",
-   "key": "المنجز",
-   "label": "الحل الذكي",
-   "broll": "pipe",
-   "visual": "plumber hands tightening water valve with wrench"
+   "text": "طلب واحد يعيد نور بيتك",
+   "say": "لكن بطلب واحد من شبكة المنجز يجي كهربائي فاهم ويرجع بيتك منور.",
+   "icon": "bolt",
+   "key": "بيتك",
+   "label": "الحل",
+   "broll": "electrician",
+   "visual": "Electrician testing wires inside an electrical socket with a multimeter."
   },
   {
    "kind": "services",
-   "text": "كل ما يحتاجه بيتك",
+   "text": "فنيّ لكل شيء في بيتك",
    "key": "",
    "label": "",
    "icon": "",
    "broll": "",
    "visual": "",
-   "say": "من أصغر عطل لين تشطيب البيت كامل، كل اللي يحتاجه بيتك بطلب واحد من المنجز."
+   "say": "صيانة، تشطيب، أو بناء، المنجز يوصلك بالفني المناسب لكل شي في بيتك."
   },
   {
    "icon": "phone",
    "key": "مجاناً",
    "label": "",
-   "text": "طلب واحد.. والفني يتواصل معك",
-   "say": "اكتب طلبك مرة وحدة، والفني يتواصل معك مباشرة. الرابط في البايو."
+   "text": "لا تتعب نفسك تدوّر",
+   "say": "لا تتعب نفسك تدوّر على فني. اطلب فنيّك مجاناً من المنجز، والرابط في البايو."
   }
  ]
 }
