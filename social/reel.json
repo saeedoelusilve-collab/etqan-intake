@@ -1,50 +1,50 @@
 {
- "date": "2026-10-26",
- "trade": "كهرباء",
+ "date": "2026-10-27",
+ "trade": "تكييف",
  "scenes": [
   {
-   "text": "طفت الكهرباء وقربوا ضيوفك؟",
-   "say": "قبل يوصلون ضيوفك بالمدينة طفت الكهرباء ورفض القاطع يرجع!",
-   "icon": "alert",
-   "key": "الكهرباء",
+   "text": "رائحة حريق من المكيف ليلا",
+   "say": "الساعة اثناعشر بالليل شميت ريحة بلاستيك محروق من المكيف",
+   "icon": "flame",
+   "key": "حريق",
    "label": "",
-   "broll": "electrical panel",
-   "visual": "Close-up of a hand trying to flip a tripped circuit breaker."
+   "broll": "air conditioner",
+   "visual": "close up of a wall mounted air conditioner unit indoors"
   },
   {
-   "text": "اتصالات كثيرة وأسعار متغيرة",
-   "say": "والمشكلة اتصلت على خمسة كل واحد بشرط ويروح يومك وانت تنتظر.",
-   "icon": "phone",
-   "key": "أسعار",
-   "label": "الورطة",
-   "broll": "smartphone",
-   "visual": "Close-up of a person holding a smartphone searching contacts."
-  },
-  {
-   "text": "طلب واحد يعيد نور بيتك",
-   "say": "لكن بطلب واحد من شبكة المنجز يجي كهربائي فاهم ويرجع بيتك منور.",
+   "text": "احتراق التوصيلات يطفئ المكيف بالحر",
+   "say": "ضغط حر الصيف يحرق أسلاك التوصيل ويطفي المكيف بعز الحر",
    "icon": "bolt",
-   "key": "بيتك",
+   "key": "احتراق",
+   "label": "التصعيد",
+   "broll": "electrical panel",
+   "visual": "close up of burnt electrical wiring near ac connection point"
+  },
+  {
+   "text": "إصلاح المكيف عبر شبكة المنجز",
+   "say": "طلبت فني مكيفات عبر المنجز وصلح المشكلة ورجعت راحة بالك",
+   "icon": "ac",
+   "key": "المنجز",
    "label": "الحل",
-   "broll": "electrician",
-   "visual": "Electrician testing wires inside an electrical socket with a multimeter."
+   "broll": "wrench",
+   "visual": "technician hands repairing electrical connection of an air conditioner"
   },
   {
    "kind": "services",
-   "text": "فنيّ لكل شيء في بيتك",
+   "text": "بيتك كله في طلب واحد",
    "key": "",
    "label": "",
    "icon": "",
    "broll": "",
    "visual": "",
-   "say": "صيانة، تشطيب، أو بناء، المنجز يوصلك بالفني المناسب لكل شي في بيتك."
+   "say": "أي شي في بيتك يحتاج فني، تلقاه في المنجز."
   },
   {
    "icon": "phone",
    "key": "مجاناً",
    "label": "",
-   "text": "لا تتعب نفسك تدوّر",
-   "say": "لا تتعب نفسك تدوّر على فني. اطلب فنيّك مجاناً من المنجز، والرابط في البايو."
+   "text": "طلب واحد.. والفني يتواصل معك",
+   "say": "اكتب طلبك مرة وحدة، والفني يتواصل معك مباشرة. الرابط في البايو."
   }
  ]
 }
