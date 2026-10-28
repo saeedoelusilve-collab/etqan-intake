@@ -1,43 +1,43 @@
 {
- "date": "2026-10-27",
- "trade": "تكييف",
+ "date": "2026-10-28",
+ "trade": "أجهزة كهربائية",
  "scenes": [
   {
-   "text": "رائحة حريق من المكيف ليلا",
-   "say": "الساعة اثناعشر بالليل شميت ريحة بلاستيك محروق من المكيف",
+   "text": "فرن البيت ينطفئ فجأة؟",
+   "say": "فرنك يطفي بوسط الخبز وتحسب الكهرباء ضعيفة؟",
    "icon": "flame",
-   "key": "حريق",
+   "key": "ينطفئ",
    "label": "",
-   "broll": "air conditioner",
-   "visual": "close up of a wall mounted air conditioner unit indoors"
+   "broll": "oven",
+   "visual": "Close-up of a modern electric oven turning off suddenly during baking"
   },
   {
-   "text": "احتراق التوصيلات يطفئ المكيف بالحر",
-   "say": "ضغط حر الصيف يحرق أسلاك التوصيل ويطفي المكيف بعز الحر",
-   "icon": "bolt",
-   "key": "احتراق",
-   "label": "التصعيد",
-   "broll": "electrical panel",
-   "visual": "close up of burnt electrical wiring near ac connection point"
+   "text": "فني يستغلك ويستبدل لوحة مكلفة",
+   "say": "والمشكلة يجي فني غير أمين ويطلب تغيير لوحة بمئات",
+   "icon": "alert",
+   "key": "لوحة",
+   "label": "الخرافة والتكلفة",
+   "broll": "circuit board",
+   "visual": "Technician pointing at an open electrical circuit board of an oven"
   },
   {
-   "text": "إصلاح المكيف عبر شبكة المنجز",
-   "say": "طلبت فني مكيفات عبر المنجز وصلح المشكلة ورجعت راحة بالك",
-   "icon": "ac",
-   "key": "المنجز",
-   "label": "الحل",
-   "broll": "wrench",
-   "visual": "technician hands repairing electrical connection of an air conditioner"
+   "text": "السبب انسداد مروحة التبريد فقط",
+   "say": "والحقيقة هي مروحة انسدت من الدهون اطلب فني فاهم من المنجز ويرتاح بالك",
+   "icon": "fan",
+   "key": "انسداد",
+   "label": "الحقيقة والحل",
+   "broll": "cooling fan",
+   "visual": "Hands cleaning dust and grease from an oven cooling fan"
   },
   {
    "kind": "services",
-   "text": "بيتك كله في طلب واحد",
+   "text": "كل ما يحتاجه بيتك",
    "key": "",
    "label": "",
    "icon": "",
    "broll": "",
    "visual": "",
-   "say": "أي شي في بيتك يحتاج فني، تلقاه في المنجز."
+   "say": "من أصغر عطل لين تشطيب البيت كامل، كل اللي يحتاجه بيتك بطلب واحد من المنجز."
   },
   {
    "icon": "phone",
