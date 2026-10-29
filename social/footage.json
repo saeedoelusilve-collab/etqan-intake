@@ -1364,6 +1364,45 @@
    "src": "Pixabay",
    "tags": "lamps, lights, light bulbs, energy, lighting, lanterns, glow, chandelier, innovation, art, creativeness, ceiling, modern",
    "added": "2026-10-26"
+  },
+  {
+   "id": "pb125458",
+   "kind": "video",
+   "trade": "نجارة",
+   "desc": "Circular saw cutting wooden block",
+   "score": 7,
+   "url": "https://cdn.pixabay.com/video/2022/07/25/125458-733425004_large.mp4",
+   "thumb": "https://cdn.pixabay.com/video/2022/07/25/125458-733425004_small.jpg",
+   "credit": "romyrwood",
+   "src": "Pixabay",
+   "tags": "board, carpenter, carpentry, circular, craftsman, detail, furniture, hand, handmade, industry, joinery, make, person, plank, professional, saw, sawdust, sawing, timber, tool, wood, woodworking",
+   "added": "2026-10-29"
+  },
+  {
+   "id": "pb305457",
+   "kind": "video",
+   "trade": "نجارة",
+   "desc": "Planing wood with hand plane",
+   "score": 7,
+   "url": "https://cdn.pixabay.com/video/2025/09/21/305457_large.mp4",
+   "thumb": "https://cdn.pixabay.com/video/2025/09/21/305457_small.jpg",
+   "credit": "SamMSandoval",
+   "src": "Pixabay",
+   "tags": "table saw, woodwork, carpenter, woodworking, work, workshop",
+   "added": "2026-10-29"
+  },
+  {
+   "id": "pb190164",
+   "kind": "video",
+   "trade": "جبس بورد",
+   "desc": "industrial ceiling lights and pipes",
+   "score": 7,
+   "url": "https://cdn.pixabay.com/video/2023/11/22/190164-887495596_large.mp4",
+   "thumb": "https://cdn.pixabay.com/video/2023/11/22/190164-887495596_small.jpg",
+   "credit": "ninosouza",
+   "src": "Pixabay",
+   "tags": "lights, lamps, ceiling, hallway, alley, building, construction, video production",
+   "added": "2026-10-29"
   }
  ]
 }

@@ -1,50 +1,50 @@
 {
- "date": "2026-10-28",
- "trade": "أجهزة كهربائية",
+ "date": "2026-10-29",
+ "trade": "نجارة",
  "scenes": [
   {
-   "text": "فرن البيت ينطفئ فجأة؟",
-   "say": "فرنك يطفي بوسط الخبز وتحسب الكهرباء ضعيفة؟",
-   "icon": "flame",
-   "key": "ينطفئ",
+   "text": "تأخير النجار يكلفك خسارة يومية",
+   "say": "أنت بالمدينة وتأخير النجار يكلفك أربعمية وثلاثة وخمسين ريال يوميا",
+   "icon": "door",
+   "key": "النجار",
    "label": "",
-   "broll": "oven",
-   "visual": "Close-up of a modern electric oven turning off suddenly during baking"
+   "broll": "carpenter",
+   "visual": "Close-up of unfinished wooden door frame in a hotel room."
   },
   {
-   "text": "فني يستغلك ويستبدل لوحة مكلفة",
-   "say": "والمشكلة يجي فني غير أمين ويطلب تغيير لوحة بمئات",
+   "text": "اختفاء الفني يوقف تسليم الشقق",
+   "say": "والمشكلة أبو سليم تعطلت شققه لأن النجار اختفى وما جاء قبل التسليم",
    "icon": "alert",
-   "key": "لوحة",
-   "label": "الخرافة والتكلفة",
-   "broll": "circuit board",
-   "visual": "Technician pointing at an open electrical circuit board of an oven"
+   "key": "اختفاء",
+   "label": "المشكلة",
+   "broll": "building",
+   "visual": "An empty hotel apartment corridor with unhung doors."
   },
   {
-   "text": "السبب انسداد مروحة التبريد فقط",
-   "say": "والحقيقة هي مروحة انسدت من الدهون اطلب فني فاهم من المنجز ويرتاح بالك",
-   "icon": "fan",
-   "key": "انسداد",
-   "label": "الحقيقة والحل",
-   "broll": "cooling fan",
-   "visual": "Hands cleaning dust and grease from an oven cooling fan"
+   "text": "فني المنجز ينهي عمل الأبواب",
+   "say": "والحل طلب نجار متخصص من شبكة المنجز وخلص الأبواب والشغل الزين يريحك",
+   "icon": "hammer",
+   "key": "المنجز",
+   "label": "الحل",
+   "broll": "hammer",
+   "visual": "Carpenter installing door hinges carefully."
   },
   {
    "kind": "services",
-   "text": "كل ما يحتاجه بيتك",
+   "text": "فنيّ لكل شيء في بيتك",
    "key": "",
    "label": "",
    "icon": "",
    "broll": "",
    "visual": "",
-   "say": "من أصغر عطل لين تشطيب البيت كامل، كل اللي يحتاجه بيتك بطلب واحد من المنجز."
+   "say": "صيانة، تشطيب، أو بناء، المنجز يوصلك بالفني المناسب لكل شي في بيتك."
   },
   {
    "icon": "phone",
    "key": "مجاناً",
    "label": "",
-   "text": "طلب واحد.. والفني يتواصل معك",
-   "say": "اكتب طلبك مرة وحدة، والفني يتواصل معك مباشرة. الرابط في البايو."
+   "text": "لا تتعب نفسك تدوّر",
+   "say": "لا تتعب نفسك تدوّر على فني. اطلب فنيّك مجاناً من المنجز، والرابط في البايو."
   }
  ]
 }
