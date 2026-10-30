@@ -1,50 +1,50 @@
 {
- "date": "2026-10-29",
- "trade": "نجارة",
+ "date": "2026-10-30",
+ "trade": "كل الخدمات",
  "scenes": [
   {
-   "text": "تأخير النجار يكلفك خسارة يومية",
-   "say": "أنت بالمدينة وتأخير النجار يكلفك أربعمية وثلاثة وخمسين ريال يوميا",
-   "icon": "door",
-   "key": "النجار",
+   "text": "تصلح نفس المشكلة مرتين؟",
+   "say": "صلحت سباكة البيت ورجع يهرب بنفس اليوم؟",
+   "icon": "drop",
+   "key": "مرتين",
    "label": "",
-   "broll": "carpenter",
-   "visual": "Close-up of unfinished wooden door frame in a hotel room."
+   "broll": "leaking pipe",
+   "visual": "close-up of water dripping from household pipe joint"
   },
   {
-   "text": "اختفاء الفني يوقف تسليم الشقق",
-   "say": "والمشكلة أبو سليم تعطلت شققه لأن النجار اختفى وما جاء قبل التسليم",
-   "icon": "alert",
-   "key": "اختفاء",
-   "label": "المشكلة",
-   "broll": "building",
-   "visual": "An empty hotel apartment corridor with unhung doors."
+   "text": "تعطل المكيف بعد الصيانة؟",
+   "say": "نظفت المكيف وبنص الحر رجع ينفخ هوا حار؟",
+   "icon": "ac",
+   "key": "ضعف",
+   "label": "الموقف الثاني",
+   "broll": "air conditioner",
+   "visual": "hands removing clogged air conditioner filter"
   },
   {
-   "text": "فني المنجز ينهي عمل الأبواب",
-   "say": "والحل طلب نجار متخصص من شبكة المنجز وخلص الأبواب والشغل الزين يريحك",
-   "icon": "hammer",
+   "text": "تعبت وأنت تدور فني؟",
+   "say": "ضاع وقتك تدور أرقام، والحل الرابط في البايو يوصلك بالفني الصح.",
+   "icon": "wrench",
    "key": "المنجز",
-   "label": "الحل",
-   "broll": "hammer",
-   "visual": "Carpenter installing door hinges carefully."
+   "label": "الحل الأكيد",
+   "broll": "water heater",
+   "visual": "technician checking home water heater with tools"
   },
   {
    "kind": "services",
-   "text": "فنيّ لكل شيء في بيتك",
+   "text": "بيتك كله في طلب واحد",
    "key": "",
    "label": "",
    "icon": "",
    "broll": "",
    "visual": "",
-   "say": "صيانة، تشطيب، أو بناء، المنجز يوصلك بالفني المناسب لكل شي في بيتك."
+   "say": "أي شي في بيتك يحتاج فني، تلقاه في المنجز."
   },
   {
    "icon": "phone",
    "key": "مجاناً",
    "label": "",
-   "text": "لا تتعب نفسك تدوّر",
-   "say": "لا تتعب نفسك تدوّر على فني. اطلب فنيّك مجاناً من المنجز، والرابط في البايو."
+   "text": "بيتك يستاهل راحة بالك",
+   "say": "بيتك يستاهل راحة بالك. اطلب فنيّك مجاناً من المنجز، الرابط في البايو."
   }
  ]
 }

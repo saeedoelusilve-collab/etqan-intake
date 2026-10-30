@@ -1403,6 +1403,19 @@
    "src": "Pixabay",
    "tags": "lights, lamps, ceiling, hallway, alley, building, construction, video production",
    "added": "2026-10-29"
+  },
+  {
+   "id": "pb85350",
+   "kind": "video",
+   "trade": "بناء ولياسة",
+   "desc": "workers laying bricks and sand",
+   "score": 8,
+   "url": "https://cdn.pixabay.com/video/2021/08/16/85350-590746473_large.mp4",
+   "thumb": "https://cdn.pixabay.com/video/2021/08/16/85350-590746473_small.jpg",
+   "credit": "AlexKopeykin",
+   "src": "Pixabay",
+   "tags": "builder, repair, worker, building, professional, tools, safety, master, construction, foreman",
+   "added": "2026-10-30"
   }
  ]
 }
