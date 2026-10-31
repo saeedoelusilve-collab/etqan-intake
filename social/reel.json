@@ -1,50 +1,50 @@
 {
- "date": "2026-10-30",
- "trade": "كل الخدمات",
+ "date": "2026-10-31",
+ "trade": "دهان",
  "scenes": [
   {
-   "text": "تصلح نفس المشكلة مرتين؟",
-   "say": "صلحت سباكة البيت ورجع يهرب بنفس اليوم؟",
-   "icon": "drop",
-   "key": "مرتين",
+   "text": "اتفاق بسعر رخيص لتجديد الصالة",
+   "say": "امس بالمدينة اتفق ابو عبدالمجيد مع دهان رخيص عشان يجدد الصالة",
+   "icon": "alert",
+   "key": "بسعر",
    "label": "",
-   "broll": "leaking pipe",
-   "visual": "close-up of water dripping from household pipe joint"
+   "broll": "paint roller",
+   "visual": "close up of hands holding a paint roller starting to paint a wall"
   },
   {
-   "text": "تعطل المكيف بعد الصيانة؟",
-   "say": "نظفت المكيف وبنص الحر رجع ينفخ هوا حار؟",
-   "icon": "ac",
-   "key": "ضعف",
-   "label": "الموقف الثاني",
-   "broll": "air conditioner",
-   "visual": "hands removing clogged air conditioner filter"
+   "text": "فرغ الأثاث ورفض الإكمال بدون زيادة",
+   "say": "لكن بعد ما فضى الاثاث طمع ورفض يكمل الشغل بدون زيادة",
+   "icon": "paint",
+   "key": "الأثاث",
+   "label": "المشكلة",
+   "broll": "empty room",
+   "visual": "empty living room with moved sofa covered in plastic sheet"
   },
   {
-   "text": "تعبت وأنت تدور فني؟",
-   "say": "ضاع وقتك تدور أرقام، والحل الرابط في البايو يوصلك بالفني الصح.",
-   "icon": "wrench",
+   "text": "مع المنجز وصل الفني المناسب",
+   "say": "وبطلب بسيط من المنجز جا دهان فاهم وخلا الصالة تفتح النفس",
+   "icon": "check",
    "key": "المنجز",
-   "label": "الحل الأكيد",
-   "broll": "water heater",
-   "visual": "technician checking home water heater with tools"
+   "label": "الحل",
+   "broll": "painter",
+   "visual": "professional painter smoothly applying wall putty with a trowel"
   },
   {
    "kind": "services",
-   "text": "بيتك كله في طلب واحد",
+   "text": "كل ما يحتاجه بيتك",
    "key": "",
    "label": "",
    "icon": "",
    "broll": "",
    "visual": "",
-   "say": "أي شي في بيتك يحتاج فني، تلقاه في المنجز."
+   "say": "من أصغر عطل لين تشطيب البيت كامل، كل اللي يحتاجه بيتك بطلب واحد من المنجز."
   },
   {
    "icon": "phone",
    "key": "مجاناً",
    "label": "",
-   "text": "بيتك يستاهل راحة بالك",
-   "say": "بيتك يستاهل راحة بالك. اطلب فنيّك مجاناً من المنجز، الرابط في البايو."
+   "text": "طلب واحد.. والفني يتواصل معك",
+   "say": "اكتب طلبك مرة وحدة، والفني يتواصل معك مباشرة. الرابط في البايو."
   }
  ]
 }
