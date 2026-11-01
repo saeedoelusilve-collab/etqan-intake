@@ -1,50 +1,50 @@
 {
- "date": "2026-10-31",
- "trade": "دهان",
+ "date": "2026-11-01",
+ "trade": "جبس بورد",
  "scenes": [
   {
-   "text": "اتفاق بسعر رخيص لتجديد الصالة",
-   "say": "امس بالمدينة اتفق ابو عبدالمجيد مع دهان رخيص عشان يجدد الصالة",
+   "text": "علامتان في السقف لا تتجاهلهما",
+   "say": "علامتين بالجبس لو شفتها ببيتك، انتبه ولا تطنشها.",
    "icon": "alert",
-   "key": "بسعر",
+   "key": "تتجاهلهما",
    "label": "",
-   "broll": "paint roller",
-   "visual": "close up of hands holding a paint roller starting to paint a wall"
+   "broll": "ceiling spotlight",
+   "visual": "Close-up of a ceiling spotlight embedded in gypsum board showing subtle discoloration."
   },
   {
-   "text": "فرغ الأثاث ورفض الإكمال بدون زيادة",
-   "say": "لكن بعد ما فضى الاثاث طمع ورفض يكمل الشغل بدون زيادة",
-   "icon": "paint",
-   "key": "الأثاث",
-   "label": "المشكلة",
-   "broll": "empty room",
-   "visual": "empty living room with moved sofa covered in plastic sheet"
+   "text": "اصفرار الجبس حول اللمبة",
+   "say": "الأولى اصفرار حول اللمبة بسبب سخونة أسلاك الجبس.",
+   "icon": "flame",
+   "key": "اصفرار",
+   "label": "العلامة الأولى",
+   "broll": "electrical transformer",
+   "visual": "Close-up of a cheap lighting transformer lying directly on top of gypsum board."
   },
   {
-   "text": "مع المنجز وصل الفني المناسب",
-   "say": "وبطلب بسيط من المنجز جا دهان فاهم وخلا الصالة تفتح النفس",
-   "icon": "check",
-   "key": "المنجز",
-   "label": "الحل",
-   "broll": "painter",
-   "visual": "professional painter smoothly applying wall putty with a trowel"
+   "text": "رائحة حرق أو تلف السقف",
+   "say": "والثانية ريحة حرق، وفحص مبكر عبر المنجز يحمي بيتك ويريح بالك.",
+   "icon": "thermo",
+   "key": "رائحة",
+   "label": "العلامة الثانية",
+   "broll": "smoke detector",
+   "visual": "Shot of hands carefully lowering a ceiling light fixture to inspect the interior partition."
   },
   {
    "kind": "services",
-   "text": "كل ما يحتاجه بيتك",
+   "text": "فنيّ لكل شيء في بيتك",
    "key": "",
    "label": "",
    "icon": "",
    "broll": "",
    "visual": "",
-   "say": "من أصغر عطل لين تشطيب البيت كامل، كل اللي يحتاجه بيتك بطلب واحد من المنجز."
+   "say": "صيانة، تشطيب، أو بناء، المنجز يوصلك بالفني المناسب لكل شي في بيتك."
   },
   {
    "icon": "phone",
    "key": "مجاناً",
    "label": "",
-   "text": "طلب واحد.. والفني يتواصل معك",
-   "say": "اكتب طلبك مرة وحدة، والفني يتواصل معك مباشرة. الرابط في البايو."
+   "text": "لا تتعب نفسك تدوّر",
+   "say": "لا تتعب نفسك تدوّر على فني. اطلب فنيّك مجاناً من المنجز، والرابط في البايو."
   }
  ]
 }
