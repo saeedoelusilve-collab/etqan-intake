@@ -108,7 +108,8 @@
     "trade": "مبلط",
     "district": "الحرة الشرقية",
     "topic": "مبلط في حي الحرة الشرقية بالمدينة المنورة — المشاكل الشائعة وكيفية التعامل معها",
-    "done": false
+    "done": true,
+    "publishedAt": "2026-11-02"
   },
   {
     "slug": "painter-harra-sharqia",
