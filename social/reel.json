@@ -1,50 +1,50 @@
 {
- "date": "2026-11-01",
- "trade": "جبس بورد",
+ "date": "2026-11-02",
+ "trade": "سمنت بورد",
  "scenes": [
   {
-   "text": "علامتان في السقف لا تتجاهلهما",
-   "say": "علامتين بالجبس لو شفتها ببيتك، انتبه ولا تطنشها.",
-   "icon": "alert",
-   "key": "تتجاهلهما",
+   "text": "سقوط البلاط قبل وصول النزيل",
+   "say": "قبل يوصل النزيل بساعتين طاح بلاط الحمام كذا",
+   "icon": "tile",
+   "key": "البلاط",
    "label": "",
-   "broll": "ceiling spotlight",
-   "visual": "Close-up of a ceiling spotlight embedded in gypsum board showing subtle discoloration."
+   "broll": "tile",
+   "visual": "close-up of broken ceramic tiles on a wet bathroom floor"
   },
   {
-   "text": "اصفرار الجبس حول اللمبة",
-   "say": "الأولى اصفرار حول اللمبة بسبب سخونة أسلاك الجبس.",
-   "icon": "flame",
-   "key": "اصفرار",
-   "label": "العلامة الأولى",
-   "broll": "electrical transformer",
-   "visual": "Close-up of a cheap lighting transformer lying directly on top of gypsum board."
+   "text": "سبب المشكلة عدم تأسيس الجدار",
+   "say": "والمشكلة الفني القديم ما ركب سمنت بورد والجدار مرة رطب",
+   "icon": "alert",
+   "key": "الجدار",
+   "label": "السبب",
+   "broll": "wall",
+   "visual": "detail shot of moisture damaged wall frame behind bathroom tiles"
   },
   {
-   "text": "رائحة حرق أو تلف السقف",
-   "say": "والثانية ريحة حرق، وفحص مبكر عبر المنجز يحمي بيتك ويريح بالك.",
-   "icon": "thermo",
-   "key": "رائحة",
-   "label": "العلامة الثانية",
-   "broll": "smoke detector",
-   "visual": "Shot of hands carefully lowering a ceiling light fixture to inspect the interior partition."
+   "text": "فني سمنت بورد عبر المنجز",
+   "say": "لكن مع المنجز طلبنا فني سمنت بورد والتأسيس الصح يريحك العمر كله",
+   "icon": "wrench",
+   "key": "المنجز",
+   "label": "الحل",
+   "broll": "construction",
+   "visual": "hands of technician installing cement board sheet on studs"
   },
   {
    "kind": "services",
-   "text": "فنيّ لكل شيء في بيتك",
+   "text": "بيتك كله في طلب واحد",
    "key": "",
    "label": "",
    "icon": "",
    "broll": "",
    "visual": "",
-   "say": "صيانة، تشطيب، أو بناء، المنجز يوصلك بالفني المناسب لكل شي في بيتك."
+   "say": "أي شي في بيتك يحتاج فني، تلقاه في المنجز."
   },
   {
    "icon": "phone",
    "key": "مجاناً",
    "label": "",
-   "text": "لا تتعب نفسك تدوّر",
-   "say": "لا تتعب نفسك تدوّر على فني. اطلب فنيّك مجاناً من المنجز، والرابط في البايو."
+   "text": "بيتك يستاهل راحة بالك",
+   "say": "بيتك يستاهل راحة بالك. اطلب فنيّك مجاناً من المنجز، الرابط في البايو."
   }
  ]
 }

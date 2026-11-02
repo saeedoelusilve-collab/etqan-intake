@@ -1416,6 +1416,19 @@
    "src": "Pixabay",
    "tags": "builder, repair, worker, building, professional, tools, safety, master, construction, foreman",
    "added": "2026-10-30"
+  },
+  {
+   "id": "pb67461",
+   "kind": "video",
+   "trade": "سمنت بورد",
+   "desc": "cutting concrete tile with angle grinder",
+   "score": 7,
+   "url": "https://cdn.pixabay.com/video/2021/03/09/67461-522170649_large.mp4",
+   "thumb": "https://cdn.pixabay.com/video/2021/03/09/67461-522170649_small.jpg",
+   "credit": "AlexKopeykin",
+   "src": "Pixabay",
+   "tags": "worker, cut, building, grinder, pour in, builder, wheelbarrow, construction, shovel, fill",
+   "added": "2026-11-02"
   }
  ]
 }
