@@ -1,50 +1,50 @@
 {
- "date": "2026-11-02",
- "trade": "سمنت بورد",
+ "date": "2026-11-03",
+ "trade": "حدادة",
  "scenes": [
   {
-   "text": "سقوط البلاط قبل وصول النزيل",
-   "say": "قبل يوصل النزيل بساعتين طاح بلاط الحمام كذا",
-   "icon": "tile",
-   "key": "البلاط",
-   "label": "",
-   "broll": "tile",
-   "visual": "close-up of broken ceramic tiles on a wet bathroom floor"
-  },
-  {
-   "text": "سبب المشكلة عدم تأسيس الجدار",
-   "say": "والمشكلة الفني القديم ما ركب سمنت بورد والجدار مرة رطب",
+   "text": "تأكد من سلامة خزان بيتك",
+   "say": "شفت سقف بيتك تحت الشمس اليوم؟",
    "icon": "alert",
-   "key": "الجدار",
-   "label": "السبب",
-   "broll": "wall",
-   "visual": "detail shot of moisture damaged wall frame behind bathroom tiles"
+   "key": "خزان",
+   "label": "",
+   "broll": "water tank",
+   "visual": "close up of a rusted iron stand under a roof water tank"
   },
   {
-   "text": "فني سمنت بورد عبر المنجز",
-   "say": "لكن مع المنجز طلبنا فني سمنت بورد والتأسيس الصح يريحك العمر كله",
-   "icon": "wrench",
-   "key": "المنجز",
-   "label": "الحل",
-   "broll": "construction",
-   "visual": "hands of technician installing cement board sheet on studs"
+   "text": "ميلان القاعدة يهدد بانهيار الخزان",
+   "say": "والمشكلة لو فيه ميلان بالحديد الخزان يطيح ويخرب السقف بثواني",
+   "icon": "hammer",
+   "key": "ميلان",
+   "label": "العلامة والخطر",
+   "broll": "welder",
+   "visual": "bending rusted metal beam supporting heavy tank"
+  },
+  {
+   "text": "المنجز يربطك بحداد في المدينة",
+   "say": "لكن الحل بسيط المنجز يوصلك بحداد بالمدينة يلحم القاعدة ويرجع بيتك أمان",
+   "icon": "check",
+   "key": "حداد",
+   "label": "الحل السريع",
+   "broll": "welding metal",
+   "visual": "welder repairing structural steel base with safety tools"
   },
   {
    "kind": "services",
-   "text": "بيتك كله في طلب واحد",
+   "text": "كل ما يحتاجه بيتك",
    "key": "",
    "label": "",
    "icon": "",
    "broll": "",
    "visual": "",
-   "say": "أي شي في بيتك يحتاج فني، تلقاه في المنجز."
+   "say": "من أصغر عطل لين تشطيب البيت كامل، كل اللي يحتاجه بيتك بطلب واحد من المنجز."
   },
   {
    "icon": "phone",
    "key": "مجاناً",
    "label": "",
-   "text": "بيتك يستاهل راحة بالك",
-   "say": "بيتك يستاهل راحة بالك. اطلب فنيّك مجاناً من المنجز، الرابط في البايو."
+   "text": "طلب واحد.. والفني يتواصل معك",
+   "say": "اكتب طلبك مرة وحدة، والفني يتواصل معك مباشرة. الرابط في البايو."
   }
  ]
 }
