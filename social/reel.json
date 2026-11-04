@@ -1,50 +1,50 @@
 {
- "date": "2026-11-03",
- "trade": "حدادة",
+ "date": "2026-11-04",
+ "trade": "بناء ولياسة",
  "scenes": [
   {
-   "text": "تأكد من سلامة خزان بيتك",
-   "say": "شفت سقف بيتك تحت الشمس اليوم؟",
+   "text": "خطأ شائع عند بناء الجدران",
+   "say": "أغلب الناس ينسون يركبون شبك الفواصل بالبيت",
    "icon": "alert",
-   "key": "خزان",
+   "key": "الجدران",
    "label": "",
-   "broll": "water tank",
-   "visual": "close up of a rusted iron stand under a roof water tank"
+   "broll": "cracked wall",
+   "visual": "close-up of a vertical crack in a plastered wall"
   },
   {
-   "text": "ميلان القاعدة يهدد بانهيار الخزان",
-   "say": "والمشكلة لو فيه ميلان بالحديد الخزان يطيح ويخرب السقف بثواني",
-   "icon": "hammer",
-   "key": "ميلان",
-   "label": "العلامة والخطر",
-   "broll": "welder",
-   "visual": "bending rusted metal beam supporting heavy tank"
+   "text": "تشققات الجدار تخرب الدهان والديكور",
+   "say": "والمشكلة الجدار يتشقق بعد فترة ويخرب لك كل الدهان",
+   "icon": "building",
+   "key": "الدهان",
+   "label": "الثمن الحقيقي",
+   "broll": "brick wall",
+   "visual": "hands placing block masonry next to concrete column"
   },
   {
-   "text": "المنجز يربطك بحداد في المدينة",
-   "say": "لكن الحل بسيط المنجز يوصلك بحداد بالمدينة يلحم القاعدة ويرجع بيتك أمان",
+   "text": "اطلب فني متخصص عبر المنجز",
+   "say": "والحل تطلب فني فاهم من المنجز الأساس الصح يريحك العمر كله",
    "icon": "check",
-   "key": "حداد",
-   "label": "الحل السريع",
-   "broll": "welding metal",
-   "visual": "welder repairing structural steel base with safety tools"
+   "key": "فني",
+   "label": "الحل الصح",
+   "broll": "plastering wall",
+   "visual": "hand installing fiberglass mesh on wall joint before plastering"
   },
   {
    "kind": "services",
-   "text": "كل ما يحتاجه بيتك",
+   "text": "فنيّ لكل شيء في بيتك",
    "key": "",
    "label": "",
    "icon": "",
    "broll": "",
    "visual": "",
-   "say": "من أصغر عطل لين تشطيب البيت كامل، كل اللي يحتاجه بيتك بطلب واحد من المنجز."
+   "say": "صيانة، تشطيب، أو بناء، المنجز يوصلك بالفني المناسب لكل شي في بيتك."
   },
   {
    "icon": "phone",
    "key": "مجاناً",
    "label": "",
-   "text": "طلب واحد.. والفني يتواصل معك",
-   "say": "اكتب طلبك مرة وحدة، والفني يتواصل معك مباشرة. الرابط في البايو."
+   "text": "لا تتعب نفسك تدوّر",
+   "say": "لا تتعب نفسك تدوّر على فني. اطلب فنيّك مجاناً من المنجز، والرابط في البايو."
   }
  ]
 }
