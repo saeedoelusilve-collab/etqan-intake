@@ -1,50 +1,50 @@
 {
- "date": "2026-11-04",
- "trade": "بناء ولياسة",
+ "date": "2026-11-05",
+ "trade": "سباكة",
  "scenes": [
   {
-   "text": "خطأ شائع عند بناء الجدران",
-   "say": "أغلب الناس ينسون يركبون شبك الفواصل بالبيت",
-   "icon": "alert",
-   "key": "الجدران",
+   "text": "تسرب موية والضيوف بالطريق؟",
+   "say": "تخيل ينغمر بيتك موية بالمدينة المنورة والضيوف واصلين بالطريق!",
+   "icon": "drop",
+   "key": "تسرب",
    "label": "",
-   "broll": "cracked wall",
-   "visual": "close-up of a vertical crack in a plastered wall"
+   "broll": "water leak",
+   "visual": "Close-up of water leaking heavily from a broken pipe joint"
   },
   {
-   "text": "تشققات الجدار تخرب الدهان والديكور",
-   "say": "والمشكلة الجدار يتشقق بعد فترة ويخرب لك كل الدهان",
-   "icon": "building",
-   "key": "الدهان",
-   "label": "الثمن الحقيقي",
-   "broll": "brick wall",
-   "visual": "hands placing block masonry next to concrete column"
+   "text": "فني غير متخصص كسر المحبس واختفى",
+   "say": "والمشكلة الفني غير المتخصص كسر المحبس الرئيسي واختفى عليك!",
+   "icon": "alert",
+   "key": "المحبس",
+   "label": "المشكلة",
+   "broll": "broken pipe",
+   "visual": "Close-up of a broken water valve on a wall"
   },
   {
-   "text": "اطلب فني متخصص عبر المنجز",
-   "say": "والحل تطلب فني فاهم من المنجز الأساس الصح يريحك العمر كله",
-   "icon": "check",
-   "key": "فني",
-   "label": "الحل الصح",
-   "broll": "plastering wall",
-   "visual": "hand installing fiberglass mesh on wall joint before plastering"
+   "text": "سباك متخصص عبر شبكة المنجز",
+   "say": "لكن الحل تطلب سباك متخصص عبر شبكة المنجز ويرجع بيتك جاهز للضيوف.",
+   "icon": "wrench",
+   "key": "المنجز",
+   "label": "الحل",
+   "broll": "plumber tool",
+   "visual": "Hands tightening a pipe fitting with a wrench"
   },
   {
    "kind": "services",
-   "text": "فنيّ لكل شيء في بيتك",
+   "text": "بيتك كله في طلب واحد",
    "key": "",
    "label": "",
    "icon": "",
    "broll": "",
    "visual": "",
-   "say": "صيانة، تشطيب، أو بناء، المنجز يوصلك بالفني المناسب لكل شي في بيتك."
+   "say": "أي شي في بيتك يحتاج فني، تلقاه في المنجز."
   },
   {
    "icon": "phone",
    "key": "مجاناً",
    "label": "",
-   "text": "لا تتعب نفسك تدوّر",
-   "say": "لا تتعب نفسك تدوّر على فني. اطلب فنيّك مجاناً من المنجز، والرابط في البايو."
+   "text": "بيتك يستاهل راحة بالك",
+   "say": "بيتك يستاهل راحة بالك. اطلب فنيّك مجاناً من المنجز، الرابط في البايو."
   }
  ]
 }
