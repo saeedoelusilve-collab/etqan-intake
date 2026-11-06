@@ -1455,6 +1455,32 @@
    "src": "Pixabay",
    "tags": "construction, remodeling, home, apartment, constructions, tool, hammer, mason, constructor, sledgehammer, demolition, brick, plastering, window, hole, to repair, arrumas, build, to destroy, helmet, security, glasses, protection, caution, man, job, worker, rebuild, to drop, building, factory worker",
    "added": "2026-11-04"
+  },
+  {
+   "id": "pb30235",
+   "kind": "video",
+   "trade": "كل الخدمات",
+   "desc": "ceiling with pipes and lights",
+   "score": 7,
+   "url": "https://cdn.pixabay.com/video/2019/12/16/30235-380473815_large.mp4",
+   "thumb": "https://cdn.pixabay.com/video/2019/12/16/30235-380473815_small.jpg",
+   "credit": "3632036",
+   "src": "Pixabay",
+   "tags": "austin, capitol, architecture, building, usa, landmark, capital, downtown, congress, texas, historic, tourism, rotunda, ceiling, legislature",
+   "added": "2026-11-06"
+  },
+  {
+   "id": "pb3176",
+   "kind": "video",
+   "trade": "كل الخدمات",
+   "desc": "finger tapping smartphone on table",
+   "score": 9,
+   "url": "https://cdn.pixabay.com/video/2016/05/12/3176-166338965_large.mp4",
+   "thumb": "https://cdn.pixabay.com/video/2016/05/12/3176-166338965_small.jpg",
+   "credit": "Coverr-Free-Footage",
+   "src": "Pixabay",
+   "tags": "smartphone, iphone, typing, writing, ios, app, mobile, device, modern, communication, internet, wireless, touchscreen, technology, digital, cellphone, gadget, telephone, using, equipment, hand, cellular, multimedia, smart phone, communicator, screen",
+   "added": "2026-11-06"
   }
  ]
 }

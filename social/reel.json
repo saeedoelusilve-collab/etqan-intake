@@ -1,50 +1,50 @@
 {
- "date": "2026-11-05",
- "trade": "سباكة",
+ "date": "2026-11-06",
+ "trade": "كل الخدمات",
  "scenes": [
   {
-   "text": "تسرب موية والضيوف بالطريق؟",
-   "say": "تخيل ينغمر بيتك موية بالمدينة المنورة والضيوف واصلين بالطريق!",
-   "icon": "drop",
-   "key": "تسرب",
-   "label": "",
-   "broll": "water leak",
-   "visual": "Close-up of water leaking heavily from a broken pipe joint"
-  },
-  {
-   "text": "فني غير متخصص كسر المحبس واختفى",
-   "say": "والمشكلة الفني غير المتخصص كسر المحبس الرئيسي واختفى عليك!",
+   "text": "مشكلة طارئة ببيتك بالمدينة؟",
+   "say": "انت بالمدينة وتفاجأت الحين بمشكلة طارئة بالبيت؟",
    "icon": "alert",
-   "key": "المحبس",
-   "label": "المشكلة",
-   "broll": "broken pipe",
-   "visual": "Close-up of a broken water valve on a wall"
+   "key": "مشكلة",
+   "label": "",
+   "broll": "air conditioner",
+   "visual": "close-up of water dripping from an indoor air conditioner wall unit"
   },
   {
-   "text": "سباك متخصص عبر شبكة المنجز",
-   "say": "لكن الحل تطلب سباك متخصص عبر شبكة المنجز ويرجع بيتك جاهز للضيوف.",
-   "icon": "wrench",
+   "text": "أعطال التكييف والسباكة والكهرباء",
+   "say": "المكيف يصب موية قدام الضيوف والسخان يهرب والكهرب يطفي!",
+   "icon": "drop",
+   "key": "أعطال",
+   "label": "المعاناة",
+   "broll": "water leak",
+   "visual": "close-up of a rusty water valve dripping on the wall"
+  },
+  {
+   "text": "المنجز يريحك من هم الأعطال",
+   "say": "لكن مع المنجز تطلب فنيك الحين ويرجع بيتك زين بدون تعب.",
+   "icon": "check",
    "key": "المنجز",
    "label": "الحل",
-   "broll": "plumber tool",
-   "visual": "Hands tightening a pipe fitting with a wrench"
+   "broll": "smartphone",
+   "visual": "hands holding smartphone tapping on screen link in bio"
   },
   {
    "kind": "services",
-   "text": "بيتك كله في طلب واحد",
+   "text": "كل ما يحتاجه بيتك",
    "key": "",
    "label": "",
    "icon": "",
    "broll": "",
    "visual": "",
-   "say": "أي شي في بيتك يحتاج فني، تلقاه في المنجز."
+   "say": "من أصغر عطل لين تشطيب البيت كامل، كل اللي يحتاجه بيتك بطلب واحد من المنجز."
   },
   {
    "icon": "phone",
    "key": "مجاناً",
    "label": "",
-   "text": "بيتك يستاهل راحة بالك",
-   "say": "بيتك يستاهل راحة بالك. اطلب فنيّك مجاناً من المنجز، الرابط في البايو."
+   "text": "طلب واحد.. والفني يتواصل معك",
+   "say": "اكتب طلبك مرة وحدة، والفني يتواصل معك مباشرة. الرابط في البايو."
   }
  ]
 }
