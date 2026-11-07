@@ -1,50 +1,50 @@
 {
- "date": "2026-11-06",
- "trade": "كل الخدمات",
+ "date": "2026-11-07",
+ "trade": "تكييف",
  "scenes": [
   {
-   "text": "مشكلة طارئة ببيتك بالمدينة؟",
-   "say": "انت بالمدينة وتفاجأت الحين بمشكلة طارئة بالبيت؟",
+   "text": "ضيوفك في الطريق والمكيف متعطل؟",
+   "say": "تخيل ضيوفك جايين الحين ومكيف المجلس يقلب حار!",
    "icon": "alert",
-   "key": "مشكلة",
+   "key": "الطريق",
    "label": "",
    "broll": "air conditioner",
-   "visual": "close-up of water dripping from an indoor air conditioner wall unit"
+   "visual": "close up of air conditioner blowing warm air"
   },
   {
-   "text": "أعطال التكييف والسباكة والكهرباء",
-   "say": "المكيف يصب موية قدام الضيوف والسخان يهرب والكهرب يطفي!",
-   "icon": "drop",
-   "key": "أعطال",
-   "label": "المعاناة",
-   "broll": "water leak",
-   "visual": "close-up of a rusty water valve dripping on the wall"
+   "text": "تتصل بالفنيين ولا أحد يأتي",
+   "say": "والمشكلة تتصل بخمسة فنيين وكلهم يعطونك مواعيد ولا يجي أحد.",
+   "icon": "clock",
+   "key": "بالفنيين",
+   "label": "التصعيد",
+   "broll": "smartphone",
+   "visual": "close up of hands holding phone with unanswered calls"
   },
   {
-   "text": "المنجز يريحك من هم الأعطال",
-   "say": "لكن مع المنجز تطلب فنيك الحين ويرجع بيتك زين بدون تعب.",
+   "text": "طلب مجاني عبر شبكة المنجز",
+   "say": "لكن بطلب مجاني عبر المنجز يجيك الفني وتعدي عزيمتك على خير.",
    "icon": "check",
    "key": "المنجز",
    "label": "الحل",
-   "broll": "smartphone",
-   "visual": "hands holding smartphone tapping on screen link in bio"
+   "broll": "remote control",
+   "visual": "close up of hand setting temperature on air conditioner remote"
   },
   {
    "kind": "services",
-   "text": "كل ما يحتاجه بيتك",
+   "text": "فنيّ لكل شيء في بيتك",
    "key": "",
    "label": "",
    "icon": "",
    "broll": "",
    "visual": "",
-   "say": "من أصغر عطل لين تشطيب البيت كامل، كل اللي يحتاجه بيتك بطلب واحد من المنجز."
+   "say": "صيانة، تشطيب، أو بناء، المنجز يوصلك بالفني المناسب لكل شي في بيتك."
   },
   {
    "icon": "phone",
    "key": "مجاناً",
    "label": "",
-   "text": "طلب واحد.. والفني يتواصل معك",
-   "say": "اكتب طلبك مرة وحدة، والفني يتواصل معك مباشرة. الرابط في البايو."
+   "text": "لا تتعب نفسك تدوّر",
+   "say": "لا تتعب نفسك تدوّر على فني. اطلب فنيّك مجاناً من المنجز، والرابط في البايو."
   }
  ]
 }
