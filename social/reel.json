@@ -1,50 +1,50 @@
 {
- "date": "2026-11-07",
- "trade": "تكييف",
+ "date": "2026-11-08",
+ "trade": "أجهزة كهربائية",
  "scenes": [
   {
-   "text": "ضيوفك في الطريق والمكيف متعطل؟",
-   "say": "تخيل ضيوفك جايين الحين ومكيف المجلس يقلب حار!",
-   "icon": "alert",
-   "key": "الطريق",
+   "text": "تنطفئ كهرباء المطبخ أمام الضيوف!",
+   "say": "تشغل القلاية وتطفي كهرباء المطبخ فجأة قدام الضيوف!",
+   "icon": "bolt",
+   "key": "كهرباء",
    "label": "",
-   "broll": "air conditioner",
-   "visual": "close up of air conditioner blowing warm air"
+   "broll": "breaker panel",
+   "visual": "close-up of a hand flipping a tripped circuit breaker switch back on"
   },
   {
-   "text": "تتصل بالفنيين ولا أحد يأتي",
-   "say": "والمشكلة تتصل بخمسة فنيين وكلهم يعطونك مواعيد ولا يجي أحد.",
+   "text": "الفني يعدك بالوصول ولا يأتي",
+   "say": "والمشكلة لما يطفي القاطع تدق على فني ويقول جايك وما يجي!",
    "icon": "clock",
-   "key": "بالفنيين",
-   "label": "التصعيد",
-   "broll": "smartphone",
-   "visual": "close up of hands holding phone with unanswered calls"
+   "key": "الفني",
+   "label": "العلامة الأولية",
+   "broll": "electrical plug",
+   "visual": "close-up of a power plug being inserted into a wall socket"
   },
   {
-   "text": "طلب مجاني عبر شبكة المنجز",
-   "say": "لكن بطلب مجاني عبر المنجز يجيك الفني وتعدي عزيمتك على خير.",
+   "text": "المنجز يوصلك بفني في المدينة",
+   "say": "عشان كذا المنجز يوصلك بفني ممتاز بالمدينة ينهي المشكلة وترتاح من الانتظار.",
    "icon": "check",
    "key": "المنجز",
-   "label": "الحل",
-   "broll": "remote control",
-   "visual": "close up of hand setting temperature on air conditioner remote"
+   "label": "الحل الذكي",
+   "broll": "multimeter tool",
+   "visual": "technician hands using a multimeter tester on an electrical outlet"
   },
   {
    "kind": "services",
-   "text": "فنيّ لكل شيء في بيتك",
+   "text": "بيتك كله في طلب واحد",
    "key": "",
    "label": "",
    "icon": "",
    "broll": "",
    "visual": "",
-   "say": "صيانة، تشطيب، أو بناء، المنجز يوصلك بالفني المناسب لكل شي في بيتك."
+   "say": "أي شي في بيتك يحتاج فني، تلقاه في المنجز."
   },
   {
    "icon": "phone",
    "key": "مجاناً",
    "label": "",
-   "text": "لا تتعب نفسك تدوّر",
-   "say": "لا تتعب نفسك تدوّر على فني. اطلب فنيّك مجاناً من المنجز، والرابط في البايو."
+   "text": "بيتك يستاهل راحة بالك",
+   "say": "بيتك يستاهل راحة بالك. اطلب فنيّك مجاناً من المنجز، الرابط في البايو."
   }
  ]
 }
