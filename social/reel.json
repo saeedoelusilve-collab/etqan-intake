@@ -1,50 +1,50 @@
 {
- "date": "2026-11-08",
- "trade": "أجهزة كهربائية",
+ "date": "2026-11-09",
+ "trade": "نجارة",
  "scenes": [
   {
-   "text": "تنطفئ كهرباء المطبخ أمام الضيوف!",
-   "say": "تشغل القلاية وتطفي كهرباء المطبخ فجأة قدام الضيوف!",
-   "icon": "bolt",
-   "key": "كهرباء",
+   "text": "دولاب الغرفة معطل عند وصول النزيل!",
+   "say": "وصل نزيلك الحين ودولاب الغرفة معلق مو راضي ينفتح!",
+   "icon": "door",
+   "key": "دولاب",
    "label": "",
-   "broll": "breaker panel",
-   "visual": "close-up of a hand flipping a tripped circuit breaker switch back on"
+   "broll": "closet door",
+   "visual": "close-up of a stuck sliding closet door in a hotel room"
   },
   {
-   "text": "الفني يعدك بالوصول ولا يأتي",
-   "say": "والمشكلة لما يطفي القاطع تدق على فني ويقول جايك وما يجي!",
-   "icon": "clock",
-   "key": "الفني",
-   "label": "العلامة الأولية",
-   "broll": "electrical plug",
-   "visual": "close-up of a power plug being inserted into a wall socket"
+   "text": "إلغاء الحجز وتراجع تقييم الشقة",
+   "say": "والمشكلة كنسل النزيل الحجز، راحت أرباح الليلة وخرب تقييم شقتك.",
+   "icon": "alert",
+   "key": "تقييم",
+   "label": "الخسارة",
+   "broll": "hotel keycard",
+   "visual": "close-up of hotel keycard dropped on a reception desk"
   },
   {
-   "text": "المنجز يوصلك بفني في المدينة",
-   "say": "عشان كذا المنجز يوصلك بفني ممتاز بالمدينة ينهي المشكلة وترتاح من الانتظار.",
-   "icon": "check",
-   "key": "المنجز",
-   "label": "الحل الذكي",
-   "broll": "multimeter tool",
-   "visual": "technician hands using a multimeter tester on an electrical outlet"
+   "text": "نجار محترف بضغطة زر واحدة",
+   "say": "لكن مع المنجز تختار نجار شاطر يتواصل معك وتريح راسك من الهم.",
+   "icon": "hammer",
+   "key": "نجار",
+   "label": "الحل",
+   "broll": "carpenter",
+   "visual": "hands using a screwdriver to fix a sliding door mechanism"
   },
   {
    "kind": "services",
-   "text": "بيتك كله في طلب واحد",
+   "text": "كل ما يحتاجه بيتك",
    "key": "",
    "label": "",
    "icon": "",
    "broll": "",
    "visual": "",
-   "say": "أي شي في بيتك يحتاج فني، تلقاه في المنجز."
+   "say": "من أصغر عطل لين تشطيب البيت كامل، كل اللي يحتاجه بيتك بطلب واحد من المنجز."
   },
   {
    "icon": "phone",
    "key": "مجاناً",
    "label": "",
-   "text": "بيتك يستاهل راحة بالك",
-   "say": "بيتك يستاهل راحة بالك. اطلب فنيّك مجاناً من المنجز، الرابط في البايو."
+   "text": "طلب واحد.. والفني يتواصل معك",
+   "say": "اكتب طلبك مرة وحدة، والفني يتواصل معك مباشرة. الرابط في البايو."
   }
  ]
 }
