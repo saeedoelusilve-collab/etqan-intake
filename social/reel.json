@@ -1,50 +1,50 @@
 {
- "date": "2026-11-09",
- "trade": "نجارة",
+ "date": "2026-11-10",
+ "trade": "تبليط",
  "scenes": [
   {
-   "text": "دولاب الغرفة معطل عند وصول النزيل!",
-   "say": "وصل نزيلك الحين ودولاب الغرفة معلق مو راضي ينفتح!",
-   "icon": "door",
-   "key": "دولاب",
+   "text": "لا تتجاهل البلاط المكسور في البيت",
+   "say": "أبو سلطان في ليلة عائلية برزت بلاطة وبغت تعور ولده",
+   "icon": "tile",
+   "key": "البلاط",
    "label": "",
-   "broll": "closet door",
-   "visual": "close-up of a stuck sliding closet door in a hotel room"
+   "broll": "broken tile",
+   "visual": "close up of a cracked ceramic floor tile with a sharp raised edge"
   },
   {
-   "text": "إلغاء الحجز وتراجع تقييم الشقة",
-   "say": "والمشكلة كنسل النزيل الحجز، راحت أرباح الليلة وخرب تقييم شقتك.",
+   "text": "تأخير الصيانة يزيد خطورة المشكلة",
+   "say": "المشكلة اتصل على فنيين بالليل وما جاء أحد وصار البيت قلق",
    "icon": "alert",
-   "key": "تقييم",
-   "label": "الخسارة",
-   "broll": "hotel keycard",
-   "visual": "close-up of hotel keycard dropped on a reception desk"
+   "key": "المشكلة",
+   "label": "التصعيد",
+   "broll": "floor tile",
+   "visual": "close up of a child walking near a sharp broken floor tile"
   },
   {
-   "text": "نجار محترف بضغطة زر واحدة",
-   "say": "لكن مع المنجز تختار نجار شاطر يتواصل معك وتريح راسك من الهم.",
-   "icon": "hammer",
-   "key": "نجار",
+   "text": "اطلب فني تبليط عبر المنجز",
+   "say": "بس أرسل طلب مجاني بالمنجز وجاه الفني وصلحها سلامة أهلك ما تتأجل",
+   "icon": "check",
+   "key": "المنجز",
    "label": "الحل",
-   "broll": "carpenter",
-   "visual": "hands using a screwdriver to fix a sliding door mechanism"
+   "broll": "tiler",
+   "visual": "close up of skilled hands applying adhesive and laying a ceramic tile perfectly"
   },
   {
    "kind": "services",
-   "text": "كل ما يحتاجه بيتك",
+   "text": "فنيّ لكل شيء في بيتك",
    "key": "",
    "label": "",
    "icon": "",
    "broll": "",
    "visual": "",
-   "say": "من أصغر عطل لين تشطيب البيت كامل، كل اللي يحتاجه بيتك بطلب واحد من المنجز."
+   "say": "صيانة، تشطيب، أو بناء، المنجز يوصلك بالفني المناسب لكل شي في بيتك."
   },
   {
    "icon": "phone",
    "key": "مجاناً",
    "label": "",
-   "text": "طلب واحد.. والفني يتواصل معك",
-   "say": "اكتب طلبك مرة وحدة، والفني يتواصل معك مباشرة. الرابط في البايو."
+   "text": "لا تتعب نفسك تدوّر",
+   "say": "لا تتعب نفسك تدوّر على فني. اطلب فنيّك مجاناً من المنجز، والرابط في البايو."
   }
  ]
 }
