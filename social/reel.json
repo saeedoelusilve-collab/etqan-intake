@@ -1,50 +1,50 @@
 {
- "date": "2026-11-10",
- "trade": "تبليط",
+ "date": "2026-11-11",
+ "trade": "دهان",
  "scenes": [
   {
-   "text": "لا تتجاهل البلاط المكسور في البيت",
-   "say": "أبو سلطان في ليلة عائلية برزت بلاطة وبغت تعور ولده",
-   "icon": "tile",
-   "key": "البلاط",
+   "text": "تغسل جدار مجلسك بالماء والصابون؟",
+   "say": "تغسل جدار مجلسك بالموية والصابون عشان توفر؟",
+   "icon": "drop",
+   "key": "بالماء",
    "label": "",
-   "broll": "broken tile",
-   "visual": "close up of a cracked ceramic floor tile with a sharp raised edge"
+   "broll": "paint roller",
+   "visual": "close up of soapy sponge washing dirty living room wall"
   },
   {
-   "text": "تأخير الصيانة يزيد خطورة المشكلة",
-   "say": "المشكلة اتصل على فنيين بالليل وما جاء أحد وصار البيت قلق",
+   "text": "المنظفات تخرب الدهان وتبقع الجدار",
+   "say": "لكن الصابون يخرب الدهان المطفي ويبقع الجدار وتخسر أكثر",
    "icon": "alert",
-   "key": "المشكلة",
-   "label": "التصعيد",
-   "broll": "floor tile",
-   "visual": "close up of a child walking near a sharp broken floor tile"
+   "key": "المنظفات",
+   "label": "النتيجة",
+   "broll": "paint",
+   "visual": "close up of damaged peeling paint and dark spots on wall"
   },
   {
-   "text": "اطلب فني تبليط عبر المنجز",
-   "say": "بس أرسل طلب مجاني بالمنجز وجاه الفني وصلحها سلامة أهلك ما تتأجل",
-   "icon": "check",
+   "text": "فني المنجز يجدد جدارك صح",
+   "say": "والحل فني دهان من المنجز يجدد جدارك صح والدهان الصح يريح بالك",
+   "icon": "paint",
    "key": "المنجز",
    "label": "الحل",
-   "broll": "tiler",
-   "visual": "close up of skilled hands applying adhesive and laying a ceramic tile perfectly"
+   "broll": "paint roller",
+   "visual": "professional painter using roller to paint clean wall"
   },
   {
    "kind": "services",
-   "text": "فنيّ لكل شيء في بيتك",
+   "text": "بيتك كله في طلب واحد",
    "key": "",
    "label": "",
    "icon": "",
    "broll": "",
    "visual": "",
-   "say": "صيانة، تشطيب، أو بناء، المنجز يوصلك بالفني المناسب لكل شي في بيتك."
+   "say": "أي شي في بيتك يحتاج فني، تلقاه في المنجز."
   },
   {
    "icon": "phone",
    "key": "مجاناً",
    "label": "",
-   "text": "لا تتعب نفسك تدوّر",
-   "say": "لا تتعب نفسك تدوّر على فني. اطلب فنيّك مجاناً من المنجز، والرابط في البايو."
+   "text": "بيتك يستاهل راحة بالك",
+   "say": "بيتك يستاهل راحة بالك. اطلب فنيّك مجاناً من المنجز، الرابط في البايو."
   }
  ]
 }
