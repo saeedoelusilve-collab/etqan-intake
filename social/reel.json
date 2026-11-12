@@ -1,50 +1,50 @@
 {
- "date": "2026-11-11",
- "trade": "دهان",
+ "date": "2026-11-12",
+ "trade": "جبس بورد",
  "scenes": [
   {
-   "text": "تغسل جدار مجلسك بالماء والصابون؟",
-   "say": "تغسل جدار مجلسك بالموية والصابون عشان توفر؟",
-   "icon": "drop",
-   "key": "بالماء",
+   "text": "كل ليلة تأخير خسارة ٤٥٣ ريال",
+   "say": "تخيل كل ليلة تأخير بمشروعك تخسرك أربعمية وثلاثة وخمسين ريال",
+   "icon": "building",
+   "key": "٤٥٣",
    "label": "",
-   "broll": "paint roller",
-   "visual": "close up of soapy sponge washing dirty living room wall"
+   "broll": "hotel, building",
+   "visual": "A close-up of a hotel room key card resting on a construction plan."
   },
   {
-   "text": "المنظفات تخرب الدهان وتبقع الجدار",
-   "say": "لكن الصابون يخرب الدهان المطفي ويبقع الجدار وتخسر أكثر",
-   "icon": "alert",
-   "key": "المنظفات",
-   "label": "النتيجة",
-   "broll": "paint",
-   "visual": "close up of damaged peeling paint and dark spots on wall"
+   "text": "فني الجبس اختفى فجأة!",
+   "say": "سلطان تعطلت شققه أسبوع كامل لأن فني الجبس سحب عليه فجأة",
+   "icon": "clock",
+   "key": "اختفى",
+   "label": "المشكلة",
+   "broll": "construction, ceiling",
+   "visual": "A wide shot of an unfinished gypsum board ceiling with dangling wires."
   },
   {
-   "text": "فني المنجز يجدد جدارك صح",
-   "say": "والحل فني دهان من المنجز يجدد جدارك صح والدهان الصح يريح بالك",
-   "icon": "paint",
+   "text": "المنجز كمل الشغل بطلب واحد",
+   "say": "بس بطلب واحد من المنجز جاو فني وكمل الشغل والحين الشقق جاهزة",
+   "icon": "check",
    "key": "المنجز",
    "label": "الحل",
-   "broll": "paint roller",
-   "visual": "professional painter using roller to paint clean wall"
+   "broll": "worker, hammer",
+   "visual": "A skilled technician efficiently installing a gypsum board panel with a drill."
   },
   {
    "kind": "services",
-   "text": "بيتك كله في طلب واحد",
+   "text": "كل ما يحتاجه بيتك",
    "key": "",
    "label": "",
    "icon": "",
    "broll": "",
    "visual": "",
-   "say": "أي شي في بيتك يحتاج فني، تلقاه في المنجز."
+   "say": "من أصغر عطل لين تشطيب البيت كامل، كل اللي يحتاجه بيتك بطلب واحد من المنجز."
   },
   {
    "icon": "phone",
    "key": "مجاناً",
    "label": "",
-   "text": "بيتك يستاهل راحة بالك",
-   "say": "بيتك يستاهل راحة بالك. اطلب فنيّك مجاناً من المنجز، الرابط في البايو."
+   "text": "طلب واحد.. والفني يتواصل معك",
+   "say": "اكتب طلبك مرة وحدة، والفني يتواصل معك مباشرة. الرابط في البايو."
   }
  ]
 }
