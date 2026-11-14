@@ -1,50 +1,50 @@
 {
- "date": "2026-11-13",
- "trade": "كل الخدمات",
+ "date": "2026-11-14",
+ "trade": "حدادة",
  "scenes": [
   {
-   "text": "لا تتورط مع فني يغير السعر",
-   "say": "يجي فني يفك مكيفك ويدبل عليك السعر",
-   "icon": "ac",
-   "key": "السعر",
+   "text": "انحشر باب الكراج والسيارة محبوسة؟",
+   "say": "تخيل طالع دوامك الصبح وباب الكراج انحشر عليك!",
+   "icon": "door",
+   "key": "انحشر",
    "label": "",
-   "broll": "air conditioner",
-   "visual": "close-up of hands pulling dirty filter from air conditioner unit"
+   "broll": "sliding gate",
+   "visual": "close-up of a jammed metal sliding gate roller wheel on track"
   },
   {
-   "text": "أسعار زيارة عالية وعمل غير متقن",
-   "say": "وفني السخان يطلب حق الزيارة غالي وشغله يخرب عليك",
-   "icon": "flame",
-   "key": "زيارة",
-   "label": "المشكلة",
-   "broll": "water heater",
-   "visual": "close-up of screwdriver repairing loose water heater pipe connection"
+   "text": "أرقام الفنيين مقفلة والأسعار تزيد؟",
+   "say": "والمشكلة تدور فني بالساعات أرقامهم مقفلة والأسعار تزيد عليك.",
+   "icon": "alert",
+   "key": "مقفلة",
+   "label": "المعاناة",
+   "broll": "phone screen",
+   "visual": "close-up of hands holding smartphone showing missed calls and locked screen"
   },
   {
-   "text": "حل صيانة بيتك بطلب واحد",
-   "say": "لكن أهل المدينة اختصروا التعب ويطلبون الفني عبر المنجز وترجع راحة بالهم",
-   "icon": "check",
-   "key": "صيانة",
+   "text": "طلب واحد عبر المنجز يحلها",
+   "say": "لكن بطلب من المنجز يجي الحداد يضبط الباب وترتاح من الحيرة.",
+   "icon": "wrench",
+   "key": "المنجز",
    "label": "الحل",
-   "broll": "wrench",
-   "visual": "close-up of hands tightening metal pipe fitting using wrench"
+   "broll": "welding tool",
+   "visual": "close-up of hands repairing metal gate track with wrench and welding tools"
   },
   {
    "kind": "services",
-   "text": "فنيّ لكل شيء في بيتك",
+   "text": "بيتك كله في طلب واحد",
    "key": "",
    "label": "",
    "icon": "",
    "broll": "",
    "visual": "",
-   "say": "صيانة، تشطيب، أو بناء، المنجز يوصلك بالفني المناسب لكل شي في بيتك."
+   "say": "أي شي في بيتك يحتاج فني، تلقاه في المنجز."
   },
   {
    "icon": "phone",
    "key": "مجاناً",
    "label": "",
-   "text": "لا تتعب نفسك تدوّر",
-   "say": "لا تتعب نفسك تدوّر على فني. اطلب فنيّك مجاناً من المنجز، والرابط في البايو."
+   "text": "بيتك يستاهل راحة بالك",
+   "say": "بيتك يستاهل راحة بالك. اطلب فنيّك مجاناً من المنجز، الرابط في البايو."
   }
  ]
 }
