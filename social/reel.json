@@ -1,50 +1,50 @@
 {
- "date": "2026-11-14",
- "trade": "حدادة",
+ "date": "2026-11-15",
+ "trade": "بناء ولياسة",
  "scenes": [
   {
-   "text": "انحشر باب الكراج والسيارة محبوسة؟",
-   "say": "تخيل طالع دوامك الصبح وباب الكراج انحشر عليك!",
-   "icon": "door",
-   "key": "انحشر",
-   "label": "",
-   "broll": "sliding gate",
-   "visual": "close-up of a jammed metal sliding gate roller wheel on track"
-  },
-  {
-   "text": "أرقام الفنيين مقفلة والأسعار تزيد؟",
-   "say": "والمشكلة تدور فني بالساعات أرقامهم مقفلة والأسعار تزيد عليك.",
+   "text": "علامتان في الجدار.. انتبه!",
+   "say": "علامتين لو شفتها بجدار بيتك انتبه منها!",
    "icon": "alert",
-   "key": "مقفلة",
-   "label": "المعاناة",
-   "broll": "phone screen",
-   "visual": "close-up of hands holding smartphone showing missed calls and locked screen"
+   "key": "انتبه!",
+   "label": "",
+   "broll": "plaster wall",
+   "visual": "close up of a hand tapping a cracked plaster wall"
   },
   {
-   "text": "طلب واحد عبر المنجز يحلها",
-   "say": "لكن بطلب من المنجز يجي الحداد يضبط الباب وترتاح من الحيرة.",
-   "icon": "wrench",
+   "text": "انتفاخ اللياسة وتجمع الرطوبة",
+   "say": "الأولى انتفاخ باللياسة والمشكلة وراها رطوبة تخرب جدارك",
+   "icon": "building",
+   "key": "انتفاخ",
+   "label": "العلامات الخفية",
+   "broll": "wall crack",
+   "visual": "hand pressing on bulging cracked plaster wall"
+  },
+  {
+   "text": "صوت التجويف وفحص فني المنجز",
+   "say": "والثانية صوت التجويف وخلي فني المنجز يفحص الجدار والوقاية خير من التكسير",
+   "icon": "hammer",
    "key": "المنجز",
-   "label": "الحل",
-   "broll": "welding tool",
-   "visual": "close-up of hands repairing metal gate track with wrench and welding tools"
+   "label": "الحل والوقاية",
+   "broll": "construction worker",
+   "visual": "mason inspecting a wall with a level tool"
   },
   {
    "kind": "services",
-   "text": "بيتك كله في طلب واحد",
+   "text": "كل ما يحتاجه بيتك",
    "key": "",
    "label": "",
    "icon": "",
    "broll": "",
    "visual": "",
-   "say": "أي شي في بيتك يحتاج فني، تلقاه في المنجز."
+   "say": "من أصغر عطل لين تشطيب البيت كامل، كل اللي يحتاجه بيتك بطلب واحد من المنجز."
   },
   {
    "icon": "phone",
    "key": "مجاناً",
    "label": "",
-   "text": "بيتك يستاهل راحة بالك",
-   "say": "بيتك يستاهل راحة بالك. اطلب فنيّك مجاناً من المنجز، الرابط في البايو."
+   "text": "طلب واحد.. والفني يتواصل معك",
+   "say": "اكتب طلبك مرة وحدة، والفني يتواصل معك مباشرة. الرابط في البايو."
   }
  ]
 }
