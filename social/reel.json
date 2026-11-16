@@ -1,50 +1,50 @@
 {
- "date": "2026-11-15",
- "trade": "بناء ولياسة",
+ "date": "2026-11-16",
+ "trade": "سباكة",
  "scenes": [
   {
-   "text": "علامتان في الجدار.. انتبه!",
-   "say": "علامتين لو شفتها بجدار بيتك انتبه منها!",
+   "text": "تسريب مفاجئ قبل وصول الضيف",
+   "say": "انت مؤجر شقتك بالمدينة وفجأة جاء تسريب بالسيفون.",
    "icon": "alert",
-   "key": "انتبه!",
+   "key": "تسريب",
    "label": "",
-   "broll": "plaster wall",
-   "visual": "close up of a hand tapping a cracked plaster wall"
+   "broll": "toilet",
+   "visual": "close-up of a leaking toilet siphon inside a hotel bathroom"
   },
   {
-   "text": "انتفاخ اللياسة وتجمع الرطوبة",
-   "say": "الأولى انتفاخ باللياسة والمشكلة وراها رطوبة تخرب جدارك",
-   "icon": "building",
-   "key": "انتفاخ",
-   "label": "العلامات الخفية",
-   "broll": "wall crack",
-   "visual": "hand pressing on bulging cracked plaster wall"
+   "text": "تأخر السباك يكلفك خسارة الحجز",
+   "say": "والمشكلة السباك ما جاء، والغى الضيف الحجز وراحت عليك ليلتك.",
+   "icon": "drop",
+   "key": "خسارة",
+   "label": "الخسارة",
+   "broll": "plumber",
+   "visual": "water dripping continuously from toilet tank onto tiles"
   },
   {
-   "text": "صوت التجويف وفحص فني المنجز",
-   "say": "والثانية صوت التجويف وخلي فني المنجز يفحص الجدار والوقاية خير من التكسير",
-   "icon": "hammer",
-   "key": "المنجز",
-   "label": "الحل والوقاية",
-   "broll": "construction worker",
-   "visual": "mason inspecting a wall with a level tool"
+   "text": "طلب مجاني يعيد لك راحة البال",
+   "say": "لكن بطلب مجاني من شبكة المنجز، يجي الفني وتجهز الشقة وترجع راحة بالك.",
+   "icon": "wrench",
+   "key": "مجاني",
+   "label": "الحل",
+   "broll": "wrench",
+   "visual": "plumber hands replacing toilet valve with new tools"
   },
   {
    "kind": "services",
-   "text": "كل ما يحتاجه بيتك",
+   "text": "فنيّ لكل شيء في بيتك",
    "key": "",
    "label": "",
    "icon": "",
    "broll": "",
    "visual": "",
-   "say": "من أصغر عطل لين تشطيب البيت كامل، كل اللي يحتاجه بيتك بطلب واحد من المنجز."
+   "say": "صيانة، تشطيب، أو بناء، المنجز يوصلك بالفني المناسب لكل شي في بيتك."
   },
   {
    "icon": "phone",
    "key": "مجاناً",
    "label": "",
-   "text": "طلب واحد.. والفني يتواصل معك",
-   "say": "اكتب طلبك مرة وحدة، والفني يتواصل معك مباشرة. الرابط في البايو."
+   "text": "لا تتعب نفسك تدوّر",
+   "say": "لا تتعب نفسك تدوّر على فني. اطلب فنيّك مجاناً من المنجز، والرابط في البايو."
   }
  ]
 }

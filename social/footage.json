@@ -1520,6 +1520,45 @@
    "src": "Pixabay",
    "tags": "welder, welding, tool",
    "added": "2026-11-14"
+  },
+  {
+   "id": "pb1926",
+   "kind": "video",
+   "trade": "سباكة",
+   "desc": "water swirling inside toilet bowl",
+   "score": 7,
+   "url": "https://cdn.pixabay.com/video/2016/01/14/1926-152081349_medium.mp4",
+   "thumb": "https://cdn.pixabay.com/video/2016/01/14/1926-152081349_small.jpg",
+   "credit": "Maria_Briones",
+   "src": "Pixabay",
+   "tags": "bathroom, water, toilet",
+   "added": "2026-11-16"
+  },
+  {
+   "id": "pb1927",
+   "kind": "video",
+   "trade": "سباكة",
+   "desc": "chrome toilet flush valve handle",
+   "score": 8,
+   "url": "https://cdn.pixabay.com/video/2016/01/14/1927-152081345_medium.mp4",
+   "thumb": "https://cdn.pixabay.com/video/2016/01/14/1927-152081345_small.jpg",
+   "credit": "Maria_Briones",
+   "src": "Pixabay",
+   "tags": "bathroom, toilet, lavatory",
+   "added": "2026-11-16"
+  },
+  {
+   "id": "pb33422",
+   "kind": "video",
+   "trade": "سباكة",
+   "desc": "water running into sink drain",
+   "score": 7,
+   "url": "https://cdn.pixabay.com/video/2020/03/09/33422-397128369_large.mp4",
+   "thumb": "https://cdn.pixabay.com/video/2020/03/09/33422-397128369_small.jpg",
+   "credit": "luigipastran10",
+   "src": "Pixabay",
+   "tags": "hand wash basin, toilet, wash, faucet, sink",
+   "added": "2026-11-16"
   }
  ]
 }
