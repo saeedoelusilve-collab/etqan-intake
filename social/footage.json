@@ -1559,6 +1559,32 @@
    "src": "Pixabay",
    "tags": "hand wash basin, toilet, wash, faucet, sink",
    "added": "2026-11-16"
+  },
+  {
+   "id": "pb922",
+   "kind": "video",
+   "trade": "كهرباء",
+   "desc": "Close up of solar panels",
+   "score": 7,
+   "url": "https://cdn.pixabay.com/video/2015/10/09/922-141891343_medium.mp4",
+   "thumb": "https://cdn.pixabay.com/video/2015/10/09/922-141891343_small.jpg",
+   "credit": "Vimeo-Free-Videos",
+   "src": "Pixabay",
+   "tags": "solar energy, photovoltaic, power, alternative, renewable, electricity, panel, technology, solar panel, macro, surface, closeup, collector, ecological, energy, eco, modern, sun, 140813945",
+   "added": "2026-11-17"
+  },
+  {
+   "id": "pb230115",
+   "kind": "video",
+   "trade": "كهرباء",
+   "desc": "Solar panels on parking structure",
+   "score": 7,
+   "url": "https://cdn.pixabay.com/video/2024/09/06/230115_large.mp4",
+   "thumb": "https://cdn.pixabay.com/video/2024/09/06/230115_small.jpg",
+   "credit": "DrohnenpilotDeutschland",
+   "src": "Pixabay",
+   "tags": "solar panels, renewable energy, electricity, power generation, power, solar, green energy, environment, solar collectors, ecology, technology, view from above, sustainability, energy efficiency, climate protection, photovoltaics, solar technology, green infrastructure, drone, aerial view",
+   "added": "2026-11-17"
   }
  ]
 }

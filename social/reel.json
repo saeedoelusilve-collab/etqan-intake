@@ -1,50 +1,50 @@
 {
- "date": "2026-11-16",
- "trade": "سباكة",
+ "date": "2026-11-17",
+ "trade": "كهرباء",
  "scenes": [
   {
-   "text": "تسريب مفاجئ قبل وصول الضيف",
-   "say": "انت مؤجر شقتك بالمدينة وفجأة جاء تسريب بالسيفون.",
-   "icon": "alert",
-   "key": "تسريب",
+   "text": "كيف تتأكد من تشخيص عطل مكيفك؟",
+   "say": "غسلت مكيف بيتك وقال لك الفني الكمبروسر احترق؟",
+   "icon": "bolt",
+   "key": "تشخيص",
    "label": "",
-   "broll": "toilet",
-   "visual": "close-up of a leaking toilet siphon inside a hotel bathroom"
+   "broll": "electrical panel",
+   "visual": "Close up of an outdoor air conditioner isolator switch with water drops"
   },
   {
-   "text": "تأخر السباك يكلفك خسارة الحجز",
-   "say": "والمشكلة السباك ما جاء، والغى الضيف الحجز وراحت عليك ليلتك.",
-   "icon": "drop",
-   "key": "خسارة",
-   "label": "الخسارة",
-   "broll": "plumber",
-   "visual": "water dripping continuously from toilet tank onto tiles"
+   "text": "عطل بسيط يكلفك آلاف الريالات",
+   "say": "تخيل أبو سارة بغى يغيره واكتشف إن الموية دخلت القاطع بس",
+   "icon": "alert",
+   "key": "يكلفك",
+   "label": "الخدعة",
+   "broll": "ac",
+   "visual": "Close up of technician inspecting an air conditioner isolator box"
   },
   {
-   "text": "طلب مجاني يعيد لك راحة البال",
-   "say": "لكن بطلب مجاني من شبكة المنجز، يجي الفني وتجهز الشقة وترجع راحة بالك.",
-   "icon": "wrench",
-   "key": "مجاني",
+   "text": "المنجز يوصلك بفني خبير",
+   "say": "الحل مع المنجز يوصلك بفني فاهم يوفر تعبك وقروشك",
+   "icon": "check",
+   "key": "خبير",
    "label": "الحل",
-   "broll": "wrench",
-   "visual": "plumber hands replacing toilet valve with new tools"
+   "broll": "plug",
+   "visual": "Close up of hands testing electrical voltage with multimeter"
   },
   {
    "kind": "services",
-   "text": "فنيّ لكل شيء في بيتك",
+   "text": "بيتك كله في طلب واحد",
    "key": "",
    "label": "",
    "icon": "",
    "broll": "",
    "visual": "",
-   "say": "صيانة، تشطيب، أو بناء، المنجز يوصلك بالفني المناسب لكل شي في بيتك."
+   "say": "أي شي في بيتك يحتاج فني، تلقاه في المنجز."
   },
   {
    "icon": "phone",
    "key": "مجاناً",
    "label": "",
-   "text": "لا تتعب نفسك تدوّر",
-   "say": "لا تتعب نفسك تدوّر على فني. اطلب فنيّك مجاناً من المنجز، والرابط في البايو."
+   "text": "بيتك يستاهل راحة بالك",
+   "say": "بيتك يستاهل راحة بالك. اطلب فنيّك مجاناً من المنجز، الرابط في البايو."
   }
  ]
 }
