@@ -1,50 +1,50 @@
 {
- "date": "2026-11-17",
- "trade": "كهرباء",
+ "date": "2026-11-18",
+ "trade": "تكييف",
  "scenes": [
   {
-   "text": "كيف تتأكد من تشخيص عطل مكيفك؟",
-   "say": "غسلت مكيف بيتك وقال لك الفني الكمبروسر احترق؟",
-   "icon": "bolt",
-   "key": "تشخيص",
+   "text": "سمعت طقطقة؟ لا تتجاهلها",
+   "say": "تسمع طقطقة بالمكيف وتطنش؟ كذا تبدأ المشكلة.",
+   "icon": "ac",
+   "key": "طقطقة",
    "label": "",
-   "broll": "electrical panel",
-   "visual": "Close up of an outdoor air conditioner isolator switch with water drops"
+   "broll": "air conditioner",
+   "visual": "Close-up of a wall-mounted AC unit making a slight vibrating movement"
   },
   {
-   "text": "عطل بسيط يكلفك آلاف الريالات",
-   "say": "تخيل أبو سارة بغى يغيره واكتشف إن الموية دخلت القاطع بس",
+   "text": "صوت بسيط يخرب مكيفك",
+   "say": "ترا هالصوت البسيط بيحرق الكمبروسر وتخسر مكيفك فجأة.",
    "icon": "alert",
-   "key": "يكلفك",
-   "label": "الخدعة",
-   "broll": "ac",
-   "visual": "Close up of technician inspecting an air conditioner isolator box"
+   "key": "يخرب",
+   "label": "الخرافة",
+   "broll": "broken air conditioner",
+   "visual": "A person looking worried at an AC unit that just stopped spinning"
   },
   {
-   "text": "المنجز يوصلك بفني خبير",
-   "say": "الحل مع المنجز يوصلك بفني فاهم يوفر تعبك وقروشك",
-   "icon": "check",
-   "key": "خبير",
-   "label": "الحل",
-   "broll": "plug",
-   "visual": "Close up of hands testing electrical voltage with multimeter"
+   "text": "فحص المنجز يريح بالك",
+   "say": "المنجز ينهيها لك.. فحص اليوم يوفر عليك هموم بكرة.",
+   "icon": "wrench",
+   "key": "المنجز",
+   "label": "الحقيقة",
+   "broll": "technician hands",
+   "visual": "Technician hands using a screwdriver on an AC panel"
   },
   {
    "kind": "services",
-   "text": "بيتك كله في طلب واحد",
+   "text": "كل ما يحتاجه بيتك",
    "key": "",
    "label": "",
    "icon": "",
    "broll": "",
    "visual": "",
-   "say": "أي شي في بيتك يحتاج فني، تلقاه في المنجز."
+   "say": "من أصغر عطل لين تشطيب البيت كامل، كل اللي يحتاجه بيتك بطلب واحد من المنجز."
   },
   {
    "icon": "phone",
    "key": "مجاناً",
    "label": "",
-   "text": "بيتك يستاهل راحة بالك",
-   "say": "بيتك يستاهل راحة بالك. اطلب فنيّك مجاناً من المنجز، الرابط في البايو."
+   "text": "طلب واحد.. والفني يتواصل معك",
+   "say": "اكتب طلبك مرة وحدة، والفني يتواصل معك مباشرة. الرابط في البايو."
   }
  ]
 }
