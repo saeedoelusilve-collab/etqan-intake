@@ -1,50 +1,50 @@
 {
- "date": "2026-11-18",
- "trade": "تكييف",
+ "date": "2026-11-19",
+ "trade": "أجهزة كهربائية",
  "scenes": [
   {
-   "text": "سمعت طقطقة؟ لا تتجاهلها",
-   "say": "تسمع طقطقة بالمكيف وتطنش؟ كذا تبدأ المشكلة.",
-   "icon": "ac",
-   "key": "طقطقة",
+   "text": "أجهزة مطبخ جديدة بالمنزل",
+   "say": "سلطان جاب أجهزة مطبخ جديدة ومبسوط فيها مرة بالبيت",
+   "icon": "plug",
+   "key": "أجهزة مطبخ جديدة بالمنزل",
    "label": "",
-   "broll": "air conditioner",
-   "visual": "Close-up of a wall-mounted AC unit making a slight vibrating movement"
+   "broll": "kitchen appliance",
+   "visual": "Close-up of hands unboxing a new shiny kitchen blender or air fryer."
   },
   {
-   "text": "صوت بسيط يخرب مكيفك",
-   "say": "ترا هالصوت البسيط بيحرق الكمبروسر وتخسر مكيفك فجأة.",
-   "icon": "alert",
-   "key": "يخرب",
-   "label": "الخرافة",
-   "broll": "broken air conditioner",
-   "visual": "A person looking worried at an AC unit that just stopped spinning"
+   "text": "خطر تحميل المقابس فوق طاقتها",
+   "say": "لكنه شبكها كلها بتوصيلة واحدة وبدأ الفيش يذوب من الحرارة",
+   "icon": "flame",
+   "key": "خطر تحميل المقابس فوق طاقتها",
+   "label": "العلامة",
+   "broll": "electrical panel",
+   "visual": "Macro shot of an electrical socket showing heat discoloration and a slight smoke trail."
   },
   {
-   "text": "فحص المنجز يريح بالك",
-   "say": "المنجز ينهيها لك.. فحص اليوم يوفر عليك هموم بكرة.",
-   "icon": "wrench",
-   "key": "المنجز",
-   "label": "الحقيقة",
-   "broll": "technician hands",
-   "visual": "Technician hands using a screwdriver on an AC panel"
+   "text": "اطلب فني كهرباء مختص",
+   "say": "المنجز يرسل لك فني يوزع الأحمال بأمان.. بيتك أغلى من فيش",
+   "icon": "bolt",
+   "key": "اطلب فني كهرباء مختص",
+   "label": "الحل",
+   "broll": "wrench",
+   "visual": "Professional electrician using a screwdriver to install a high-quality dedicated wall socket."
   },
   {
    "kind": "services",
-   "text": "كل ما يحتاجه بيتك",
+   "text": "فنيّ لكل شيء في بيتك",
    "key": "",
    "label": "",
    "icon": "",
    "broll": "",
    "visual": "",
-   "say": "من أصغر عطل لين تشطيب البيت كامل، كل اللي يحتاجه بيتك بطلب واحد من المنجز."
+   "say": "صيانة، تشطيب، أو بناء، المنجز يوصلك بالفني المناسب لكل شي في بيتك."
   },
   {
    "icon": "phone",
    "key": "مجاناً",
    "label": "",
-   "text": "طلب واحد.. والفني يتواصل معك",
-   "say": "اكتب طلبك مرة وحدة، والفني يتواصل معك مباشرة. الرابط في البايو."
+   "text": "لا تتعب نفسك تدوّر",
+   "say": "لا تتعب نفسك تدوّر على فني. اطلب فنيّك مجاناً من المنجز، والرابط في البايو."
   }
  ]
 }
