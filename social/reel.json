@@ -1,50 +1,50 @@
 {
- "date": "2026-11-19",
- "trade": "أجهزة كهربائية",
+ "date": "2026-11-20",
+ "trade": "كل الخدمات",
  "scenes": [
   {
-   "text": "أجهزة مطبخ جديدة بالمنزل",
-   "say": "سلطان جاب أجهزة مطبخ جديدة ومبسوط فيها مرة بالبيت",
-   "icon": "plug",
-   "key": "أجهزة مطبخ جديدة بالمنزل",
+   "text": "السباك واعدك وما جاء؟",
+   "say": "أبو فيصل ينتظر السباك من العصر وما جاء للحين",
+   "icon": "clock",
+   "key": "السباك",
    "label": "",
-   "broll": "kitchen appliance",
-   "visual": "Close-up of hands unboxing a new shiny kitchen blender or air fryer."
+   "broll": "waiting man",
+   "visual": "man sitting on a sofa looking at his watch frustrated"
   },
   {
-   "text": "خطر تحميل المقابس فوق طاقتها",
-   "say": "لكنه شبكها كلها بتوصيلة واحدة وبدأ الفيش يذوب من الحرارة",
-   "icon": "flame",
-   "key": "خطر تحميل المقابس فوق طاقتها",
-   "label": "العلامة",
-   "broll": "electrical panel",
-   "visual": "Macro shot of an electrical socket showing heat discoloration and a slight smoke trail."
+   "text": "تعبت تبحث عن فني؟",
+   "say": "أم سارة كلمت خمسة فنيين والكل اعتذر منها",
+   "icon": "phone",
+   "key": "فني",
+   "label": "العناء",
+   "broll": "phone screen",
+   "visual": "close up of a thumb scrolling through a call log on a smartphone"
   },
   {
-   "text": "اطلب فني كهرباء مختص",
-   "say": "المنجز يرسل لك فني يوزع الأحمال بأمان.. بيتك أغلى من فيش",
-   "icon": "bolt",
-   "key": "اطلب فني كهرباء مختص",
+   "text": "المنجز ينهي فوضى الأسعار",
+   "say": "بندر فاجأه الفني بسعر غالي لكن المنجز يخلصك من هالدوامة",
+   "icon": "wrench",
+   "key": "الأسعار",
    "label": "الحل",
-   "broll": "wrench",
-   "visual": "Professional electrician using a screwdriver to install a high-quality dedicated wall socket."
+   "broll": "technician tools",
+   "visual": "close up of a technician's tool bag being opened on a clean floor"
   },
   {
    "kind": "services",
-   "text": "فنيّ لكل شيء في بيتك",
+   "text": "بيتك كله في طلب واحد",
    "key": "",
    "label": "",
    "icon": "",
    "broll": "",
    "visual": "",
-   "say": "صيانة، تشطيب، أو بناء، المنجز يوصلك بالفني المناسب لكل شي في بيتك."
+   "say": "أي شي في بيتك يحتاج فني، تلقاه في المنجز."
   },
   {
    "icon": "phone",
    "key": "مجاناً",
    "label": "",
-   "text": "لا تتعب نفسك تدوّر",
-   "say": "لا تتعب نفسك تدوّر على فني. اطلب فنيّك مجاناً من المنجز، والرابط في البايو."
+   "text": "بيتك يستاهل راحة بالك",
+   "say": "بيتك يستاهل راحة بالك. اطلب فنيّك مجاناً من المنجز، الرابط في البايو."
   }
  ]
 }
