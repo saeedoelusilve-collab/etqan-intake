@@ -1,50 +1,50 @@
 {
- "date": "2026-11-20",
- "trade": "كل الخدمات",
+ "date": "2026-11-21",
+ "trade": "تبليط",
  "scenes": [
   {
-   "text": "السباك واعدك وما جاء؟",
-   "say": "أبو فيصل ينتظر السباك من العصر وما جاء للحين",
-   "icon": "clock",
-   "key": "السباك",
+   "text": "بلاط صالتك بدأ يرتفع؟",
+   "say": "تخيل تسمع طقة وتلقى بلاط الصالة قايم.. انتبه تدوس عليه.",
+   "icon": "tile",
+   "key": "بلاط",
    "label": "",
-   "broll": "waiting man",
-   "visual": "man sitting on a sofa looking at his watch frustrated"
+   "broll": "tile",
+   "visual": "close-up of a single floor tile slightly detached and raised from the ground"
   },
   {
-   "text": "تعبت تبحث عن فني؟",
-   "say": "أم سارة كلمت خمسة فنيين والكل اعتذر منها",
-   "icon": "phone",
-   "key": "فني",
-   "label": "العناء",
-   "broll": "phone screen",
-   "visual": "close up of a thumb scrolling through a call log on a smartphone"
+   "text": "إهمال البلاط بيكلفك ترميم الصالة",
+   "say": "لو أهملته بينكسر البلاط كله.. وبتخسر مبالغ مالها داعي.",
+   "icon": "alert",
+   "key": "ترميم",
+   "label": "العاقبة",
+   "broll": "building",
+   "visual": "wide shot of a living room floor with multiple cracked and popped tiles"
   },
   {
-   "text": "المنجز ينهي فوضى الأسعار",
-   "say": "بندر فاجأه الفني بسعر غالي لكن المنجز يخلصك من هالدوامة",
+   "text": "المنجز يلحق عليه قبل ينكسر",
+   "say": "المنجز يربطك بمبلط شاطر بالمدينة.. يلحق عليه قبل يتكسر.",
    "icon": "wrench",
-   "key": "الأسعار",
+   "key": "المنجز",
    "label": "الحل",
-   "broll": "technician tools",
-   "visual": "close up of a technician's tool bag being opened on a clean floor"
+   "broll": "phone",
+   "visual": "close-up of a hand clicking a link in a social media bio on a smartphone"
   },
   {
    "kind": "services",
-   "text": "بيتك كله في طلب واحد",
+   "text": "كل ما يحتاجه بيتك",
    "key": "",
    "label": "",
    "icon": "",
    "broll": "",
    "visual": "",
-   "say": "أي شي في بيتك يحتاج فني، تلقاه في المنجز."
+   "say": "من أصغر عطل لين تشطيب البيت كامل، كل اللي يحتاجه بيتك بطلب واحد من المنجز."
   },
   {
    "icon": "phone",
    "key": "مجاناً",
    "label": "",
-   "text": "بيتك يستاهل راحة بالك",
-   "say": "بيتك يستاهل راحة بالك. اطلب فنيّك مجاناً من المنجز، الرابط في البايو."
+   "text": "طلب واحد.. والفني يتواصل معك",
+   "say": "اكتب طلبك مرة وحدة، والفني يتواصل معك مباشرة. الرابط في البايو."
   }
  ]
 }
