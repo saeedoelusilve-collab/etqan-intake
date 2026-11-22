@@ -1,50 +1,50 @@
 {
- "date": "2026-11-21",
- "trade": "تبليط",
+ "date": "2026-11-22",
+ "trade": "دهان",
  "scenes": [
   {
-   "text": "بلاط صالتك بدأ يرتفع؟",
-   "say": "تخيل تسمع طقة وتلقى بلاط الصالة قايم.. انتبه تدوس عليه.",
-   "icon": "tile",
-   "key": "بلاط",
+   "text": "علامات تدل على خطر ببيتك",
+   "say": "علامتين لو شفتها عند أفياش بيتكم في المدينة انتبه منها.",
+   "icon": "paint",
+   "key": "علامات",
    "label": "",
-   "broll": "tile",
-   "visual": "close-up of a single floor tile slightly detached and raised from the ground"
+   "broll": "paint",
+   "visual": "Close-up of discolored light brown paint around an electrical wall socket"
   },
   {
-   "text": "إهمال البلاط بيكلفك ترميم الصالة",
-   "say": "لو أهملته بينكسر البلاط كله.. وبتخسر مبالغ مالها داعي.",
-   "icon": "alert",
-   "key": "ترميم",
-   "label": "العاقبة",
-   "broll": "building",
-   "visual": "wide shot of a living room floor with multiple cracked and popped tiles"
+   "text": "تغير لون الجدار حول الفيش",
+   "say": "الأولى لو شفت سواد خفيف.. المشكلة إن الأسلاك قاعدة تذوب من داخل.",
+   "icon": "bolt",
+   "key": "تغير",
+   "label": "العلامة الأولى",
+   "broll": "electrical panel",
+   "visual": "Technician using a screwdriver to remove a wall socket showing burnt wires"
   },
   {
-   "text": "المنجز يلحق عليه قبل ينكسر",
-   "say": "المنجز يربطك بمبلط شاطر بالمدينة.. يلحق عليه قبل يتكسر.",
-   "icon": "wrench",
-   "key": "المنجز",
-   "label": "الحل",
-   "broll": "phone",
-   "visual": "close-up of a hand clicking a link in a social media bio on a smartphone"
+   "text": "حرارة الجدار علامة خطر حقيقي",
+   "say": "والثانية لو الجدار دافي.. اطلب فني من المنجز قبل تكبر المشكلة.",
+   "icon": "flame",
+   "key": "حرارة",
+   "label": "العلامة الثانية",
+   "broll": "plug",
+   "visual": "A hand touching the wall surface near a light switch with a worried look"
   },
   {
    "kind": "services",
-   "text": "كل ما يحتاجه بيتك",
+   "text": "فنيّ لكل شيء في بيتك",
    "key": "",
    "label": "",
    "icon": "",
    "broll": "",
    "visual": "",
-   "say": "من أصغر عطل لين تشطيب البيت كامل، كل اللي يحتاجه بيتك بطلب واحد من المنجز."
+   "say": "صيانة، تشطيب، أو بناء، المنجز يوصلك بالفني المناسب لكل شي في بيتك."
   },
   {
    "icon": "phone",
    "key": "مجاناً",
    "label": "",
-   "text": "طلب واحد.. والفني يتواصل معك",
-   "say": "اكتب طلبك مرة وحدة، والفني يتواصل معك مباشرة. الرابط في البايو."
+   "text": "لا تتعب نفسك تدوّر",
+   "say": "لا تتعب نفسك تدوّر على فني. اطلب فنيّك مجاناً من المنجز، والرابط في البايو."
   }
  ]
 }
