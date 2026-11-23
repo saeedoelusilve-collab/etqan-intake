@@ -1,50 +1,50 @@
 {
- "date": "2026-11-22",
- "trade": "دهان",
+ "date": "2026-11-23",
+ "trade": "جبس بورد",
  "scenes": [
   {
-   "text": "علامات تدل على خطر ببيتك",
-   "say": "علامتين لو شفتها عند أفياش بيتكم في المدينة انتبه منها.",
-   "icon": "paint",
-   "key": "علامات",
+   "text": "غرفة مقفلة؟ خسارة أربعمئة وثلاثة وخمسون",
+   "say": "أبو سلطان غرفته مقفلة عشان قطعة جبس والعداد جالس يحسب خسائر",
+   "icon": "building",
+   "key": "غرفة مقفلة؟ خسارة أربعمئة وثلاثة وخمسون",
    "label": "",
-   "broll": "paint",
-   "visual": "Close-up of discolored light brown paint around an electrical wall socket"
+   "broll": "hotel corridor",
+   "visual": "A cinematic shot of a closed hotel room door with a 'Do Not Disturb' sign in a luxury corridor."
   },
   {
-   "text": "تغير لون الجدار حول الفيش",
-   "say": "الأولى لو شفت سواد خفيف.. المشكلة إن الأسلاك قاعدة تذوب من داخل.",
-   "icon": "bolt",
-   "key": "تغير",
-   "label": "العلامة الأولى",
-   "broll": "electrical panel",
-   "visual": "Technician using a screwdriver to remove a wall socket showing burnt wires"
+   "text": "تنتظر فني؟ ضاعت عليك الفلوس",
+   "say": "والمشكلة إنه ينتظر فني ما جاء واليوم بأربعمئة وثلاثة وخمسين ريال",
+   "icon": "clock",
+   "key": "تنتظر فني؟ ضاعت عليك الفلوس",
+   "label": "الخسارة",
+   "broll": "calculator",
+   "visual": "Close-up of a hand using a calculator showing increasing numbers rapidly."
   },
   {
-   "text": "حرارة الجدار علامة خطر حقيقي",
-   "say": "والثانية لو الجدار دافي.. اطلب فني من المنجز قبل تكبر المشكلة.",
-   "icon": "flame",
-   "key": "حرارة",
-   "label": "العلامة الثانية",
-   "broll": "plug",
-   "visual": "A hand touching the wall surface near a light switch with a worried look"
+   "text": "اطلب فني جبس عبر المنجز",
+   "say": "الحل اطلب من المنجز يربطك بفني يخلص شغلك الحين الحلال غالي",
+   "icon": "hammer",
+   "key": "اطلب فني جبس عبر المنجز",
+   "label": "الحل",
+   "broll": "construction tools",
+   "visual": "Close-up of a professional technician's hand applying plaster to a gypsum board joint."
   },
   {
    "kind": "services",
-   "text": "فنيّ لكل شيء في بيتك",
+   "text": "بيتك كله في طلب واحد",
    "key": "",
    "label": "",
    "icon": "",
    "broll": "",
    "visual": "",
-   "say": "صيانة، تشطيب، أو بناء، المنجز يوصلك بالفني المناسب لكل شي في بيتك."
+   "say": "أي شي في بيتك يحتاج فني، تلقاه في المنجز."
   },
   {
    "icon": "phone",
    "key": "مجاناً",
    "label": "",
-   "text": "لا تتعب نفسك تدوّر",
-   "say": "لا تتعب نفسك تدوّر على فني. اطلب فنيّك مجاناً من المنجز، والرابط في البايو."
+   "text": "بيتك يستاهل راحة بالك",
+   "say": "بيتك يستاهل راحة بالك. اطلب فنيّك مجاناً من المنجز، الرابط في البايو."
   }
  ]
 }
