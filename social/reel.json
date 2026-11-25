@@ -1,50 +1,50 @@
 {
- "date": "2026-11-23",
- "trade": "جبس بورد",
+ "date": "2026-11-25",
+ "trade": "حدادة",
  "scenes": [
   {
-   "text": "غرفة مقفلة؟ خسارة أربعمئة وثلاثة وخمسون",
-   "say": "أبو سلطان غرفته مقفلة عشان قطعة جبس والعداد جالس يحسب خسائر",
-   "icon": "building",
-   "key": "غرفة مقفلة؟ خسارة أربعمئة وثلاثة وخمسون",
+   "text": "ميلان السخان علامة خطر",
+   "say": "شفت ميلان بسيط بالسخان؟ لا تقول عادي وتخليه.",
+   "icon": "alert",
+   "key": "ميلان السخان علامة خطر",
    "label": "",
-   "broll": "hotel corridor",
-   "visual": "A cinematic shot of a closed hotel room door with a 'Do Not Disturb' sign in a luxury corridor."
+   "broll": "water heater",
+   "visual": "close-up of a wall mounted water heater showing a slight tilt"
   },
   {
-   "text": "تنتظر فني؟ ضاعت عليك الفلوس",
-   "say": "والمشكلة إنه ينتظر فني ما جاء واليوم بأربعمئة وثلاثة وخمسين ريال",
-   "icon": "clock",
-   "key": "تنتظر فني؟ ضاعت عليك الفلوس",
-   "label": "الخسارة",
-   "broll": "calculator",
-   "visual": "Close-up of a hand using a calculator showing increasing numbers rapidly."
+   "text": "اللحام يضعف ويغرق بيتك",
+   "say": "حرارة الصيف تضعف اللحام وممكن يطيح فجأة ويغرق البيت.",
+   "icon": "flame",
+   "key": "اللحام يضعف ويغرق بيتك",
+   "label": "الخرافة",
+   "broll": "welding sparks",
+   "visual": "close-up of rusty or cracked metal welding on a bracket"
   },
   {
-   "text": "اطلب فني جبس عبر المنجز",
-   "say": "الحل اطلب من المنجز يربطك بفني يخلص شغلك الحين الحلال غالي",
-   "icon": "hammer",
-   "key": "اطلب فني جبس عبر المنجز",
-   "label": "الحل",
-   "broll": "construction tools",
-   "visual": "Close-up of a professional technician's hand applying plaster to a gypsum board joint."
+   "text": "المنجز يثبته ويريح بالك",
+   "say": "الحل تطلب حداد من المنجز يثبته صح.. المنجز سند لبيتك.",
+   "icon": "wrench",
+   "key": "المنجز يثبته ويريح بالك",
+   "label": "الصح",
+   "broll": "hammer",
+   "visual": "technician hand checking the stability of a metal heater stand"
   },
   {
    "kind": "services",
-   "text": "بيتك كله في طلب واحد",
+   "text": "فنيّ لكل شيء في بيتك",
    "key": "",
    "label": "",
    "icon": "",
    "broll": "",
    "visual": "",
-   "say": "أي شي في بيتك يحتاج فني، تلقاه في المنجز."
+   "say": "صيانة، تشطيب، أو بناء، المنجز يوصلك بالفني المناسب لكل شي في بيتك."
   },
   {
    "icon": "phone",
    "key": "مجاناً",
    "label": "",
-   "text": "بيتك يستاهل راحة بالك",
-   "say": "بيتك يستاهل راحة بالك. اطلب فنيّك مجاناً من المنجز، الرابط في البايو."
+   "text": "لا تتعب نفسك تدوّر",
+   "say": "لا تتعب نفسك تدوّر على فني. اطلب فنيّك مجاناً من المنجز، والرابط في البايو."
   }
  ]
 }

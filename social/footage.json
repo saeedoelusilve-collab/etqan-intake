@@ -1676,6 +1676,32 @@
    "src": "Pixabay",
    "tags": "refrigerator, kitchen, home, cold, man, young",
    "added": "2026-11-24"
+  },
+  {
+   "id": "pb138649",
+   "kind": "video",
+   "trade": "حدادة",
+   "desc": "grinding metal part smooth",
+   "score": 7,
+   "url": "https://cdn.pixabay.com/video/2022/11/12/138649-770322555_large.mp4",
+   "thumb": "https://cdn.pixabay.com/video/2022/11/12/138649-770322555_small.jpg",
+   "credit": "1ucci",
+   "src": "Pixabay",
+   "tags": "sparks, welding, machine, technology, tech, future, manufacturing, work",
+   "added": "2026-11-25"
+  },
+  {
+   "id": "pb14625",
+   "kind": "video",
+   "trade": "حدادة",
+   "desc": "bright blue welding sparks",
+   "score": 8,
+   "url": "https://cdn.pixabay.com/video/2018/03/02/14625-258543549_large.mp4",
+   "thumb": "https://cdn.pixabay.com/video/2018/03/02/14625-258543549_small.jpg",
+   "credit": "TRAPHITHO",
+   "src": "Pixabay",
+   "tags": "insects, hive, wasps, grinders, colombia",
+   "added": "2026-11-25"
   }
  ]
 }
