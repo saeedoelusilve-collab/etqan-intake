@@ -1,50 +1,50 @@
 {
- "date": "2026-11-25",
- "trade": "حدادة",
+ "date": "2026-11-26",
+ "trade": "بناء ولياسة",
  "scenes": [
   {
-   "text": "ميلان السخان علامة خطر",
-   "say": "شفت ميلان بسيط بالسخان؟ لا تقول عادي وتخليه.",
-   "icon": "alert",
-   "key": "ميلان السخان علامة خطر",
+   "text": "التوفير اليوم قد يكلفك الكثير",
+   "say": "جبت بناي رخيص عشان توفر وفجأة الجدار مال قبل اللياسة",
+   "icon": "building",
+   "key": "التوفير اليوم قد يكلفك الكثير",
    "label": "",
-   "broll": "water heater",
-   "visual": "close-up of a wall mounted water heater showing a slight tilt"
+   "broll": "leaning wall",
+   "visual": "close-up of a brick wall that is clearly out of plumb or leaning"
   },
   {
-   "text": "اللحام يضعف ويغرق بيتك",
-   "say": "حرارة الصيف تضعف اللحام وممكن يطيح فجأة ويغرق البيت.",
-   "icon": "flame",
-   "key": "اللحام يضعف ويغرق بيتك",
-   "label": "الخرافة",
-   "broll": "welding sparks",
-   "visual": "close-up of rusty or cracked metal welding on a bracket"
+   "text": "خطر السقوط يكلفك الضعف",
+   "say": "لو طاح بيعدم سيارتك وبتضطر تهدم وتبني من جديد وتدفع ضعفين",
+   "icon": "alert",
+   "key": "خطر السقوط يكلفك الضعف",
+   "label": "الخسارة",
+   "broll": "debris",
+   "visual": "shots of cracked mortar or a worker measuring a crooked wall with a level"
   },
   {
-   "text": "المنجز يثبته ويريح بالك",
-   "say": "الحل تطلب حداد من المنجز يثبته صح.. المنجز سند لبيتك.",
-   "icon": "wrench",
-   "key": "المنجز يثبته ويريح بالك",
-   "label": "الصح",
-   "broll": "hammer",
-   "visual": "technician hand checking the stability of a metal heater stand"
+   "text": "المنجز يصحح لك الخطأ",
+   "say": "لكن مع المنجز يوصلك فني يصحح الخطأ ويرجع لك وزنية الجدار",
+   "icon": "check",
+   "key": "المنجز يصحح لك الخطأ",
+   "label": "الحل",
+   "broll": "spirit level",
+   "visual": "a professional mason using a spirit level on a straight new brick course"
   },
   {
    "kind": "services",
-   "text": "فنيّ لكل شيء في بيتك",
+   "text": "بيتك كله في طلب واحد",
    "key": "",
    "label": "",
    "icon": "",
    "broll": "",
    "visual": "",
-   "say": "صيانة، تشطيب، أو بناء، المنجز يوصلك بالفني المناسب لكل شي في بيتك."
+   "say": "أي شي في بيتك يحتاج فني، تلقاه في المنجز."
   },
   {
    "icon": "phone",
    "key": "مجاناً",
    "label": "",
-   "text": "لا تتعب نفسك تدوّر",
-   "say": "لا تتعب نفسك تدوّر على فني. اطلب فنيّك مجاناً من المنجز، والرابط في البايو."
+   "text": "بيتك يستاهل راحة بالك",
+   "say": "بيتك يستاهل راحة بالك. اطلب فنيّك مجاناً من المنجز، الرابط في البايو."
   }
  ]
 }

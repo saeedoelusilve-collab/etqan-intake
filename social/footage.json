@@ -1702,6 +1702,32 @@
    "src": "Pixabay",
    "tags": "insects, hive, wasps, grinders, colombia",
    "added": "2026-11-25"
+  },
+  {
+   "id": "pb20274",
+   "kind": "video",
+   "trade": "بناء ولياسة",
+   "desc": "crumbling plaster and brick wall",
+   "score": 8,
+   "url": "https://cdn.pixabay.com/video/2018/12/26/20274-308335580_large.mp4",
+   "thumb": "https://cdn.pixabay.com/video/2018/12/26/20274-308335580_small.jpg",
+   "credit": "Matthias_Groeneveld",
+   "src": "Pixabay",
+   "tags": "wall, old, architecture",
+   "added": "2026-11-26"
+  },
+  {
+   "id": "pb20270",
+   "kind": "video",
+   "trade": "بناء ولياسة",
+   "desc": "ruined building with brick walls",
+   "score": 7,
+   "url": "https://cdn.pixabay.com/video/2018/12/26/20270-308335575_large.mp4",
+   "thumb": "https://cdn.pixabay.com/video/2018/12/26/20270-308335575_small.jpg",
+   "credit": "Matthias_Groeneveld",
+   "src": "Pixabay",
+   "tags": "ruins, house, burnt, burned, building, water, wall, broken",
+   "added": "2026-11-26"
   }
  ]
 }
