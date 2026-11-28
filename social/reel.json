@@ -1,50 +1,50 @@
 {
- "date": "2026-11-27",
- "trade": "كل الخدمات",
+ "date": "2026-11-28",
+ "trade": "كهرباء",
  "scenes": [
   {
-   "text": "كيف تكشف الفني الغشاش؟",
-   "say": "الفني يقول لك عبي فريون؟ اسأله ليه الغبار مغطي الوحدة؟",
-   "icon": "ac",
-   "key": "كيف تكشف الفني الغشاش؟",
+   "text": "انقطاع الكهرباء في وقت حرج",
+   "say": "عازم ضيوفك بالمدينة وفجأة طفت الكهرباء وانحرجت مرة",
+   "icon": "bolt",
+   "key": "الكهرباء",
    "label": "",
-   "broll": "air conditioner",
-   "visual": "Close-up of a very dusty outdoor air conditioning unit"
+   "broll": "darkness",
+   "visual": "A close-up of a person flipping a light switch repeatedly in a dark room."
   },
   {
-   "text": "فاتورة مضاعفة والمياه باردة",
-   "say": "لو السخان شغال والموية باردة، كذا تدفع فاتورة مضاعفة على الفاضي.",
-   "icon": "thermo",
-   "key": "فاتورة مضاعفة والمياه باردة",
-   "label": "الخسارة",
-   "broll": "water heater",
-   "visual": "Hand pointing at a water heater control panel with a red light"
+   "text": "أرقام لا ترد ومواعيد وهمية",
+   "say": "والمشكلة قعدت تدور أرقام واللي ما يرد أو يماطل بالمواعيد",
+   "icon": "clock",
+   "key": "مواعيد",
+   "label": "العناء",
+   "broll": "phone",
+   "visual": "Fast scrolling through a phone contact list with many unnamed numbers."
   },
   {
-   "text": "فنيو المنجز يجهزون بيتك للشتاء",
-   "say": "فنيين المنجز بالمدينة يجهزون بيتك للشتاء، وتفتك من غثا الصيانة.",
+   "text": "فني المنجز ينقذ الموقف",
+   "say": "لكن من الرابط في البايو جاك فني خلص شغلك وبيض وجهك",
    "icon": "check",
-   "key": "فنيو المنجز يجهزون بيتك للشتاء",
-   "label": "الحقيقة",
-   "broll": "wrench",
-   "visual": "Technician in a work uniform checking a plumbing fixture"
+   "key": "المنجز",
+   "label": "الحل",
+   "broll": "technician",
+   "visual": "A technician wearing a tool belt examining an electrical breaker box with a flashlight."
   },
   {
    "kind": "services",
-   "text": "كل ما يحتاجه بيتك",
+   "text": "فنيّ لكل شيء في بيتك",
    "key": "",
    "label": "",
    "icon": "",
    "broll": "",
    "visual": "",
-   "say": "من أصغر عطل لين تشطيب البيت كامل، كل اللي يحتاجه بيتك بطلب واحد من المنجز."
+   "say": "صيانة، تشطيب، أو بناء، المنجز يوصلك بالفني المناسب لكل شي في بيتك."
   },
   {
    "icon": "phone",
    "key": "مجاناً",
    "label": "",
-   "text": "طلب واحد.. والفني يتواصل معك",
-   "say": "اكتب طلبك مرة وحدة، والفني يتواصل معك مباشرة. الرابط في البايو."
+   "text": "لا تتعب نفسك تدوّر",
+   "say": "لا تتعب نفسك تدوّر على فني. اطلب فنيّك مجاناً من المنجز، والرابط في البايو."
   }
  ]
 }
